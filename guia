@@ -1,0 +1,242 @@
+composer create-project laravel/laravel=^7 devjobs --prefer-dist
+
+composer create-project laravel/laravel:^7.0 carta100 --prefer-dist
+
+
+db , devjobs
+
+.env  :    conection
+
+autenticacion
+composer require laravel/ui
+
+            ERROR
+            laravel/ui 3.x-dev requires illuminate/filesystem ^8.0 -
+            composer require laravel/ui"
+            SOLUCION
+            composer require laravel/ui "^2"
+
+php artisan ui:auth
+
+php artisan ui vue
+
+        no bootstrap -- si tailwind
+
+npm install 
+npm run watch
+
+php artisan serve
+
+        hast ahqi clases de bootstrap..
+
+
+137 AGREGAR TAIWINDCSS .. NO COMPONENTES .-- CLASES .. CD
+
+npm install --save-dev tailwindcss laravel-mix-tailwind
+
+npx tailwindcss init 
+
+
+crea tailwind.config.js  --> cambiar ...    
+
+webpack  require('laravel-mix-tailwind');
+       mas ejecutarl ...
+
+app.scss , quitamos variables y bootstra añadimos 
+
+@tailwind base;
+@tailwind componentes;
+@tailwind utilities;
+
+
+npm run watch  --> ERROR .--> 
+
+renombrar tailwind.js
+
+
+error 
+TypeError: getProcessedPlugins is not a function
+
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+npx tailwindcss init
+
+
+138 : INSTALANDO PAQUETE ESPAÑOS
+
+composer require laraveles/spanish
+php artisan list
+php artisan laraveles:install-lang
+app , es
+
+
+app.blade.php
+
+cla 139 - clases al header pasando de bootstrap a tailwindcss
+nav
+
+cla 140 creando formulario 
+login.blade
+
+
+
+
+
+mailtrap
+https://mailtrap.io/inboxes/1101820/messages
+
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=2a4d0212c4140e
+MAIL_PASSWORD=5d2e296b04fa29
+MAIL_ENCRYPTION=tls
+
+
+verify.blade.php
+
+z
+CLA 147 - REDIRECCION AL INICIAR SESION
+
+VACANTES : 
+ESTABLECIMIENTOS : 
+
+php artisan make:model Vacante -mrc 
+
+web.php 
+        routes
+        get('vacantes','VacanteController@index)->name(vacante)
+
+vacante controller 
+        index 
+        return " desde 
+
+Routeserviceprovider ... /home x /vacantes 
+
+protegemos VacanteController para que este verificado y 
+
+public function __construct()
+        $this->middleware(['auth','verify']) verificado y autenticado
+
+si uusario no esta verificado ... 
+
+
+CLA 148 
+vista de vacantes 
+resource views carpeta vacantes 
+
+index.blade.php 
+
+
+CLA 149 nueva vacante 
+
+
+create.blade.php 
+
+
+
+CLA 151 CREQTNDO CATEGORAAS
+
+php artisan make:mode Categoria -mrc
+
+
+php artisan migrate
+php artisan migrate:rollback
+
+
+seeder categoras.
+
+php artisan make:seeder CategoriaSeed
+
+php artisan db:seed 
+
+
+extensiones de visual estudio 
+Tailwind CSS IntelliSense
+bradlc.vscode-tailwindcss
+
+
+154 --- MODEL EXPERIENCIA
+
+php artisan  make:model Experiencia -mc 
+php artisan make:seeder ExperienciaSeed
+
+
+borra migration... 
+
+php artisan migrate:fresh
+
+
+155 creandu sedd de usuarios 
+
+php artisan make:seeder UsuariosSeeder
+
+156 agregar ubiccacion
+
+php artisan make:model Ubicacion -mc 
+php artisan make:seeder UbicacionSeed
+
+vacante controller
+vacantes\create.blade.php
+
+157 salarios
+
+php artisan make:model Salario -mc
+php artisan make:seeder SalarioSeed
+
+
+
+157 editores trics anterior , mediumEditor
+
+
+php artisan serve --port=8088
+
+
+158 agregando un editor de contenido
+
+
+https://github.com/yabwe/medium-editor/blob/master/OPTIONS.md
+
+https://cdnjs.com/libraries/medium-editor
+
+app mas yield
+create section con url css y js
+
+
+_sasss  _dev_jobs..
+
+
+app.scss
+
+
+
+
+/var/www/vhosts/rutasgp.com/httpdocs/vile
+
+
+
+
+
+https://www.niranjanudas.com.np/file-and-folder-permission-for-laravel/
+
+sudo find /var/www/vhosts/rutasgp.com/httpdocs/vile -type f -exec chmod 644 {} \;
+sudo find /var/www/vhosts/rutasgp.com/httpdocs/vile -type d -exec chmod 755 {} \;
+
+sudo chown -R vnt:www-data /var/www/vhosts/rutasgp.com/httpdocs/vile
+
+
+
+
+
+git marcosvnt   https://github.com/MarcosVnt/la7taiud.git
+echo "# la7taiud" >> README.md
+git init
+git add README.md
+ggit branch -M main
+git remote add origin https://github.com/MarcosVnt/la7taiud.git
+git push -u origin main
+
+
+
+
+
+

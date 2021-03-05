@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('styles')
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/css/medium-editor.css">
+
+
+
+    
+@endsection
+
 
 @section('navegacion')
     
@@ -168,8 +177,22 @@
             </div>
         @enderror
     </div>
+    <div class="mb-5">
+        <label 
+            for="descripcion" 
+            class="block text-gray-700 text-sm mb-2"
+        >Descripción del Puesto:</label>
 
+        <div class="editable p-3 bg-gray-100 rounded form-input w-full text-gray-700 "></div>
 
+        <input type="hidden" name="descripcion" id="descripcion" value="{{ old('descripcion') }} " >
+        @error('descripcion')
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6" role="alert">
+                <strong class="font-bold">Error!</strong>
+                <span class="block"> {{$message}}</span>
+            </div>
+        @enderror
+    </div>
 
 {{$categorias}}
 {{$experiencias}}
@@ -182,6 +205,39 @@
 
 
 </form>
+@endsection
+
+
+@section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/js/medium-editor.min.js" integrity="sha256-R0a97wz9RimQA9BJEMqcwuOckEMhIQcdtij32P5WpuI=" crossorigin="anonymous"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/dropzone.min.js" integrity="sha256-OG/103wXh6XINV06JTPspzNgKNa/jnP1LjPP5Y3XQDY=" crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            
+ 
+
+// Medium Editor
+
+// Medium Editor
+const editor = new MediumEditor('.editable', {
+                toolbar : {
+                    buttons: ['bold', 'italic', 'underline', 'quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull',  'orderedlist', 'unorderedlist', 'h2', 'h3'],
+                    static: true,
+                    sticky: true
+                },
+                placeholder: {
+                    text: 'Información de la vacante'
+                }
+            });
+
+        })
+
+
+    </script>
+
 
 
 @endsection
+
