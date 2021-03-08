@@ -216,6 +216,30 @@ app.scss
 
 
 
+
+160 INSTALANDO DROPZONE 
+
+
+tocken .. en meta al enviar .. da 219 ... 
+
+document.querySlector('meta').content
+
+162 subiendo imagenes ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 https://www.niranjanudas.com.np/file-and-folder-permission-for-laravel/
 
 sudo find /var/www/vhosts/rutasgp.com/httpdocs/vile -type f -exec chmod 644 {} \;
@@ -240,3 +264,4 @@ git push -u origin main
 
 
 
+php artisan storage:link

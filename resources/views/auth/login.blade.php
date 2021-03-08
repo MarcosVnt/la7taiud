@@ -47,7 +47,7 @@
                         <div class="flex flex-wrap">
                                 <button 
                                     type="submit" 
-                                    class="bg-green-500 w-full hover:bg-teal-700 text-gray-100 
+                                    class="bg-green-500 w-full hover:bg-green-700 text-gray-100 
                                     p-3 focus:outline-none focus:shadow-outline uppercase font-bold"
                                 >
                                     {{ __('Login') }}

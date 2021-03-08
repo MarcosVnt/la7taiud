@@ -42,7 +42,7 @@
 
                                     <a id="navbarDropdown" 
                                         href="#"
-                                        class="bg-teal-500 rounded-full mr-2 px-3 py-1 font-bold text-sm text-white"
+                                        class="bg-green-500 rounded-full mr-2 px-3 py-1 font-bold text-sm text-white"
                                     > {{ Auth::user()->name }} </a>
 
                                     <a class="no-underline hover:underline text-gray-300 text-sm p-3" href="{{ route('logout') }}"
