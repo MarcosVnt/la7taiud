@@ -213,21 +213,28 @@ app.scss
 /var/www/vhosts/rutasgp.com/httpdocs/vile
 
 
-
-
-
-
 160 INSTALANDO DROPZONE 
 
-
 tocken .. en meta al enviar .. da 219 ... 
-
 document.querySlector('meta').content
+
+
 
 162 subiendo imagenes ...
 
 
 
+PUBLICIDAD
+
+php artisan make:model Publicidad -mrc 
+php artisan make:seeder PublicidadSeed
+
+php artisan db:seed 
+
+php artisan make:model EstablecimientoTipo -mrc
+php artisan make:seeder EstablecimientoTipoSeed
+
+php artisan db:seed 
 
 
 
@@ -235,6 +242,15 @@ document.querySlector('meta').content
 
 
 
+172 guardando datos vacante/publicidad
+
+
+user relaccion uno a muchos .. 
+publicidad tiene que tener user_id
+
+php artisan tinker para crear relaccion
+$uusrio=User::find(1);
+añadimos user_id a publicidadas
 
 
 

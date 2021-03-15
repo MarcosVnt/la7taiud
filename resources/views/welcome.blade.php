@@ -42,18 +42,27 @@
                   <span class="sr-only">Vile</span>
                   <img class="h-8 w-auto sm:h-10" src="{{ asset('img/Vile_m.JPG') }}">
                 </a>
-                <div class="-mr-2 flex items-center md:hidden">
-                  <button type="button" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false">
+                <div class="-mr-2 flex items-center ">
+
+                    <button type="button" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" @click="isOpen = !isOpen"  aria-expanded="false" >
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6" x-description="Heroicon name: outline/menu" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+                      </button>
+
+                      
+                  {{-- <button type="button" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false">
                     <span class="sr-only">Abrir Menu</span>
                     <!-- Heroicon name: outline/menu -->
                     <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
-                  </button>
+                  </button> --}}
                 </div>
               </div>
             </div>
-            <div class="hidden md:block md:ml-10 md:pr-4 md:space-x-8 text-right">
+            <div class="hidden md:block md:ml-10 md:pr-4 md:space-x-8 text-right" :class="isOpen ? 'block' : 'hidden'">
                 @guest
                 <a class="font-medium text-green-700 hover:text-green-900" href="{{ route('login') }}">{{ __('Login') }}</a>
                 @if (Route::has('register'))

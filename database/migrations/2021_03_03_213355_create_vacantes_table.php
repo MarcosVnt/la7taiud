@@ -46,7 +46,6 @@ class CreateVacantesTable extends Migration
             $table->foreignId('experiencia_id')->constrained()->onDelete('cascade');
              $table->foreignId('ubicacion_id')->constrained()->onDelete('cascade');
             $table->foreignId('salario_id')->constrained()->onDelete('cascade');
-           // $table->foreignId('user_id')->constrained()->onDelete('cascade');
              $table->timestamps();
         });
     }

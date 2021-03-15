@@ -27,3 +27,11 @@ Route::get('/vacantes/create', 'VacanteController@create')->name('vacantes.creat
 //subir imagenes
 Route::post('/vacantes/imagen', 'VacanteController@imagen')->name('vacantes.imagen');
 Route::post('/vacantes/borrarimagen', 'VacanteController@borrarimagen')->name('vacantes.borrar');
+
+
+Route::get('/publicidad', 'PublicidadController@index')->name('publicidad.index');
+Route::get('/publicidad/create', 'PublicidadController@create')->name('publicidad.create');
+
+Route::post('/publicidad/imagen', 'PublicidadController@imagen')->name('publicidad.imagen');
+Route::post('/publicidad/borrarimagen', 'PublicidadController@borrarimagen')->name('publicidad.borrar');
+Route::post('/publicidad/store', 'PublicidadController@store')->name('publicidad.store');
