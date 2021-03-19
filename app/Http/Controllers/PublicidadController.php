@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Tamano;
+use App\Seccion;
 use App\Publicidad;
 use App\EstablecimientoTipo;
-use App\Seccion;
-use App\Tamano;
-use Illuminate\Support\Facades\File;
-
-
 use Illuminate\Http\Request;
+
+
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\File;
 
 class PublicidadController extends Controller
 {
@@ -20,8 +21,11 @@ class PublicidadController extends Controller
      */
     public function index()
     {
-        //
-        return view('publicidad.index');
+        // $publicidads = auth()->user()->vacantes;
+
+        $publicidads = Publicidad::where('user_id', auth()->user()->id )->latest()->simplePaginate(3);
+//dd($publicidads);
+        return view('publicidads.index',compact('publicidads'));
     }
 
     /**
@@ -37,7 +41,7 @@ class PublicidadController extends Controller
         $tamanos = Tamano::all();
 
         
-        return view('publicidad.create')
+        return view('publicidads.create')
                 ->with('establecimiento_tipos',$establecimiento_tipos)
                 ->with('seccions',$seccions)
                 ->with('tamanos',$tamanos);
@@ -93,6 +97,8 @@ class PublicidadController extends Controller
     public function show(Publicidad $publicidad)
     {
         //
+        return view('publicidads.show')->with('publicidad', $publicidad);
+
     }
 
     /**
@@ -104,6 +110,21 @@ class PublicidadController extends Controller
     public function edit(Publicidad $publicidad)
     {
         //
+
+
+        $establecimiento_tipos = EstablecimientoTipo::all();
+        $seccions = Seccion::all();
+        $tamanos = Tamano::all();
+
+
+        
+        return view('publicidads.edit')
+                ->with('establecimiento_tipos',$establecimiento_tipos)
+                ->with('seccions',$seccions)
+                ->with('tamanos',$tamanos)
+                ->with('publicidad',$publicidad);
+                
+       // return 'editar Publiciadd'.$publicidad;
     }
 
     /**
@@ -124,9 +145,17 @@ class PublicidadController extends Controller
      * @param  \App\Publicidad  $publicidad
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Publicidad $publicidad)
+    public function destroy(Publicidad $publicidad, Request $request)
     {
         //
+        //dd($publicidad,$request);
+        //return response()->json($request);
+        $publicidad->delete();
+        return response()->json(['mensaje' => 'Se eliminó la Publicidad ' . $publicidad->titulo]);
+
+
+
+
     }
 
 
@@ -154,6 +183,18 @@ class PublicidadController extends Controller
             return response('Imagen Eliminada', 200);
         }
     }
+
+    public function estado(Request $request, Publicidad $publicidad)
+    {
+        // Leer nuevo estado y asignarlo
+        $publicidad->activa = $request->estado;
+
+        // guardarlo en la BD
+        $publicidad->save();
+
+        return response()->json(['respuesta' => 'Correcto']);
+    }
+
    
 
 }

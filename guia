@@ -249,8 +249,63 @@ user relaccion uno a muchos ..
 publicidad tiene que tener user_id
 
 php artisan tinker para crear relaccion
-$uusrio=User::find(1);
+$usuario=User::find(1);
+$usuario->publicidads;
+
 añadimos user_id a publicidadas
+
+
+
+176 --- vacante show
+
+rutos protegids Route:group middleware - >ut veri
+
+
+
+198 Elilminar vacante , crea componete .. sweet Alert
+npm i vue-sweetalert2
+app.js -> import 
+
+
+
+195 :  cambiar estado de Publicidad
+componentes
+cambiarestado click, cambia view..
+:key  acceso a tiempo real .. 
+cambia color y texto - clas dinamica : class claseestado vacante .. metodo...
+diferencia entre methods y computer .. texto cambia en funcion del data 
+funciones que esperan un click o evento --> metodos . si no tiene que ir en computer ... 
+Routes ..  compoente axios .. post
+
+
+
+200 : editar Publicidad :
+
+
+
+ESTABLECIMIENTOS : 
+https://codepen.io/QJan84/pen/zYvRMMw
+FORM TABS
+
+php artisan make:model Establecimiento -mrc 
+
+
+VUE TAILWIND
+https://www.vue-tailwind.com/docs/table
+
+npm install vue-tailwind --save
+
+
+
+
+https://codepen.io/xxdd13/pen/qKqNxo
+
+vue acoordion
+
+        ok definitivo
+https://codepen.io/duaneblake/embed/XOorrj?default-tab=result&theme-id=0
+
+
 
 
 
