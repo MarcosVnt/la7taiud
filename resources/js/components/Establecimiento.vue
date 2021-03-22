@@ -1,5 +1,9 @@
   <template>
 
+
+<!--   LISTA DE SUBCARTAS DE ESTABLECIMIENTO Y CARTA EN CUESTION
+ -->
+ 
  <div id="appvnt" class="container mx-auto bg-white border-grey-light border mt-20">
     <accordion title="Trevor Belmont">
       <p class="pb-5">Lorem ipsum dolor sit amet, ut alii voluptaria est, ad illum inimicus deterruisset eam. His eu bonorum adipisci definiebas, no vis nostrud conclusionemque. Ad his virtute accusata, pro habemus singulis temporibus ut, ne bonorum dolores euripidis quo. No nam amet erant intellegebat. Rationibus instructior id pri, vis case abhorreant ea, id sea meis feugiat.</p>

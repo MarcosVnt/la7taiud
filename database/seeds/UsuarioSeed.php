@@ -15,16 +15,21 @@ class UsuarioSeed extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'Marcos',
-            'email' => 'marcos@visualnt.net',
+            'name' => 'Administrador',
+            'role_id' => '1',
+            'email' => 'administrador@visualnt.net',
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('12345678'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
+
+
         DB::table('users')->insert([
-            'name' => 'Paco',
-            'email' => 'correo2@correo.com',
+
+            'name' => 'Establecimiento',
+            'role_id' => '2',
+            'email' => 'establecimiento@correo.com',
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('12345678'),
             'created_at' => Carbon::now(),

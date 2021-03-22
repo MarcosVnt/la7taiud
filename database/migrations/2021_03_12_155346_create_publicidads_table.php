@@ -14,12 +14,7 @@ class CreatePublicidadsTable extends Migration
     public function up()
     {
 
-        Schema::create('establecimiento_tipos', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
-            $table->timestamps();
-        });
-
+       
         Schema::create('seccions', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
@@ -27,6 +22,12 @@ class CreatePublicidadsTable extends Migration
         });
 
         Schema::create('tamanos', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+            $table->timestamps();
+        });
+
+        Schema::create('establecimiento_tipos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->timestamps();

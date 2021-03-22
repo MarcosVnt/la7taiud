@@ -13,31 +13,31 @@ class EstablecimientoTipoSeed extends Seeder
      */
     public function run()
     {
-        DB::table('establecimiento_tìpos')->insert([
+        DB::table('establecimiento_tipos')->insert([
             'nombre' => 'Bar',
            
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
-        DB::table('establecimiento_tìpos')->insert([
+        DB::table('establecimiento_tipos')->insert([
             'nombre' => 'Restaurante',
            
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
-        DB::table('establecimiento_tìpos')->insert([
+        DB::table('establecimiento_tipos')->insert([
             'nombre' => 'Bar/restaurante',
            
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
-        DB::table('establecimiento_tìpos')->insert([
+        DB::table('establecimiento_tipos')->insert([
             'nombre' => 'Hotel',
            
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
-        DB::table('establecimiento_tìpos')->insert([
+        DB::table('establecimiento_tipos')->insert([
             'nombre' => 'Otros',
            
             'created_at' => Carbon::now(),

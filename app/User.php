@@ -2,7 +2,9 @@
 
 namespace App;
 
+use App\Role;
 use App\Publicidad;
+use App\Establecimiento;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -44,4 +46,20 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Publicidad::class);
 
     }
+
+    public function establecimiento() {
+
+        return $this->hasOne(Establecimiento::class);
+
+    }
+
+
+    public function role() {
+
+        return $this->hasOne(Role::class);
+
+    }
+
+
+    
 }

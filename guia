@@ -308,7 +308,71 @@ https://codepen.io/duaneblake/embed/XOorrj?default-tab=result&theme-id=0
 
 
 
+creamos tablas de establecimientos, cartas, familias, platos y platos familia
 
+php artisan make:seeder EstablecimientoSeed
+php artisan make:seeder CartaSeed
+php artisan make:seeder FamiliaSeed
+php artisan make:seeder PlatoSeed
+
+eloquent : modifcaondo modelos para relaciones ...hasmany ,belongsto .. etc..
+https://laravel.com/docs/8.x/eloquent-relationships#has-one-through
+
+
+GESTION DE ROLES 
+https://www.devopsschool.com/blog/how-to-create-multiple-role-based-authentication-and-access-control-in-laravel-application/
+usuario , role , seeder 
+
+php artisan make:controller Admin/DashboardController
+php artisan make:controller User/DashboardController
+
+php artisan make:middleware AdminMiddleware
+php artisan make:middleware UserMiddleware
+
+app/http/AdminMiddleware.php
+
+
+
+app/http/UserMiddleware.php
+
+
+Step24- Implement Condition for Admin and User Login in RedirectIfAuthenticated(app/Http/Middleware/RedirectIfAuthenticated.php)
+
+admin.Dashboard // NOva
+user.Dashboard
+
+
+auth/LoginController.php
+redirectTo and constructor
+
+auth/ResetPasswordController
+redirectTo and contstructor
+
+app/http/kernel.php
+UserMiddleware y AdminMiddleware
+
+route/web.php
+Route::group(['as'=>'admin.','prefix' => 'admin','namespace'=>'Admin','middleware'=>['auth','admin']], function () {
+		Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+INSTALACION
+ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 
 
 https://www.niranjanudas.com.np/file-and-folder-permission-for-laravel/

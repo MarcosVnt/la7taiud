@@ -22,59 +22,41 @@
         <div class="px-4 py-5 flex-auto">
           <div class="tab-content tab-space">
             <div v-bind:class="{'hidden': openTab !== 1, 'block': openTab === 1}">
-              <p>
-               <!--  Collaboratively administrate empowered markets via
-                plug-and-play networks. Dynamically procrastinate B2C users
-                after installed base benefits.
-                <br />
-                <br />
-                Dramatically visualize customer directed convergence
-                without revolutionary ROI. -->
-
-                <!-- DATOS DEL ESTABLACIMIENTO -->
-
-                <establecimiento-datos></establecimiento-datos>  
-
-
-              </p>
-            </div>
+             
+             </div>
             <div v-bind:class="{'hidden': openTab !== 2, 'block': openTab === 2}">
 
-             <!--  CARTAS DEL ESTABLECIMIENTO 
-              TABS CON CARTAS 
-              ACORDION CON SUBCARTAS -->
               
-              <p>
-                Completely synergize resource taxing relationships via
-                premier niche markets. Professionally cultivate one-to-one
-                customer service with robust ideas.
-                <br />
-                <br />
-                Dynamically innovate resource-leveling customer service for
-                state of the art customer service.
-              </p>
-
+             
             </div>
             <div v-bind:class="{'hidden': openTab !== 3, 'block': openTab === 3}">
             
-             <establecimiento></establecimiento>
-
+             
               
             </div>
           </div>
         </div>
       </div>
     </div>
+    
+    
+<!--      DEL ESTABLECIMIENTO EN CUESTION 
+TRAIGO LAS CARTAS DISPONIBLES
+LAS SUBCARTAS 
+ -->
+
+
+
   </div>
 </template>
 
+
 <script>
-import EstablecimientoDatos from './Establecimientos/EstablecimientoDatos.vue'
 
 export default {
-  name: "navegacion",
+  name: "cartas",
   components: {
-    EstablecimientoDatos
+    
         
       
     },

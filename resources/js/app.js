@@ -35,7 +35,7 @@ Vue.component('eliminar-publicidad', require('./components/EliminarPublicidad.vu
 Vue.component('estado-publicidad', require('./components/EstadoPublicidad.vue').default);
 Vue.component('establecimiento', require('./components/Establecimiento.vue').default);
 Vue.component('navegacion', require('./components/Navegacion.vue').default);
-Vue.component('EstablecimientoDatos', require('./components/Establecimiento/EstablecimientoDatos.vue').default);
+Vue.component('EstablecimientoDatos', require('./components/Establecimientos/EstablecimientoDatos.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
