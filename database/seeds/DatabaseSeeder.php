@@ -1,5 +1,20 @@
 <?php
 
+use RoleSeed;
+use CartaSeed;
+use PlatoSeed;
+use TamanoSeed;
+use FamiliaSeed;
+use SalarioSeed;
+use SeccionSeed;
+use UsuarioSeed;
+use CategoriaSeed;
+use UbicacionSeed;
+use PublicidadSeed;
+use ExperienciaSeed;
+use FamiliaPlatoSeed;
+use EstablecimientoSeed;
+use EstablecimientoTipoSeed;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
