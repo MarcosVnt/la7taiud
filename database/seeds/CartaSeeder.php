@@ -4,7 +4,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CartaSeed extends Seeder
+class CartaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,8 @@ class CartaSeed extends Seeder
     public function run()
     {
         //
-        DB::table('cartas')->insert([
+          //
+          DB::table('cartas')->insert([
             'nombre' => 'Menu del Día',
             'orden' => '1',
             'establecimiento_id' => 1,

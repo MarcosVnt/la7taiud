@@ -1,20 +1,5 @@
 <?php
 
-use CartaSeed;
-use PlatoSeed;
-use RoleSeeder;
-use TamanoSeed;
-use FamiliaSeed;
-use SalarioSeed;
-use SeccionSeed;
-use UsuarioSeed;
-use CategoriaSeed;
-use UbicacionSeed;
-use PublicidadSeed;
-use ExperienciaSeed;
-use FamiliaPlatoSeed;
-use EstablecimientoSeed;
-use EstablecimientoTipoSeed;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,25 +13,26 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleSeeder::class);
         
-        $this->call(UsuarioSeed::class);
+        $this->call(UsuarioSeeder::class);
         
-    //    $this->call(CategoriaSeed::class);
-    //    $this->call(ExperienciaSeed::class);    
-    //    $this->call(UbicacionSeed::class);    
-    //    $this->call(SalarioSeed::class);  
+    //    $this->call(CategoriaSeeder::class);
+    //    $this->call(ExperienciaSeeder::class);    
+    //    $this->call(UbicacionSeeder::class);    
+    //    $this->call(SalarioSeeder::class);  
 
-        $this->call(SeccionSeed::class);    
-        $this->call(TamanoSeed::class);    
+        $this->call(SeccionSeeder::class);    
+        $this->call(TamanoSeeder::class);    
 
     
-       $this->call(EstablecimientoTipoSeed::class);    
-       $this->call(PublicidadSeed::class);    
-       $this->call(EstablecimientoSeed::class);   
-       $this->call(CartaSeed::class);   
+       $this->call(EstablecimientoTipoSeeder::class);    
+       $this->call(EstablecimientoSeeder::class);   
+       $this->call(CartaSeeder::class);   
         
-       $this->call(FamiliaSeed::class);   
-       $this->call(PlatoSeed::class);   
-       $this->call(FamiliaPlatoSeed::class);   
+       $this->call(FamiliaSeeder::class);   
+       $this->call(PlatoSeeder::class);   
+       $this->call(FamiliaPlatoSeeder::class);   
+       $this->call(PublicidadSeeder::class);    
+
 
 
     }

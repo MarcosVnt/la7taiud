@@ -4,7 +4,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class EstablecimientoSeed extends Seeder
+class EstablecimientoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,8 @@ class EstablecimientoSeed extends Seeder
     public function run()
     {
         //
-        DB::table('establecimientos')->insert([
+         //
+         DB::table('establecimientos')->insert([
             'nombre_comercial' => 'La FInca',
             'nombre_fiscal' => 'Vile',
             'cif' => 'B242424',

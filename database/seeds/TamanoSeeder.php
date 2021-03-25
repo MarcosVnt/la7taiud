@@ -3,7 +3,7 @@
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
-class TamanoSeed extends Seeder
+class TamanoSeeder extends Seeder
 {
     /**
      * Run the database seeds.

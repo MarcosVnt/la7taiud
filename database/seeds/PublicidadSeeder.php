@@ -3,7 +3,7 @@
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
-class PublicidadSeed extends Seeder
+class PublicidadSeeder extends Seeder
 {
     /**
      * Run the database seeds.
