@@ -1,6 +1,5 @@
 <?php
 
-use RoleSeed;
 use CartaSeed;
 use PlatoSeed;
 use RoleSeeder;
