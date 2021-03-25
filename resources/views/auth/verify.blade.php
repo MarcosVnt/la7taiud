@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>verif</h1>
+<h1>Verificación De Email</h1>
 <div class="container mx-auto mt-20 text-center">
         <div class="text-2xl my-5">{{ __('Verify Your Email Address') }}</div>
 

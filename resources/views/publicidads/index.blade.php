@@ -1,16 +1,13 @@
 @extends('layouts.app')
 
 
-@section('navegacion')
-    
-   @include('ui.adminnav') 
-@endsection
 
 @section('content')
 
 <h1 class="text-2xl text-center mt-10">Administrar Publicidad</h1>
 {{$publicidads}}
  
+<a class="text-green-500 text-sm uppercase font-bold p-3 {{Request::is('publicidad/create') ? 'bg-green-500': ''}}" href="{{route('publicidads.create')}}"> + Alta Publicidad</a>
 
 @if( count($publicidads) > 0 )
     <div class="flex flex-col mt-10">

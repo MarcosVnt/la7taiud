@@ -15,6 +15,7 @@
                             <div class="flex flex-wrap mb-6">
                                 <label for="name" class="block text-gray-700 text-sm mb-2">{{ __('Name') }}</label>
                                 <input id="name" type="text" class="p-3 bg-gray-200 rounded form-input w-full @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
+                                <input id="role_id" type="text" hidden  name="role_id" value="2" >
 
                                 @error('name')
                                     <span class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 w-full mt-5 text-sm" role="alert">
@@ -61,8 +62,8 @@
             </div>
         </div>
         <div class="md:w-1/2 order-1 md:order-2 text-center flex flex-col justify-center px-10 mt-10">
-            <h1 class="text-teal-500 text-3xl">¿Eres Reclutador?</h1>
-            <p class="text-xl mt-5 leading-7">Crea una cuenta totalmente gratis y comienza a publicar hasta 10 vacantes</p>
+            <h1 class="text-teal-500 text-3xl">Bienvenido</h1>
+            <p class="text-xl mt-5 leading-7">Crea una cuenta totalmente gratis y comienza a crear tu carta digital</p>
         </div>
     </div>
 </div>

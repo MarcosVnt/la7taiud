@@ -58,7 +58,9 @@ Route::group(['as'=>'admin.','prefix' => 'admin','namespace'=>'Admin','middlewar
     Route::get('/establecimientos', 'EstablecimientoController@index')->name('establecimientos.index');
 
     Route::get('establecimientos/profile', 'EstablecimientoController@profile')->name('establecimientos.profile');
-
+    Route::get('/establecimientos/{establecimiento}', 'EstablecimientoController@show')->name('establecimientos.show');
+    Route::post('/establecimientos/update/', 'EstablecimientoController@update')->name('establecimientos.update');
+    
 
 
 
@@ -102,8 +104,15 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
 
     Route::get('/establecimientos', 'EstablecimientoController@index')->name('establecimientos.index');
 
-    Route::get('establecimientos/profile', 'EstablecimientoController@profile')->name('establecimientos.profile');
+    Route::get('/establecimientos/profile', 'EstablecimientoController@profile')->name('establecimientos.profile');
+    Route::get('/establecimientos/create', 'EstablecimientoController@create')->name('establecimientos.create');
 
+    Route::post('/establecimientos/update/{establecimiento}', 'EstablecimientoController@update')->name('establecimientos.update');
+   
+    Route::get('/cartas/{establecimiento}', 'EstablecimientoController@cartas')->name('establecimientos.cartas');
+    Route::get('/cartas/familias/{carta}', 'EstablecimientoController@cartafamilias')->name('establecimientos.cartafamilias');
+    Route::get('/cartas/familias/platos/{familia}', 'EstablecimientoController@familiaplatos')->name('establecimientos.familiaplatos');
+    
 
     
 

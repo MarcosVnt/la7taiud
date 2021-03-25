@@ -34,8 +34,10 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('eliminar-publicidad', require('./components/EliminarPublicidad.vue').default);
 Vue.component('estado-publicidad', require('./components/EstadoPublicidad.vue').default);
 Vue.component('establecimiento', require('./components/Establecimiento.vue').default);
-Vue.component('navegacion', require('./components/Navegacion.vue').default);
-Vue.component('EstablecimientoDatos', require('./components/Establecimientos/EstablecimientoDatos.vue').default);
+Vue.component('establecimiento-navegacion', require('./components/Establecimientos/EstablecimientoNavegacion.vue').default);
+Vue.component('establecimiento-datos', require('./components/Establecimientos/EstablecimientoDatos.vue').default);
+Vue.component('establecimiento-cartas', require('./components/Establecimientos/EstablecimientoCartas.vue').default);
+Vue.component('establecimiento-qr', require('./components/Establecimientos/EstablecimientoQr.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

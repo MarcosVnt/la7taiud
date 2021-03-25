@@ -1,9 +1,53 @@
 <template>
   <div class="flex flex-wrap mx-10">
-    <div class="w-full">
+    <modal v-if="modalAlta" ></modal>
+
+    <div v-else class="w-full">
+           <!--    <span class="plus-circle" >
+                
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Alta Carta
+              </span> -->
+
+        <a
+        href="#"
+        class=""
+        @click.prevent="modalCarta"
+      >
+        <strong>Alta Carta</strong>
+       <span class="plus-circle" >
+                
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </span>
+      </a>
+     
+
       <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
-        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-          <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal" v-on:click="toggleTabs(1)" v-bind:class="{'text-green-600 bg-white': openTab !== 1, 'text-white bg-green-600': openTab === 1}">
+        <li
+          class="-mb-px mr-2 last:mr-0 flex-auto text-center"
+          v-for="(carta, i) in this.cartas"
+          v-bind:key="i"
+        >
+          <!--   {{carta.nombre}} -->
+          <a
+            class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+            v-on:click="toggleTabs(i + 1, carta.id)"
+            v-bind:class="{
+              'text-green-600 bg-white': openTab !== i + 1,
+              'text-white bg-green-600': openTab === carta.id,
+            }"
+          >
+            {{ carta.nombre }}
+            <!--  NOmbre: {{carta.nombre}}--id1-{{i+1}}-cartaid-{{carta.id}}-- -->
+            editar carta
+          </a>
+        </li>
+
+        <!--   <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+          <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg 
+          rounded block leading-normal" v-on:click="toggleTabs(1)" 
+          v-bind:class="{'text-green-600 bg-white': openTab !== 1,
+           'text-white bg-green-600': openTab === 1}">
             Datos
           </a>
         </li>
@@ -16,59 +60,123 @@
           <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal" v-on:click="toggleTabs(3)" v-bind:class="{'text-green-600 bg-white': openTab !== 3, 'text-white bg-green-600': openTab === 3}">
             QR
           </a>
-        </li>
+        </li> -->
       </ul>
-      <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+      <div
+        class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
+      >
         <div class="px-4 py-5 flex-auto">
           <div class="tab-content tab-space">
-            <div v-bind:class="{'hidden': openTab !== 1, 'block': openTab === 1}">
-             
-             </div>
-            <div v-bind:class="{'hidden': openTab !== 2, 'block': openTab === 2}">
-
-              
-             
+            <div v-bind:class="{ hidden: openTab !== 1, block: openTab === 1 }">
+              <h1>opcion uno</h1>
+              <accordion
+                v-for="(familia, i) in this.familias"
+                v-bind:key="i"
+                :title="familia.nombre"
+                :id="familia.id"
+              >
+              </accordion>
             </div>
-            <div v-bind:class="{'hidden': openTab !== 3, 'block': openTab === 3}">
-            
-             
-              
+            <div v-bind:class="{ hidden: openTab !== 2, block: openTab === 2 }">
+              <accordion
+                v-for="(familia, i) in this.familias"
+                v-bind:key="i"
+                :title="familia.nombre"
+                :id="familia.id"
+              >
+              </accordion>
+            </div>
+            <div v-bind:class="{ hidden: openTab !== 3, block: openTab === 3 }">
+              <accordion
+                v-for="(familia, i) in this.familias"
+                v-bind:key="i"
+                :title="familia.nombre"
+                :id="familia.id"
+              >
+              </accordion>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
-    
-<!--      DEL ESTABLECIMIENTO EN CUESTION 
+
+    <!--      DEL ESTABLECIMIENTO EN CUESTION 
 TRAIGO LAS CARTAS DISPONIBLES
 LAS SUBCARTAS 
  -->
-
-
-
   </div>
 </template>
 
 
 <script>
+import accordion from "../accordion";
+import Modal from '../Modal.vue';
+
+
 
 export default {
   name: "cartas",
+  props: ["esta"],
   components: {
-    
-        
-      
-    },
-  data() {
+    accordion,
+    Modal,
+  },
+
+      data() {
     return {
-      openTab: 1
-    }
+      openTab: 0,
+      cartas: {},
+      familias: {},
+      platos: {},
+      modalAlta:false,
+    };
   },
   methods: {
-    toggleTabs: function(tabNumber){
-      this.openTab = tabNumber
-    }
-  }
-}
+
+     modalCarta(event) {
+      console.log('modalCarta : ',event);
+      this.modalAlta=true;
+      //this.$emit('altaCarta',true);
+    },
+    toggleTabs: function (tabNumber, cartaId) {
+      this.openTab = tabNumber;
+      console.log("toggleTabs", tabNumber, this.openTab, cartaId);
+
+      axios
+        .get(`/cartas/familias/${cartaId}`)
+        .then((respuesta) => {
+          console.log(respuesta);
+
+          this.familias = respuesta.data.familias;
+          // Eliminar del DOM  simpre borra del padre hacia el hijo
+          //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  created() {
+    console.log("created : ESTABLECIMIENTO CARTAS ", this.esta, this.esta.id);
+    const id = this.esta.id;
+    const params = {
+      estado: this.esta,
+    };
+
+    console.log(this.esta.id);
+    //  axios.post(`/cartas/${this.esta.id}`, params)
+    axios
+      .get(`/cartas/${id}`)
+      .then((respuesta) => {
+        console.log(respuesta);
+
+        this.cartas = respuesta.data.cartas;
+        // Eliminar del DOM  simpre borra del padre hacia el hijo
+        //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+};
 </script>

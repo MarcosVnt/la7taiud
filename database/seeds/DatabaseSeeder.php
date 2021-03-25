@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
         
         $this->call(UsuarioSeed::class);
         
-        $this->call(CategoriaSeed::class);
-        $this->call(ExperienciaSeed::class);    
-        $this->call(UbicacionSeed::class);    
-        $this->call(SalarioSeed::class);  
+    //    $this->call(CategoriaSeed::class);
+    //    $this->call(ExperienciaSeed::class);    
+    //    $this->call(UbicacionSeed::class);    
+    //    $this->call(SalarioSeed::class);  
 
         $this->call(SeccionSeed::class);    
         $this->call(TamanoSeed::class);    

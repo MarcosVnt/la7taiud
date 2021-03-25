@@ -13,7 +13,7 @@ class CreateVacantesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categorias', function (Blueprint $table) {
+       /*  Schema::create('categorias', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->timestamps();
@@ -47,7 +47,7 @@ class CreateVacantesTable extends Migration
              $table->foreignId('ubicacion_id')->constrained()->onDelete('cascade');
             $table->foreignId('salario_id')->constrained()->onDelete('cascade');
              $table->timestamps();
-        });
+        }); */
     }
 
     /**

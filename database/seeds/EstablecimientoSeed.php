@@ -17,7 +17,7 @@ class EstablecimientoSeed extends Seeder
         DB::table('establecimientos')->insert([
             'nombre_comercial' => 'La FInca',
             'nombre_fiscal' => 'Vile',
-            'nif' => 'B242424',
+            'cif' => 'B242424',
             'direccion' => 'La FInca direccion',
             'codigo_postal' => '24000',
             'poblacion' => 'La FInca poblacion',
@@ -31,8 +31,9 @@ class EstablecimientoSeed extends Seeder
 
             'observaciones' => 'La FInca observaciones',
             //'activa' => 'La FInca',
-            'user_id' => '1',
-            
+            'user_id' => '2',
+            'imagen' => 'vile.jpg',
+
             
             
             'created_at' => Carbon::now(),

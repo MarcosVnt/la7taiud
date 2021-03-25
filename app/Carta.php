@@ -12,7 +12,7 @@ class Carta extends Model
         'nombre','orden','carta_id'
     ];
 
-    public function familia()
+    public function familias()
     {
         return $this->hasMany(Familia::class);
     }

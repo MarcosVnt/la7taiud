@@ -21,7 +21,7 @@ class Establecimiento extends Model
         return $this->belongsTo(User::class);
     }
     
-    public function carta()
+    public function cartas()
     {
         return $this->hasMany(Carta::class);
     }

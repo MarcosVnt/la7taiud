@@ -17,7 +17,7 @@ class CreateEstablecimientosTable extends Migration
             $table->id();
             $table->string('nombre_comercial')->nullable();
             $table->string('nombre_fiscal')->nullable();
-            $table->string('nif')->nullable();
+            $table->string('cif')->nullable();
 
             $table->string('direccion')->nullable();
             $table->string('codigo_postal')->nullable();
@@ -31,6 +31,9 @@ class CreateEstablecimientosTable extends Migration
 
             $table->string('observaciones')->nullable();
             $table->boolean('activa')->default(true);
+
+            $table->string('imagen')->nullable();
+
 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
@@ -68,7 +71,12 @@ class CreateEstablecimientosTable extends Migration
         Schema::create('platos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->nullable();
+            $table->string('observaciones')->nullable();
+
             $table->integer('orden')->nullable();
+            $table->double('precio', 10, 2);
+
+            $table->string('moneda')->nullable();
             
             $table->foreignId('establecimiento_id')->constrained()->onDelete('cascade');
 
@@ -80,6 +88,30 @@ class CreateEstablecimientosTable extends Migration
         Schema::create('familia_plato', function (Blueprint $table) {
             $table->id();
             $table->foreignId('familia_id')->constrained()->onDelete('cascade');
+            $table->foreignId('plato_id')->constrained()->onDelete('cascade');
+            $table->integer('orden')->nullable();
+
+            $table->timestamps();
+        });
+
+
+        Schema::create('alergenos', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre')->nullable();
+            $table->string('observaciones')->nullable();
+
+            $table->integer('orden')->nullable();
+            $table->boolean('activa')->default(true);
+
+            
+            
+            $table->timestamps();
+        });
+
+         // platos que hay por cada familia de una carta de un establacimiento 
+         Schema::create('plato_alergeno', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('alergeno_id')->constrained()->onDelete('cascade');
             $table->foreignId('plato_id')->constrained()->onDelete('cascade');
             $table->integer('orden')->nullable();
 

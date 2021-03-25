@@ -9,11 +9,11 @@
     
 @endsection
 
-
+{{-- 
 @section('navegacion')
     
    @include('ui.adminnav') 
-@endsection
+@endsection --}}
 
 @section('content')
 
@@ -155,9 +155,9 @@
     
     <div class="mb-5">
         <label 
-            for="descripcion" 
+            for="imagen" 
             class="block text-gray-700 text-sm mb-2"
-        >Imagen Vacante:</label>
+        >Imagen :</label>
 
         <div id="dropzoneDevJobs" class="dropzone rounded bg-gray-100"></div>
 
@@ -171,17 +171,29 @@
         <p id="error"></p>
     </div>
 
-{{$seccions}}
+{{-- {{$seccions}}
 <br>
 {{$establecimiento_tipos}}
 <br>
-{{$tamanos}}
+{{$tamanos}} --}}
+
+
 
     <button 
     type="submit"
     class="bg-green-500 w-full hover:bg-green-600 text-gray-100 font-bold p-3 focus:outline focus:shadow-outline uppercase"
->Publicar Vacante</button>
+>Guardar Publicidad</button>
 
+
+<div class="mb-5 bg-red-500 w-full hover:bg-green-600 text-gray-100 font-bold p-3 text-center">
+    
+    <a 
+    
+    class="focus:outline focus:shadow-outline uppercase
+    
+    {{Request::is('publicidad/index') ? 'bg-green-500': ''}}" href="{{route('publicidads.index')}}">Cancelar Publicidad</a>
+    
+    </div>
 
 </form>
 @endsection

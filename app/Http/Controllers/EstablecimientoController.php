@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Establecimiento;
+use App\Carta;
+use App\Familia;
 use Illuminate\Http\Request;
 
 class EstablecimientoController extends Controller
@@ -36,6 +38,8 @@ class EstablecimientoController extends Controller
     public function create()
     {
         //
+        return view('establecimientos.index',compact('establecimiento'));
+
     }
 
     /**
@@ -81,6 +85,25 @@ class EstablecimientoController extends Controller
     public function update(Request $request, Establecimiento $establecimiento)
     {
         //
+      // dd($request,$establecimiento);
+
+       /*   $data = $request->validate([
+            'nombre_comercial' => 'required|min:8',
+            'cif' => 'required',
+            
+        ]);
+
+        dd($data); */
+
+  //      dd($request['estad0'],$request['estado']['id'],$request['cif']);
+  
+        $establecimiento->nombre_comercial = $request['estado']['nombre_comercial'];
+        $establecimiento->cif = $request['estado']['cif'];
+      
+
+        $establecimiento->save();
+
+        return ['establecimiento' => $establecimiento];
     }
 
     /**
@@ -93,4 +116,40 @@ class EstablecimientoController extends Controller
     {
         //
     }
+
+    public function cartas(Request $request, Establecimiento $establecimiento)
+    {
+    // dd($establecimiento);
+     
+        $cartas = $establecimiento->cartas;
+
+       //dd($cartas);
+
+        return ['cartas' => $cartas];
+    }
+
+    public function cartafamilias(Request $request, Carta $carta)
+    {
+    // dd($establecimiento);
+     
+        $familias = $carta->familias;
+
+      // dd($familias);
+
+        return ['familias' => $familias];
+    }
+
+    public function familiaplatos(Request $request, Familia $familia)
+    {
+    // dd($establecimiento);
+     
+        $platos = $familia->platos;
+
+      // dd($familias);
+
+        return ['platos' => $platos];
+    }
+
+
+
 }

@@ -22,5 +22,22 @@ class CartaSeed extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
+        DB::table('cartas')->insert([
+            'nombre' => 'Menu de NObche',
+            'orden' => '2',
+            'establecimiento_id' => 1,
+            
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('cartas')->insert([
+            'nombre' => 'Postres',
+            'orden' => '3',
+            'establecimiento_id' => 1,
+            
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
     }
 }
