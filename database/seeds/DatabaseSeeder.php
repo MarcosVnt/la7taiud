@@ -3,6 +3,7 @@
 use RoleSeed;
 use CartaSeed;
 use PlatoSeed;
+use RoleSeeder;
 use TamanoSeed;
 use FamiliaSeed;
 use SalarioSeed;
@@ -26,7 +27,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(RoleSeed::class);
+        $this->call(RoleSeeder::class);
         
         $this->call(UsuarioSeed::class);
         
