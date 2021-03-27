@@ -2088,6 +2088,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _accordion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../accordion */ "./resources/js/components/accordion.vue");
 /* harmony import */ var _Modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Modal.vue */ "./resources/js/components/Modal.vue");
+/* harmony import */ var _EstablecimientoCartasAlta_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EstablecimientoCartasAlta.vue */ "./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue");
 //
 //
 //
@@ -2198,6 +2199,73 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2205,21 +2273,29 @@ __webpack_require__.r(__webpack_exports__);
   props: ["esta"],
   components: {
     accordion: _accordion__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Modal: _Modal_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    modal: _Modal_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    establecimientoCartasAlta: _EstablecimientoCartasAlta_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
-      openTab: 0,
+      openTab: 1,
       cartas: {},
       familias: {},
       platos: {},
-      modalAlta: false
+      modalAlta: false,
+      //carta
+      modalAltaSubcarta: false
     };
   },
   methods: {
+    modalSubCartaAlta: function modalSubCartaAlta(event) {
+      this.modalAlta = !this.modalAlta;
+    },
     modalCarta: function modalCarta(event) {
-      console.log('modalCarta : ', event);
-      this.modalAlta = true; //this.$emit('altaCarta',true);
+      console.log("modalCarta : ", event);
+      console.log("modalCarta : ", this.modalAlta);
+      this.modalAlta = !this.modalAlta;
+      console.log("modalCarta : ", this.modalAlta); //this.$emit('altaCarta',true);
     },
     toggleTabs: function toggleTabs(tabNumber, cartaId) {
       var _this = this;
@@ -2247,11 +2323,96 @@ __webpack_require__.r(__webpack_exports__);
 
     axios.get("/cartas/".concat(id)).then(function (respuesta) {
       console.log(respuesta);
-      _this2.cartas = respuesta.data.cartas; // Eliminar del DOM  simpre borra del padre hacia el hijo
+      _this2.cartas = respuesta.data.cartas;
+
+      _this2.toggleTabs(1, _this2.openTab); // Eliminar del DOM  simpre borra del padre hacia el hijo
       //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
+
     })["catch"](function (error) {
       console.log(error);
     });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      carta: {}
+    };
   }
 });
 
@@ -2536,28 +2697,87 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'EstablecimientoDatos',
-  props: ['esta'],
+  name: "EstablecimientoDatos",
+  props: ["esta"],
   components: {},
   data: function data() {
     return {
       editar: false,
       user: [{
-        avatar_url: '../img/Vile_m.JPG',
-        name: 'nombre',
-        followers: '23l',
-        location: 'locaction',
-        bio: 'bio',
-        public_repos: 'public_repos',
-        blog: 'blog'
+        avatar_url: "../img/Vile_m.JPG",
+        name: "nombre",
+        followers: "23l",
+        location: "locaction",
+        bio: "bio",
+        public_repos: "public_repos",
+        blog: "blog"
       }]
     };
   },
   methods: {
     guardarDatos: function guardarDatos() {
       this.editar = false;
-      console.log('guardarDatos', this.esta.id);
+      console.log("guardarDatos", this.esta.id);
       var params = {
         estado: this.esta
       };
@@ -2586,7 +2806,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    console.log('created : ESTABLECIMIENTO DATOS ', this.esta);
+    console.log("created : ESTABLECIMIENTO DATOS ", this.esta);
   }
 });
 
@@ -3196,6 +3416,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Establecimientos_EstablecimientoCartasAlta_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Establecimientos/EstablecimientoCartasAlta.vue */ "./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue");
 //
 //
 //
@@ -3238,12 +3459,62 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["title", "id"],
+  components: {
+    establecimientoCartasAlta: _Establecimientos_EstablecimientoCartasAlta_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   data: function data() {
     return {
       active: false,
-      platos: {}
+      platos: {},
+      modalAltaPlato: false
     };
   },
   methods: {
@@ -43450,28 +43721,51 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "flex flex-wrap mx-10" },
-    [
-      _vm.modalAlta
-        ? _c("modal")
-        : _c("div", { staticClass: "w-full" }, [
-            _c(
-              "a",
-              {
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.modalCarta($event)
-                  }
-                }
-              },
-              [
-                _c("strong", [_vm._v("Alta Carta")]),
-                _vm._v(" "),
-                _c("span", { staticClass: "plus-circle" }, [
+  return _c("div", { staticClass: "flex flex-wrap" }, [
+    _c(
+      "div",
+      { staticClass: "w-full" },
+      [
+        _c(
+          "a",
+          {
+            attrs: { href: "#" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.modalCarta($event)
+              }
+            }
+          },
+          [
+            _c("strong", [_vm._v("Alta Carta")]),
+            _vm._v(" "),
+            _vm.modalAlta
+              ? _c("span", { staticClass: "minus-circle" }, [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "w-6 h-6",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        fill: "none",
+                        viewBox: "0 0 24 24",
+                        stroke: "currentColor"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          "stroke-linecap": "round",
+                          "stroke-linejoin": "round",
+                          "stroke-width": "2",
+                          d: "M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                        }
+                      })
+                    ]
+                  )
+                ])
+              : _c("span", { staticClass: "plus-circle" }, [
                   _c(
                     "svg",
                     {
@@ -43496,125 +43790,328 @@ var render = function() {
                     ]
                   )
                 ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "ul",
+          ]
+        ),
+        _vm._v(" "),
+        _vm.modalAlta ? _c("establecimientoCartasAlta") : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "ul",
+          { staticClass: "flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row" },
+          _vm._l(this.cartas, function(carta, i) {
+            return _c(
+              "li",
               {
-                staticClass: "flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row"
-              },
-              _vm._l(this.cartas, function(carta, i) {
-                return _c(
-                  "li",
-                  {
-                    key: i,
-                    staticClass: "-mb-px mr-2 last:mr-0 flex-auto text-center"
-                  },
-                  [
-                    _c(
-                      "a",
-                      {
-                        staticClass:
-                          "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal",
-                        class: {
-                          "text-green-600 bg-white": _vm.openTab !== i + 1,
-                          "text-white bg-green-600": _vm.openTab === carta.id
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.toggleTabs(i + 1, carta.id)
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n            " +
-                            _vm._s(carta.nombre) +
-                            "\n            "
-                        ),
-                        _vm._v("\n            editar carta\n          ")
-                      ]
-                    )
-                  ]
-                )
-              }),
-              0
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
+                key: i,
+                staticClass: "-mb-px mr-2 last:mr-0 flex-auto text-center pb-4"
               },
               [
-                _c("div", { staticClass: "px-4 py-5 flex-auto" }, [
-                  _c("div", { staticClass: "tab-content tab-space" }, [
-                    _c(
-                      "div",
-                      {
-                        class: {
-                          hidden: _vm.openTab !== 1,
-                          block: _vm.openTab === 1
-                        }
-                      },
-                      [
-                        _c("h1", [_vm._v("opcion uno")]),
-                        _vm._v(" "),
-                        _vm._l(this.familias, function(familia, i) {
-                          return _c("accordion", {
-                            key: i,
-                            attrs: { title: familia.nombre, id: familia.id }
-                          })
-                        })
-                      ],
-                      2
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "text-xs font-bold uppercase px-5 py-3 pb-2 shadow rounded block leading-normal bg-green-100",
+                    class: {
+                      "text-green-600 bg-white": _vm.openTab !== i + 1,
+                      "text-white bg-green-600": _vm.openTab === carta.id
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.toggleTabs(i + 1, carta.id)
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n            " + _vm._s(carta.nombre) + "\n            "
                     ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        class: {
-                          hidden: _vm.openTab !== 2,
-                          block: _vm.openTab === 2
-                        }
-                      },
-                      _vm._l(this.familias, function(familia, i) {
-                        return _c("accordion", {
-                          key: i,
-                          attrs: { title: familia.nombre, id: familia.id }
-                        })
-                      }),
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        class: {
-                          hidden: _vm.openTab !== 3,
-                          block: _vm.openTab === 3
-                        }
-                      },
-                      _vm._l(this.familias, function(familia, i) {
-                        return _c("accordion", {
-                          key: i,
-                          attrs: { title: familia.nombre, id: familia.id }
-                        })
-                      }),
-                      1
-                    )
-                  ])
-                ])
+                    _vm._v("\n            editar carta\n          ")
+                  ]
+                )
               ]
             )
-          ])
-    ],
-    1
-  )
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "px-4 py-5 flex-auto" },
+              [
+                _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.modalAltaSubcarta = !_vm.modalAltaSubcarta
+                      }
+                    }
+                  },
+                  [
+                    _c("strong", [_vm._v("Alta SubCarta")]),
+                    _vm._v(" "),
+                    _vm.modalAltaSubcarta
+                      ? _c("span", { staticClass: "minus-circle" }, [
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "w-6 h-6",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                fill: "none",
+                                viewBox: "0 0 24 24",
+                                stroke: "currentColor"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  "stroke-linecap": "round",
+                                  "stroke-linejoin": "round",
+                                  "stroke-width": "2",
+                                  d: "M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                }
+                              })
+                            ]
+                          )
+                        ])
+                      : _c("span", { staticClass: "plus-circle" }, [
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "w-6 h-6",
+                              attrs: {
+                                fill: "none",
+                                stroke: "currentColor",
+                                viewBox: "0 0 24 24",
+                                xmlns: "http://www.w3.org/2000/svg"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  "stroke-linecap": "round",
+                                  "stroke-linejoin": "round",
+                                  "stroke-width": "2",
+                                  d:
+                                    "M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                }
+                              })
+                            ]
+                          )
+                        ])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.modalAltaSubcarta
+                  ? _c("establecimientoCartasAlta")
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "tab-content tab-space" }, [
+                  _c(
+                    "div",
+                    {
+                      class: {
+                        hidden: _vm.openTab !== 1,
+                        block: _vm.openTab === 1
+                      }
+                    },
+                    _vm._l(this.familias, function(familia, i) {
+                      return _c("accordion", {
+                        key: i,
+                        attrs: { title: familia.nombre, id: familia.id }
+                      })
+                    }),
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      class: {
+                        hidden: _vm.openTab !== 2,
+                        block: _vm.openTab === 2
+                      }
+                    },
+                    _vm._l(this.familias, function(familia, i) {
+                      return _c("accordion", {
+                        key: i,
+                        attrs: { title: familia.nombre, id: familia.id }
+                      })
+                    }),
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      class: {
+                        hidden: _vm.openTab !== 3,
+                        block: _vm.openTab === 3
+                      }
+                    },
+                    _vm._l(this.familias, function(familia, i) {
+                      return _c("accordion", {
+                        key: i,
+                        attrs: { title: familia.nombre, id: familia.id }
+                      })
+                    }),
+                    1
+                  )
+                ])
+              ],
+              1
+            )
+          ]
+        )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue?vue&type=template&id=f12dcbce&":
+/*!*********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue?vue&type=template&id=f12dcbce& ***!
+  \*********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "md:flex mb-4 bg-green-50 m-4" }, [
+      _c("div", { staticClass: "md:flex-1 md:pr-3" }, [
+        _c(
+          "label",
+          { staticClass: "block uppercase tracking-wide text-xs font-bold" },
+          [_vm._v("Nombre ")]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.carta.nombre,
+              expression: "carta.nombre"
+            }
+          ],
+          staticClass: "w-full shadow-inner p-4 border-0",
+          attrs: {
+            type: "text",
+            name: "nombre",
+            placeholder: "Da un nombre a la carta. "
+          },
+          domProps: { value: _vm.carta.nombre },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.carta, "nombre", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "mb-4 max-width-1" }, [
+        _c(
+          "label",
+          { staticClass: "block uppercase tracking-wide text-xs font-bold" },
+          [_vm._v("Orden Nº ")]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.carta.orden,
+              expression: "carta.orden"
+            }
+          ],
+          staticClass: "w-full shadow-inner p-4 border-0",
+          attrs: { type: "text", name: "orden", placeholder: "que posición? " },
+          domProps: { value: _vm.carta.orden },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.carta, "orden", $event.target.value)
+            }
+          }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(0)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start"
+      },
+      [
+        _c("div", { staticClass: "rounded-md shadow" }, [
+          _c(
+            "a",
+            {
+              staticClass:
+                "w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-700 hover:bg-red-800 md:py-4 md:text-lg md:px-10",
+              attrs: { href: "#" }
+            },
+            [_vm._v("\r\n                  Comienza Ya !!\r\n                ")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "mt-3 sm:mt-0 sm:ml-3" }, [
+          _c(
+            "a",
+            {
+              staticClass:
+                "w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-700 hover:bg-red-800 md:py-4 md:text-lg md:px-10",
+              attrs: { href: "#" }
+            },
+            [
+              _vm._v(
+                "\r\n                  Ver Demostración\r\n                "
+              )
+            ]
+          )
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -44158,7 +44655,7 @@ var render = function() {
           "button",
           {
             staticClass:
-              "text-xs font-bold uppercase px-5 py-3 \n hover:bg-green-800\n shadow-lg rounded block leading-normal\n  text-white bg-green-600\n ",
+              "text-xs font-bold uppercase px-5 py-3 hover:bg-green-800 shadow-lg rounded block leading-normal text-white bg-green-600",
             attrs: { href: "javascript:void(0)" },
             on: {
               click: function($event) {
@@ -44166,13 +44663,13 @@ var render = function() {
               }
             }
           },
-          [_vm._v("EDITAR")]
+          [_vm._v("\n    EDITAR\n  ")]
         )
       : _c(
           "button",
           {
             staticClass:
-              "text-xs font-bold uppercase px-5 py-3 \n hover:bg-green-800\n shadow-lg rounded block leading-normal\n  text-white bg-green-600\n\n ",
+              "text-xs font-bold uppercase px-5 py-3 hover:bg-green-800 shadow-lg rounded block leading-normal text-white bg-green-600",
             attrs: { href: "javascript:void(0)" },
             on: {
               click: function($event) {
@@ -44180,7 +44677,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("GUARDAR")]
+          [_vm._v("\n    GUARDAR\n  ")]
         ),
     _vm._v(" "),
     _c("img", {
@@ -44206,15 +44703,17 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("h1", { staticClass: "mx-3 text-white font-semibold text-lg" }, [
-        _vm._v(_vm._s(_vm.esta.codigo_postal) + " Public Repos")
+        _vm._v(
+          "\n      " + _vm._s(_vm.esta.codigo_postal) + " Public Repos\n    "
+        )
       ])
     ]),
-    _vm._v(" \n\n\n\n       \n    " + _vm._s(_vm.esta.id) + "\n    "),
+    _vm._v("\n\n  " + _vm._s(_vm.esta.id) + "\n  "),
     _c("br"),
-    _vm._v("\n    " + _vm._s(_vm.esta["nombre_fiscal"]) + "\n        "),
+    _vm._v("\n  " + _vm._s(_vm.esta["nombre_fiscal"]) + "\n  "),
     _c("div", { staticClass: "py-4 px-6" }, [
       _c("h1", { staticClass: "text-2xl font-semibold text-gray-800" }, [
-        _vm._v(_vm._s(_vm.esta.nombre_comercial))
+        _vm._v("\n      " + _vm._s(_vm.esta.nombre_comercial) + "\n    ")
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "py-2 text-lg text-gray-700" }, [
@@ -44314,7 +44813,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("p", { staticClass: "text-grey-darker text-base" }, [
         _vm._v(
-          "\n      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.\n    "
+          "\n      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus\n      quia, nulla! Maiores et perferendis eaque, exercitationem praesentium\n      nihil.\n    "
         )
       ])
     ])
@@ -44323,7 +44822,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mb-5 ml-5 " }, [
+    return _c("div", { staticClass: "mb-5 ml-5" }, [
       _c(
         "label",
         {
@@ -44335,7 +44834,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("div", {
         staticClass:
-          "editable p-3 bg-gray-100 rounded form-input w-full text-gray-700 "
+          "editable p-3 bg-gray-100 rounded form-input w-full text-gray-700"
       }),
       _vm._v(" "),
       _c("input", {
@@ -44351,7 +44850,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mb-5 ml-5 " }, [
+    return _c("div", { staticClass: "mb-5 ml-5" }, [
       _c(
         "label",
         {
@@ -44363,7 +44862,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("div", {
         staticClass:
-          "editable p-3 bg-gray-100 rounded form-input w-full text-gray-700 "
+          "editable p-3 bg-gray-100 rounded form-input w-full text-gray-700"
       }),
       _vm._v(" "),
       _c("input", {
@@ -44393,7 +44892,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "flex flex-wrap mx-10" }, [
+  return _c("div", { staticClass: "flex flex-wrap mx-1" }, [
     _c("div", { staticClass: "w-full" }, [
       _c(
         "ul",
@@ -44418,7 +44917,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            Datos\n          ")]
+                [_vm._v("\n            Datos v.1\n          ")]
               )
             ]
           ),
@@ -44550,7 +45049,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "flex flex-wrap mx-10" }, [
+  return _c("div", { staticClass: "flex flex-wrap mx-1" }, [
     _c("div", { staticClass: "w-full" }, [
       _c(
         "ul",
@@ -45441,6 +45940,75 @@ var render = function() {
       },
       [
         _vm._t("default"),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            attrs: { href: "#" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                _vm.modalAltaPlato = !_vm.modalAltaPlato
+              }
+            }
+          },
+          [
+            _c("strong", [_vm._v("Alta Plato")]),
+            _vm._v(" "),
+            _vm.modalAltaPlato
+              ? _c("span", { staticClass: "minus-circle" }, [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "w-6 h-6",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        fill: "none",
+                        viewBox: "0 0 24 24",
+                        stroke: "currentColor"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          "stroke-linecap": "round",
+                          "stroke-linejoin": "round",
+                          "stroke-width": "2",
+                          d: "M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                        }
+                      })
+                    ]
+                  )
+                ])
+              : _c("span", { staticClass: "plus-circle" }, [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "w-6 h-6",
+                      attrs: {
+                        fill: "none",
+                        stroke: "currentColor",
+                        viewBox: "0 0 24 24",
+                        xmlns: "http://www.w3.org/2000/svg"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          "stroke-linecap": "round",
+                          "stroke-linejoin": "round",
+                          "stroke-width": "2",
+                          d:
+                            "M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                        }
+                      })
+                    ]
+                  )
+                ])
+          ]
+        ),
+        _vm._v(" "),
+        _vm.modalAltaPlato ? _c("establecimientoCartasAlta") : _vm._e(),
         _vm._v(" "),
         _vm._l(_vm.platos, function(plato, i) {
           return _c(
@@ -57745,7 +58313,8 @@ Vue.component('establecimiento', __webpack_require__(/*! ./components/Establecim
 Vue.component('establecimiento-navegacion', __webpack_require__(/*! ./components/Establecimientos/EstablecimientoNavegacion.vue */ "./resources/js/components/Establecimientos/EstablecimientoNavegacion.vue")["default"]);
 Vue.component('establecimiento-datos', __webpack_require__(/*! ./components/Establecimientos/EstablecimientoDatos.vue */ "./resources/js/components/Establecimientos/EstablecimientoDatos.vue")["default"]);
 Vue.component('establecimiento-cartas', __webpack_require__(/*! ./components/Establecimientos/EstablecimientoCartas.vue */ "./resources/js/components/Establecimientos/EstablecimientoCartas.vue")["default"]);
-Vue.component('establecimiento-qr', __webpack_require__(/*! ./components/Establecimientos/EstablecimientoQr.vue */ "./resources/js/components/Establecimientos/EstablecimientoQr.vue")["default"]);
+Vue.component('establecimiento-qr', __webpack_require__(/*! ./components/Establecimientos/EstablecimientoQr.vue */ "./resources/js/components/Establecimientos/EstablecimientoQr.vue")["default"]); //Vue.component('navegador', require('./components/Navegador.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -57754,7 +58323,10 @@ Vue.component('establecimiento-qr', __webpack_require__(/*! ./components/Estable
 
 var app = new Vue({
   el: '#app',
-  isOpen: false
+  data: {
+    message: 'Hello Vue!',
+    isOpen: true
+  }
 });
 
 /***/ }),
@@ -58024,6 +58596,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstablecimientoCartas_vue_vue_type_template_id_14385abe___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstablecimientoCartas_vue_vue_type_template_id_14385abe___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EstablecimientoCartasAlta_vue_vue_type_template_id_f12dcbce___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EstablecimientoCartasAlta.vue?vue&type=template&id=f12dcbce& */ "./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue?vue&type=template&id=f12dcbce&");
+/* harmony import */ var _EstablecimientoCartasAlta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EstablecimientoCartasAlta.vue?vue&type=script&lang=js& */ "./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EstablecimientoCartasAlta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EstablecimientoCartasAlta_vue_vue_type_template_id_f12dcbce___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EstablecimientoCartasAlta_vue_vue_type_template_id_f12dcbce___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EstablecimientoCartasAlta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EstablecimientoCartasAlta.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EstablecimientoCartasAlta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue?vue&type=template&id=f12dcbce&":
+/*!***************************************************************************************************************!*\
+  !*** ./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue?vue&type=template&id=f12dcbce& ***!
+  \***************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstablecimientoCartasAlta_vue_vue_type_template_id_f12dcbce___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./EstablecimientoCartasAlta.vue?vue&type=template&id=f12dcbce& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Establecimientos/EstablecimientoCartasAlta.vue?vue&type=template&id=f12dcbce&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstablecimientoCartasAlta_vue_vue_type_template_id_f12dcbce___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstablecimientoCartasAlta_vue_vue_type_template_id_f12dcbce___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

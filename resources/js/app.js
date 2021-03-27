@@ -38,6 +38,7 @@ Vue.component('establecimiento-navegacion', require('./components/Establecimient
 Vue.component('establecimiento-datos', require('./components/Establecimientos/EstablecimientoDatos.vue').default);
 Vue.component('establecimiento-cartas', require('./components/Establecimientos/EstablecimientoCartas.vue').default);
 Vue.component('establecimiento-qr', require('./components/Establecimientos/EstablecimientoQr.vue').default);
+//Vue.component('navegador', require('./components/Navegador.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -47,5 +48,11 @@ Vue.component('establecimiento-qr', require('./components/Establecimientos/Estab
 
 const app = new Vue({
     el: '#app',
-    isOpen : false,
+    data: {
+        message: 'Hello Vue!',
+        isOpen: true,
+
+      }
+  
+   
 });

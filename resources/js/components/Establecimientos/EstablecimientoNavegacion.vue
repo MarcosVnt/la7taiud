@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap mx-10">
+  <div class="flex flex-wrap mx-1">
 
 <!--      <modal v-if="modalCarta" @altaCarta="altaModalCarta"></modal>
  -->
@@ -7,7 +7,7 @@
       <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
         <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
           <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal" v-on:click="toggleTabs(1)" v-bind:class="{'text-green-600 bg-white': openTab !== 1, 'text-white bg-green-600': openTab === 1}">
-            Datos
+            Datos v.1
           </a>
         </li>
         <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
