@@ -14,7 +14,7 @@ class FamiliaPlatoSeeder extends Seeder
         
         public function run()
         {
-            //
+            //primer plato
             DB::table('familia_plato')->insert([
     
     
@@ -34,6 +34,9 @@ class FamiliaPlatoSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
+
+
+            // segundo plato
     
             DB::table('familia_plato')->insert([
     
@@ -53,12 +56,36 @@ class FamiliaPlatoSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
+            DB::table('familia_plato')->insert([
     
+                
+                'familia_id' => 2,
+                'plato_id' => 5,
+                
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+    
+    
+
+
+
+            // postres
             DB::table('familia_plato')->insert([
     
                 
                 'familia_id' => 3,
-                'plato_id' => 4,
+                'plato_id' => 6,
+                
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            DB::table('familia_plato')->insert([
+    
+                
+                'familia_id' => 3,
+                'plato_id' => 7,
                 
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

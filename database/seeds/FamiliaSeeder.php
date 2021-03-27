@@ -44,7 +44,7 @@ class FamiliaSeeder extends Seeder
     
     
             DB::table('familias')->insert([
-                'nombre' => 'Primer plato',
+                'nombre' => 'Entrantes',
                 'orden' => '1',
                 'carta_id' => '2',
                 
@@ -52,7 +52,7 @@ class FamiliaSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ]);
             DB::table('familias')->insert([
-                'nombre' => 'Segundo plato',
+                'nombre' => 'Segundos',
                 'orden' => '2',
                 'carta_id' =>'2',
                 
@@ -60,7 +60,7 @@ class FamiliaSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ]);
             DB::table('familias')->insert([
-                'nombre' => 'Postre plato',
+                'nombre' => 'Postres',
                 'orden' => '3',
                 'carta_id' => '2',
                 
@@ -69,7 +69,7 @@ class FamiliaSeeder extends Seeder
             ]);
     
             DB::table('familias')->insert([
-                'nombre' => 'Primer plato',
+                'nombre' => 'Ensaldas',
                 'orden' => '1',
                 'carta_id' => '3',
                 
@@ -77,7 +77,7 @@ class FamiliaSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ]);
             DB::table('familias')->insert([
-                'nombre' => 'Segundo plato',
+                'nombre' => 'Segundos platos',
                 'orden' => '2',
                 'carta_id' => '3',
                 
@@ -85,7 +85,7 @@ class FamiliaSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ]);
             DB::table('familias')->insert([
-                'nombre' => 'Postre plato',
+                'nombre' => 'Postre de noche',
                 'orden' => '3',
                 'carta_id' => '3',
                 

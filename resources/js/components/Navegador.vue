@@ -46,8 +46,8 @@
                       <a class="font-medium text-green-700 hover:text-green-900" href="{{ route('register') }}">{{ __('Register') }}</a>
                   @endif
                 @else
-                    <span class="text-green-700 text-sm pr-4"> {{ Auth::user()->name }}  </span>
-
+<!--                     <span class="text-green-700 text-sm pr-4"> {{ Auth::user()->name }}  </span>
+ -->
                     <a id="navbarDropdown" 
                         href="#"
                         class="bg-green-500 rounded-full mr-2 px-3 py-1 font-bold text-sm text-white"

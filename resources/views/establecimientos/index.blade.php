@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
 
-@section('navegacion')
+{{-- @section('navegacion')
     
    @include('ui.adminnav') 
 @endsection
-
+ --}}
 
 
 @section('content')
 
 
-<h1 class="text-2xl text-center mt-10">Establecimiento  v.1</h1>
+<h1 class="text-2xl text-center mt-10">Establecimiento  </h1>
 
 
 <establecimiento-navegacion

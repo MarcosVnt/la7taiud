@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <div class="md:flex-1 mt-2 mb:mt-0 md:px-3">
       <div class="mb-4">
         <label class="block uppercase tracking-wide text-xs font-bold"
@@ -115,6 +116,7 @@
       </div>
     </div>
 
+
     <div class="md:flex mb-4">
       <div class="md:flex-1 md:pr-3">
         <label
@@ -148,6 +150,7 @@
         />
       </div>
     </div>
+
 
     <div class="md:flex mb-4">
       <div class="md:flex-1 md:pr-3">
@@ -183,6 +186,7 @@
       </div>
     </div>
 
+
     <div class="mb-4">
       <label class="block uppercase tracking-wide text-xs font-bold"
         >Contacto</label
@@ -197,6 +201,7 @@
         placeholder="Contacto"
       />
     </div>
+
 
     <div class="mb-4">
       <label class="block uppercase tracking-wide text-xs font-bold"
@@ -213,9 +218,16 @@
       />
     </div>
 
+
     <div class="bg-indigo-300 ...">
-      <img class="object-contain md:object-scale-down" :src="esta.imagen" />
-    </div>
+      <div class="bg-indigo-300 ...">
+        <img
+          class="object-contain md:object-scale-down"
+          :src="'../img/Vile_m.JPG'"
+        />
+      </div>
+<!--       <img class="object-contain md:object-scale-down" :src="esta.imagen" />
+ -->    </div>
 
     <button
       v-if="isDisabled"
@@ -235,11 +247,11 @@
       GUARDAR
     </button>
 
-    <img
+   <!--  <img
       class="w-full h-56 object-cover object-center"
       :src="esta.imagen"
       alt="avatar"
-    />
+    /> -->
     <div class="flex items-center px-6 py-3 bg-gray-900">
       <svg class="h-6 w-6 text-white fill-current" viewBox="0 0 20 20">
         <path
@@ -251,9 +263,11 @@
       </h1>
     </div>
 
-    {{ esta.id }}
+   <!--  {{ esta.id }}
     <br />
     {{ esta["nombre_fiscal"] }}
+ -->
+
     <div class="py-4 px-6">
       <h1 class="text-2xl font-semibold text-gray-800">
         {{ esta.nombre_comercial }}

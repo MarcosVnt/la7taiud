@@ -41,8 +41,8 @@
                                     <a class="text-green-700 no-underline hover:underline hover:text-green-900 p-3" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 @endif
                             @else
-                                    <span class="text-gray-300 text-sm pr-4"> {{ Auth::user()->name }}  </span>
-
+                                    {{-- <span class="text-gray-300 text-sm pr-4"> {{ Auth::user()->name }}  </span>
+ --}}
                                     <a id="navbarDropdown" 
                                         href="#"
                                         class="bg-green-500 rounded-full mr-2 px-3 py-1 font-bold text-sm text-white"

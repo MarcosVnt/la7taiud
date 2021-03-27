@@ -2756,6 +2756,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "EstablecimientoDatos",
   props: ["esta"],
@@ -2952,6 +2966,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -44644,10 +44666,12 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "bg-indigo-300 ..." }, [
-      _c("img", {
-        staticClass: "object-contain md:object-scale-down",
-        attrs: { src: _vm.esta.imagen }
-      })
+      _c("div", { staticClass: "bg-indigo-300 ..." }, [
+        _c("img", {
+          staticClass: "object-contain md:object-scale-down",
+          attrs: { src: "../img/Vile_m.JPG" }
+        })
+      ])
     ]),
     _vm._v(" "),
     _vm.isDisabled
@@ -44663,7 +44687,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("\n    EDITAR\n  ")]
+          [_vm._v("\n      EDITAR\n    ")]
         )
       : _c(
           "button",
@@ -44677,13 +44701,8 @@ var render = function() {
               }
             }
           },
-          [_vm._v("\n    GUARDAR\n  ")]
+          [_vm._v("\n      GUARDAR\n    ")]
         ),
-    _vm._v(" "),
-    _c("img", {
-      staticClass: "w-full h-56 object-cover object-center",
-      attrs: { src: _vm.esta.imagen, alt: "avatar" }
-    }),
     _vm._v(" "),
     _c("div", { staticClass: "flex items-center px-6 py-3 bg-gray-900" }, [
       _c(
@@ -44704,16 +44723,16 @@ var render = function() {
       _vm._v(" "),
       _c("h1", { staticClass: "mx-3 text-white font-semibold text-lg" }, [
         _vm._v(
-          "\n      " + _vm._s(_vm.esta.codigo_postal) + " Public Repos\n    "
+          "\n        " +
+            _vm._s(_vm.esta.codigo_postal) +
+            " Public Repos\n      "
         )
       ])
     ]),
-    _vm._v("\n\n  " + _vm._s(_vm.esta.id) + "\n  "),
-    _c("br"),
-    _vm._v("\n  " + _vm._s(_vm.esta["nombre_fiscal"]) + "\n  "),
+    _vm._v(" "),
     _c("div", { staticClass: "py-4 px-6" }, [
       _c("h1", { staticClass: "text-2xl font-semibold text-gray-800" }, [
-        _vm._v("\n      " + _vm._s(_vm.esta.nombre_comercial) + "\n    ")
+        _vm._v("\n        " + _vm._s(_vm.esta.nombre_comercial) + "\n      ")
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "py-2 text-lg text-gray-700" }, [
@@ -44813,7 +44832,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("p", { staticClass: "text-grey-darker text-base" }, [
         _vm._v(
-          "\n      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus\n      quia, nulla! Maiores et perferendis eaque, exercitationem praesentium\n      nihil.\n    "
+          "\n        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus\n        quia, nulla! Maiores et perferendis eaque, exercitationem praesentium\n        nihil.\n      "
         )
       ])
     ])
@@ -44917,7 +44936,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            Datos v.1\n          ")]
+                [_vm._v("\n            Datos\n          ")]
               )
             ]
           ),
@@ -45050,109 +45069,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex flex-wrap mx-1" }, [
-    _c("div", { staticClass: "w-full" }, [
-      _c(
-        "ul",
-        { staticClass: "flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row" },
-        [
-          _c(
-            "li",
-            { staticClass: "-mb-px mr-2 last:mr-0 flex-auto text-center" },
-            [
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal",
-                  class: {
-                    "text-green-600 bg-white": _vm.openTab !== 1,
-                    "text-white bg-green-600": _vm.openTab === 1
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.toggleTabs(1)
-                    }
-                  }
-                },
-                [_vm._v("\n            Datos\n          ")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            { staticClass: "-mb-px mr-2 last:mr-0 flex-auto text-center" },
-            [
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal",
-                  class: {
-                    "text-green-600 bg-white": _vm.openTab !== 2,
-                    "text-white bg-green-600": _vm.openTab === 2
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.toggleTabs(2)
-                    }
-                  }
-                },
-                [_vm._v("\n            Cartas\n          ")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            { staticClass: "-mb-px mr-2 last:mr-0 flex-auto text-center" },
-            [
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal",
-                  class: {
-                    "text-green-600 bg-white": _vm.openTab !== 3,
-                    "text-white bg-green-600": _vm.openTab === 3
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.toggleTabs(3)
-                    }
-                  }
-                },
-                [_vm._v("\n            QR\n          ")]
-              )
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
-        },
-        [
-          _c("div", { staticClass: "px-4 py-5 flex-auto" }, [
-            _c("div", { staticClass: "tab-content tab-space" }, [
-              _c("div", {
-                class: { hidden: _vm.openTab !== 1, block: _vm.openTab === 1 }
-              }),
-              _vm._v(" "),
-              _c("div", {
-                class: { hidden: _vm.openTab !== 2, block: _vm.openTab === 2 }
-              }),
-              _vm._v(" "),
-              _c("div", {
-                class: { hidden: _vm.openTab !== 3, block: _vm.openTab === 3 }
-              })
-            ])
-          ])
-        ]
-      )
+    _c("div", { staticClass: "bg-indigo-300 ..." }, [
+      _c("div", { staticClass: "bg-indigo-300 ..." }, [
+        _c("img", {
+          staticClass: "object-contain md:object-scale-down",
+          attrs: { src: "../img/qrcode_chrome.png" }
+        })
+      ])
     ])
   ])
 }

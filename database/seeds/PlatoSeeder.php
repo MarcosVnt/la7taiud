@@ -40,7 +40,7 @@ class PlatoSeeder extends Seeder
         ]);
 
         DB::table('platos')->insert([
-            'nombre' => 'Filete Leones',
+            'nombre' => 'Filete ternera',
             'observaciones'=>'nombre del plato con observaciones',
 
             'orden' => '3',
@@ -53,11 +53,55 @@ class PlatoSeeder extends Seeder
         ]);
 
         DB::table('platos')->insert([
-            'nombre' => 'Lubina Leonesa',
+            'nombre' => 'Lubina del cantabrico',
             'observaciones'=>'nombre del plato con observaciones',
             'moneda' => '€',
 
             'orden' => '4',
+            'establecimiento_id' => 1,
+            'precio' => '12.50',
+
+            
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+
+        DB::table('platos')->insert([
+            'nombre' => 'Lechazo al horno',
+            'observaciones'=>'nombre del plato con observaciones',
+            'moneda' => '€',
+
+            'orden' => '5',
+            'establecimiento_id' => 1,
+            'precio' => '12.50',
+
+            
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+
+        DB::table('platos')->insert([
+            'nombre' => 'tarta de limon',
+            'observaciones'=>'nombre del plato con observaciones',
+            'moneda' => '€',
+
+            'orden' => '6',
+            'establecimiento_id' => 1,
+            'precio' => '12.50',
+
+            
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('platos')->insert([
+            'nombre' => 'Tarta de queso',
+            'observaciones'=>'nombre del plato con observaciones',
+            'moneda' => '€',
+
+            'orden' => '7',
             'establecimiento_id' => 1,
             'precio' => '12.50',
 
