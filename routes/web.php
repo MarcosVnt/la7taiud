@@ -113,6 +113,10 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::get('/cartas/familias/{carta}', 'EstablecimientoController@cartafamilias')->name('establecimientos.cartafamilias');
     Route::get('/cartas/familias/platos/{familia}', 'EstablecimientoController@familiaplatos')->name('establecimientos.familiaplatos');
     
+    Route::post('/cartas/store', 'CartaController@store')->name('cartas.store');
+    Route::post('/subcartas/store', 'FamiliaController@store')->name('subcartas.store');
+    Route::post('/platos/store', 'PlatoController@store')->name('plato.store');
+
 
     
 

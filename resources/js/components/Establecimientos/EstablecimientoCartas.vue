@@ -47,7 +47,19 @@
         </span>
       </a>
 
-      <establecimientoCartasAlta v-if="modalAlta"></establecimientoCartasAlta>
+      
+
+
+  <!--   <listaDraggable></listaDraggable> -->
+
+      <establecimientoCartasAlta 
+      v-if="modalAlta"
+          
+          @on-guardar="onGuardar"
+          @on-cancelar="onCancelar"
+
+      >
+      </establecimientoCartasAlta>
 
       <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
         <li
@@ -64,9 +76,8 @@
               'text-white bg-green-600': openTab === carta.id,
             }"
           >
-            {{ carta.nombre }}
+          {{ carta.nombre }}
             <!--  NOmbre: {{carta.nombre}}--id1-{{i+1}}-cartaid-{{carta.id}}-- -->
-            editar carta
           </a>
         </li>
 
@@ -93,10 +104,10 @@
       <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
       >
         <div class="px-4 py-5 flex-auto">
-           <a href="#" class="" @click.prevent="modalAltaSubcarta = !modalAltaSubcarta">
+           <a href="#" class="" @click.prevent="modalSubCarta">
         <strong>Alta SubCarta</strong>
 
-        <span v-if="modalAltaSubcarta" class="minus-circle">
+        <span v-if="modalAltaSubCarta" class="minus-circle">
           <svg
             class="w-6 h-6"
             xmlns="http://www.w3.org/2000/svg"
@@ -131,13 +142,21 @@
         </span>
       </a>
 
-            <establecimientoCartasAlta v-if="modalAltaSubcarta"></establecimientoCartasAlta>
+      <establecimientoCartasAltaSubCarta 
+      v-if="modalAltaSubCarta"
+          :cartaId ="cartaId"
+          @on-guardarSC="onGuardarSubCarta"
+          @on-cancelarSC="onCancelarSubCarta"
+
+      >
+      </establecimientoCartasAltaSubCarta>
 
           <div class="tab-content tab-space">
             <div v-bind:class="{ hidden: openTab !== 1, block: openTab === 1 }">
               <accordion
                 v-for="(familia, i) in this.familias"
                 v-bind:key="i"
+                 :familia="familia"
                 :title="familia.nombre"
                 :id="familia.id"
               >
@@ -147,6 +166,7 @@
               <accordion
                 v-for="(familia, i) in this.familias"
                 v-bind:key="i"
+                 :familia="familia"
                 :title="familia.nombre"
                 :id="familia.id"
               >
@@ -156,6 +176,7 @@
               <accordion
                 v-for="(familia, i) in this.familias"
                 v-bind:key="i"
+                :familia="familia"
                 :title="familia.nombre"
                 :id="familia.id"
               >
@@ -180,14 +201,20 @@ import accordion from "../accordion";
 import modal from "../Modal.vue";
 
 import establecimientoCartasAlta from "./EstablecimientoCartasAlta.vue";
+import establecimientoCartasAltaSubCarta from "./EstablecimientoCartasAltaSubCarta.vue";
+
+
+import listaDraggable  from "../ListaDraggable.vue";
 
 export default {
-  name: "cartas",
+  name: "EstablecimientoCartas",
   props: ["esta"],
   components: {
     accordion,
     modal,
     establecimientoCartasAlta,
+    establecimientoCartasAltaSubCarta,
+    listaDraggable,
   },
 
   data() {
@@ -196,16 +223,57 @@ export default {
       cartas: {},
       familias: {},
       platos: {},
-      modalAlta: false,//carta
-      modalAltaSubcarta: false,
+      establecimientoId:'',
+      cartaId: '',
+
+      modalAlta: false,
+      modalAltaSubCarta: false,
     };
   },
   methods: {
-     modalSubCartaAlta(event) {
+
+
+
+
+/* SUBCARTA */ 
+
+  onGuardarSubCarta(subCarta){
+      console.log('onGuardarSubCarta', subCarta);
+      this.familias.push(subCarta);
+      this.onCancelarSubCarta();
+
+    },
+    onCancelarSubCarta(){
+      console.log('onCancelarSubCarta ....');
+      this.modalAltaSubCarta = false;
+
+    },
+
+
+    modalSubCarta() {
+
+      this.modalAltaSubCarta = !this.modalAltaSubCarta;
+    },
+
+
+/* CARTA */
+
+    onGuardar(carta){
+      console.log('onGuardar', carta);
+      this.cartas.push(carta);
+      this.onCancelar();
+
+    },
+    onCancelar(){
+      console.log('onCancelar ....');
+      this.modalAlta = false;
+
+    },
+    /*  modalSubCartaAlta(event) {
       
       this.modalAlta = !this.modalAlta;
     
-    },
+    },  */
    
 
     modalCarta(event) {
@@ -217,9 +285,12 @@ export default {
 
       //this.$emit('altaCarta',true);
     },
+
+
     toggleTabs: function (tabNumber, cartaId) {
       this.openTab = tabNumber;
       console.log("toggleTabs", tabNumber, this.openTab, cartaId);
+      this.cartaId = cartaId;
 
       axios
         .get(`/cartas/familias/${cartaId}`)
@@ -251,6 +322,12 @@ export default {
 
         this.cartas = respuesta.data.cartas;
         this.toggleTabs(1,this.openTab);
+
+        //todo 
+        //this.establecimientoId = this.cartas[0]['establecimiento_id'];
+
+
+        console.log('todo', this.establecimientoId);
         // Eliminar del DOM  simpre borra del padre hacia el hijo
         //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
       })

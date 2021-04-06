@@ -367,6 +367,12 @@ Route::group(['as'=>'admin.','prefix' => 'admin','namespace'=>'Admin','middlewar
 
 
 
+VueDraggable
+https://www.binarcode.com/blog/building-animated-draggable-interfaces-with-vuejs-and-tailwind/
+npm install VueDraggable
+
+
+
 
 
 

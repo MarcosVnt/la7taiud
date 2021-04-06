@@ -2,16 +2,16 @@
   <div>
 
 
-    <div class="p-4 mb-3 flex justify-between items-center bg-green-100
+    <div class="p-4 mb-3 flex justify-between items-center bg-green-200
      bg-white border border-white shadow rounded-lg cursor-move">
 
        <div class="flex-auto w-full">
         <label
           class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold"
-          >Nombre Carta : </label
+          >Nombre SubCarta : </label
         >
         <input
-          v-model="carta.nombre"
+          v-model="subCarta.nombre"
           class="w-full shadow-inner p-4 border-0"
           type="text"
           name="nombre"
@@ -88,29 +88,29 @@
 
 <script>
 export default {
-  name: "EstablecimientoCartasAlta",
-  props: ["establecimiento_id"],
-  
+   name: "EstablecimientoCartasAltaSubCarta",
+  props: ["cartaId"],
+ 
   data() {
     return {
-      carta: {},
+      subCarta: {},
     };
   },
   methods: {
       cancelar() {
-                  this.$emit("on-cancelar");
+                  this.$emit("on-cancelarSC");
 
           
       },
     guardar() {
-      console.log("guardar", this.carta);
+      console.log("guardar", this.subCarta);
 
-      if(!this.carta.nombre){
+      if(!this.subCarta.nombre){
          
           this.$swal.fire(
           {
             title: 'Error',
-                      text: "Nombre Carta Obligatorio",
+                      text: "Nombre sub Carta Obligatorio",
                       icon: 'warning',
             }
           );
@@ -119,16 +119,17 @@ export default {
 
       // Enviar a axios
       const params = {
-        nombre: this.carta.nombre,
-        orden: this.carta.orden,
+        nombre: this.subCarta.nombre,
+        orden: this.subCarta.orden,
+        cartaId: this.cartaId,
       };
 
       axios
-        .post("/cartas/store/", params)
+        .post("/subcartas/store/", params)
         .then((respuesta) => {
           console.log(respuesta);
 
-          this.$emit("on-guardar", respuesta.data.carta);
+          this.$emit("on-guardarSC", respuesta.data.subCarta);
 
           // Eliminar del DOM  simpre borra del padre hacia el hijo
           //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);

@@ -56,7 +56,15 @@
         </span>
       </a>
 
-            <establecimientoCartasAlta v-if="modalAltaPlato"></establecimientoCartasAlta>
+            <establecimientoCartasAltaPlato 
+            v-if="modalAltaPlato"
+                :familia_id="familia.id"
+                @on-guardarPlato="onGuardarPlato"
+                @on-cancelarPlato="onCancelarPlato"
+          
+            
+            
+            ></establecimientoCartasAltaPlato>
 
 
       <div
@@ -87,13 +95,13 @@
 </template>
 <script>
 
-import establecimientoCartasAlta from "./Establecimientos/EstablecimientoCartasAlta.vue";
+import establecimientoCartasAltaPlato from "./Establecimientos/establecimientoCartasAltaPlato.vue";
 
 export default {
-  props: ["title", "id"],
+  props: ["title", "id", "familia"],
     components: {
   
-    establecimientoCartasAlta,
+    establecimientoCartasAltaPlato,
   },
 
   data() {
@@ -101,9 +109,34 @@ export default {
       active: false,
       platos: {},
       modalAltaPlato: false,
+      
     };
   },
   methods: {
+
+    
+    
+/* plato */ 
+
+  onGuardarPlato(plato){
+      console.log('onGuardarPlato', plato);
+      this.platos.push(plato);
+      this.onCancelarPlato();
+
+    },
+    onCancelarPlato(){
+      console.log('onCancelarPlato ....');
+      this.modalAltaPlato = false;
+
+    },
+
+
+    modalPlato() {
+
+      this.modalAltaPlato = !this.modalAltaPlato;
+    },
+
+
 
 
      

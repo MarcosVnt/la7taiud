@@ -62,7 +62,7 @@ LAS SUBCARTAS
 <script>
 
 export default {
-  name: "cartas",
+  name: "establecimientoQr",
   components: {
     
         
