@@ -35,15 +35,17 @@
 
         <nav class="bg-white shadow-md py-6">
           <div class="container mx-auto md:px-0">
-              <div class="flex items-center justify-around">
+              <div class="flex justify-start items-center ">
                  <a class="text-2xl text-red-900" href="{{ url('/') }}">
                     {{--   {{ config('app.name', 'Laravel') }} --}}
                       <img class="h-8 w-auto"  src="{{ asset('img/Vile_m.JPG') }}" alt="">
 
                   </a> 
+                </div>
+                <div class="flex justify-end object-top">
                   
                  
-                  <nav class="flex-1 text-right">
+                  <nav >
                           @guest
                               <a class="text-green-700 no-underline hover:underline hover:text-green-900 p-3" href="{{ route('login') }}">{{ __('Login') }}</a>
                               @if (Route::has('register'))
@@ -234,8 +236,9 @@
         </main>
       </div>
     </div>
-    <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-      <img class="h-56 w-full object-contain sm:h-72 md:h-96 lg:w-full lg:h-full" src="{{ asset('img/Vile_m.JPG') }}" alt="">
+    <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:top-20 lg:w-1/2">
+      <img class="h-56 w-full object-contain sm:h-72 md:h-96 lg:w-full lg:h-full" 
+      src="{{ asset('img/Vile_m.JPG') }}" alt="">
     </div>
   </div>
   

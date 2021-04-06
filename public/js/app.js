@@ -2288,6 +2288,92 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2309,21 +2395,27 @@ __webpack_require__.r(__webpack_exports__);
       cartas: {},
       familias: {},
       platos: {},
-      establecimientoId: '',
-      cartaId: '',
+      establecimientoId: "",
+      cartaId: "",
+      cartaEdit: {},
+      modalEdit: false,
       modalAlta: false,
       modalAltaSubCarta: false
     };
   },
   methods: {
+    onGuardarPlatos: function onGuardarPlatos() {
+      this.toggleTabs(this.openTab, this.cartaId, 1);
+    },
+
     /* SUBCARTA */
     onGuardarSubCarta: function onGuardarSubCarta(subCarta) {
-      console.log('onGuardarSubCarta', subCarta);
+      console.log("onGuardarSubCarta", subCarta);
       this.familias.push(subCarta);
       this.onCancelarSubCarta();
     },
     onCancelarSubCarta: function onCancelarSubCarta() {
-      console.log('onCancelarSubCarta ....');
+      console.log("onCancelarSubCarta ....");
       this.modalAltaSubCarta = false;
     },
     modalSubCarta: function modalSubCarta() {
@@ -2332,12 +2424,12 @@ __webpack_require__.r(__webpack_exports__);
 
     /* CARTA */
     onGuardar: function onGuardar(carta) {
-      console.log('onGuardar', carta);
+      console.log("onGuardar", carta);
       this.cartas.push(carta);
       this.onCancelar();
     },
     onCancelar: function onCancelar() {
-      console.log('onCancelar ....');
+      console.log("onCancelar ....");
       this.modalAlta = false;
     },
 
@@ -2346,21 +2438,92 @@ __webpack_require__.r(__webpack_exports__);
       this.modalAlta = !this.modalAlta;
     
     },  */
+    modalCartaEliminar: function modalCartaEliminar(cartaId) {
+      var _this = this;
+
+      console.log('modalCartaEliminar', cartaId);
+      this.$swal.fire({
+        title: '¿Deseas eliminar la Carta Y todos sus componentes?',
+        text: "Una vez eliminada no se puede recuperar!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+      }).then(function (result) {
+        if (result.value) {
+          var params = {
+            id: cartaId,
+            _method: 'delete'
+          }; // Enviar petición a axios
+
+          axios.post("/cartas/".concat(cartaId), params).then(function (respuesta) {
+            // console.log(respuesta)
+            _this.$swal.fire('Carta  Eliminada', respuesta.data.mensaje, 'success');
+
+            _this.inicializarCartas(); // Eliminar del DOM  simpre borra del padre hacia el hijo
+
+            /*  this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode); */
+
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        }
+      });
+    },
+    modalCartaEditar: function modalCartaEditar(cartaId) {
+      console.log("modalCartaEditar : ", cartaId);
+      console.log("modalCartaEditar : ", this.modalAlta);
+      this.modalAlta = !this.modalAlta;
+      this.modalEdit = true;
+      console.log("modalCartaEditar : ", this.modalAlta, this.cartaEdit); //this.cartaEdit = this.carta;
+      //this.$emit('altaCarta',true);
+    },
     modalCarta: function modalCarta(event) {
       console.log("modalCarta : ", event);
       console.log("modalCarta : ", this.modalAlta);
+      this.modalEdit = false;
       this.modalAlta = !this.modalAlta;
-      console.log("modalCarta : ", this.modalAlta); //this.$emit('altaCarta',true);
+      console.log("modalCarta : ", this.modalAlta);
+      this.cartaEdit = {}; //this.$emit('altaCarta',true);
     },
-    toggleTabs: function toggleTabs(tabNumber, cartaId) {
-      var _this = this;
+    toggleTabs: function toggleTabs(tabNumber, cartaId, carta) {
+      var _this2 = this;
 
       this.openTab = tabNumber;
       console.log("toggleTabs", tabNumber, this.openTab, cartaId);
       this.cartaId = cartaId;
+      this.cartaEdit = carta;
+      this.modalAlta = false;
       axios.get("/cartas/familias/".concat(cartaId)).then(function (respuesta) {
         console.log(respuesta);
-        _this.familias = respuesta.data.familias; // Eliminar del DOM  simpre borra del padre hacia el hijo
+        _this2.familias = respuesta.data.familias;
+        _this2.platos = respuesta.data.platos; // Eliminar del DOM  simpre borra del padre hacia el hijo
+        //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    inicializarCartas: function inicializarCartas() {
+      var _this3 = this;
+
+      console.log("created : ESTABLECIMIENTO CARTAS ", this.esta, this.esta.id);
+      var id = this.esta.id;
+      var params = {
+        estado: this.esta
+      };
+      console.log(this.esta.id); //  axios.post(`/cartas/${this.esta.id}`, params)
+
+      axios.get("/cartas/".concat(id)).then(function (respuesta) {
+        console.log("respuesta", respuesta);
+        _this3.cartas = respuesta.data.cartas;
+
+        _this3.toggleTabs(1, _this3.cartas[0]['id'], _this3.cartas[0]); //todo
+        //this.establecimientoId = this.cartas[0]['establecimiento_id'];
+
+
+        console.log("todo", _this3.establecimientoId); // Eliminar del DOM  simpre borra del padre hacia el hijo
         //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
       })["catch"](function (error) {
         console.log(error);
@@ -2368,28 +2531,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this2 = this;
-
-    console.log("created : ESTABLECIMIENTO CARTAS ", this.esta, this.esta.id);
-    var id = this.esta.id;
-    var params = {
-      estado: this.esta
-    };
-    console.log(this.esta.id); //  axios.post(`/cartas/${this.esta.id}`, params)
-
-    axios.get("/cartas/".concat(id)).then(function (respuesta) {
-      console.log(respuesta);
-      _this2.cartas = respuesta.data.cartas;
-
-      _this2.toggleTabs(1, _this2.openTab); //todo 
-      //this.establecimientoId = this.cartas[0]['establecimiento_id'];
-
-
-      console.log('todo', _this2.establecimientoId); // Eliminar del DOM  simpre borra del padre hacia el hijo
-      //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
-    })["catch"](function (error) {
-      console.log(error);
-    });
+    this.inicializarCartas();
   }
 });
 
@@ -2492,13 +2634,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "EstablecimientoCartasAlta",
-  props: ["establecimiento_id"],
+  props: ["establecimiento_id", "cartaEdit", "modalEdit"],
   data: function data() {
     return {
       carta: {}
     };
+  },
+  created: function created() {
+    console.log("CREATED CARTAS ALTA 222", this.cartaEdit, this.modalEdit);
+
+    if (this.cartaEdit.nombre) {
+      this.carta['nombre'] = this.cartaEdit.nombre;
+      this.modalEdit = true;
+    }
   },
   methods: {
     cancelar: function cancelar() {
@@ -2523,15 +2677,28 @@ __webpack_require__.r(__webpack_exports__);
         nombre: this.carta.nombre,
         orden: this.carta.orden
       };
-      axios.post("/cartas/store/", params).then(function (respuesta) {
-        console.log(respuesta);
 
-        _this.$emit("on-guardar", respuesta.data.carta); // Eliminar del DOM  simpre borra del padre hacia el hijo
-        //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
+      if (this.modalEdit) {
+        axios.post("/cartas/update/", params).then(function (respuesta) {
+          console.log(respuesta);
 
-      })["catch"](function (error) {
-        console.log(error);
-      });
+          _this.$emit("on-guardar", respuesta.data.carta); // Eliminar del DOM  simpre borra del padre hacia el hijo
+          //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
+
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      } else {
+        axios.post("/cartas/store/", params).then(function (respuesta) {
+          console.log(respuesta);
+
+          _this.$emit("on-guardar", respuesta.data.carta); // Eliminar del DOM  simpre borra del padre hacia el hijo
+          //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
+
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
     }
   }
 });
@@ -3291,18 +3458,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "establecimientoQr",
   components: {},
   data: function data() {
     return {
-      openTab: 1
+      openTab: 1,
+      cQr: '',
+      cQrr: ''
     };
   },
   methods: {
     toggleTabs: function toggleTabs(tabNumber) {
       this.openTab = tabNumber;
+    },
+    codeQr: function codeQr() {
+      var _this = this;
+
+      axios.get("/qrcode").then(function (respuesta) {
+        console.log('codeQr', respuesta);
+        _this.cQr = respuesta;
+        _this.cQrr = respuesta.data; // this.$emit("on-guardar", respuesta.data.carta);
+        // Eliminar del DOM  simpre borra del padre hacia el hijo
+        //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
+  },
+  created: function created() {
+    this.codeQr();
   }
 });
 
@@ -3464,7 +3665,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: "EstablecimientoCartasAltaPlato",
+  props: ["familia_id"],
   data: function data() {
     return {
       plato: {}
@@ -3481,11 +3689,20 @@ __webpack_require__.r(__webpack_exports__);
 
       if (!this.plato.nombre) {
         this.$swal.fire({
-          title: 'Error',
+          title: "Error",
           text: "Nombre Plato Obligatorio",
-          icon: 'warning'
+          icon: "warning"
         });
         return;
+
+        if (!this.plato.precio) {
+          this.$swal.fire({
+            title: "Error",
+            text: "Nombre Precio Obligatorio",
+            icon: "warning"
+          });
+          return;
+        }
       } // Enviar a axios
 
 
@@ -3494,10 +3711,11 @@ __webpack_require__.r(__webpack_exports__);
         orden: this.plato.orden,
         descripcion: this.plato.descripcion,
         precio: this.plato.precio,
-        moneda: this.plato.moneda
+        moneda: this.plato.moneda,
+        familia_id: this.familia_id
       };
       axios.post("/platos/store/", params).then(function (respuesta) {
-        console.log('respuesta alta plato store', respuesta);
+        console.log("respuesta alta plato store", respuesta);
 
         _this.$emit("on-GuardarPlato", respuesta.data.plato); // Eliminar del DOM  simpre borra del padre hacia el hijo
         //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
@@ -4178,23 +4396,64 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["title", "id", "familia"],
+  name: "EstablecimientoCarta",
+  props: ["title", "id", "familia", "platos"],
   components: {
     establecimientoCartasAltaPlato: _Establecimientos_establecimientoCartasAltaPlato_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
       active: false,
-      platos: {},
+      platosFiltro: {},
       modalAltaPlato: false
     };
   },
   methods: {
+    muestraPlatos: function muestraPlatos(id) {
+      this.active = !this.active; //this.platos = {};
+
+      this.filteredPlato(id);
+      console.log('muestraPlatos', this.filteredPlato(id));
+      console.log('muestraPlatos3', this.platos);
+
+      if (this.active) {// this.familiaPlatos(this.id);
+      }
+    },
+    filteredPlato: function filteredPlato(id) {
+      console.log('filteredPlato - id', id);
+      return this.platos.filter(function (plato) {
+        var compo = plato.pivot.familia_id.toString().toLowerCase();
+        console.log('filteredPlato - compo', compo);
+        return compo.includes(id);
+      });
+    },
+    filteredRows1: function filteredRows1(a) {
+      // console.log("filteredRows1 inicio ", a);
+      return this.componentes.filter(function (componente) {
+        /*  console.log(
+          "filteredRows1 return ",
+          this.componentes,
+          componente.articulo_principal,
+          a
+        ); */
+        var compo = componente.articulo_principal.toString().toLowerCase();
+        var compo2 = componente.idpresupuestolinea.toString().toLowerCase();
+        /* console.log(
+          "filteredRows1 return dos compo  ",
+         compo,compo2
+        ); */
+        //return compo.includes(a.articulo);
+
+        return compo2.includes(a.id);
+      });
+    },
+
     /* plato */
     onGuardarPlato: function onGuardarPlato(plato) {
       console.log('onGuardarPlato', plato);
       this.platos.push(plato);
       this.onCancelarPlato();
+      this.$emit("on-guardarPlatos");
     },
     onCancelarPlato: function onCancelarPlato() {
       console.log('onCancelarPlato ....');
@@ -4217,8 +4476,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    console.log("CREATED ACCORDION ", this.title, this.id);
-    this.familiaPlatos(this.id);
+    console.log("CREATED ACCORDION ", this.title, this.id); // this.familiaPlatos(this.id);
   }
 });
 
@@ -48175,75 +48433,215 @@ var render = function() {
       "div",
       { staticClass: "w-full" },
       [
-        _c(
-          "a",
-          {
-            attrs: { href: "#" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.modalCarta($event)
-              }
-            }
-          },
-          [
-            _c("strong", [_vm._v("Alta Carta")]),
+        _c("div", { staticClass: "flex justify-between" }, [
+          _c("div", { staticClass: "flex" }, [
+            _c("div", [
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.modalCarta($event)
+                    }
+                  }
+                },
+                [
+                  _c("strong", [_vm._v("Alta Carta")]),
+                  _vm._v(" "),
+                  _vm.modalAlta
+                    ? _c("span", { staticClass: "minus-circle" }, [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "w-6 h-6",
+                            attrs: {
+                              xmlns: "http://www.w3.org/2000/svg",
+                              fill: "none",
+                              viewBox: "0 0 24 24",
+                              stroke: "currentColor"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                "stroke-linecap": "round",
+                                "stroke-linejoin": "round",
+                                "stroke-width": "2",
+                                d: "M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                              }
+                            })
+                          ]
+                        )
+                      ])
+                    : _c("span", { staticClass: "plus-circle" }, [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "w-6 h-6",
+                            attrs: {
+                              fill: "none",
+                              stroke: "currentColor",
+                              viewBox: "0 0 24 24",
+                              xmlns: "http://www.w3.org/2000/svg"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                "stroke-linecap": "round",
+                                "stroke-linejoin": "round",
+                                "stroke-width": "2",
+                                d:
+                                  "M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                              }
+                            })
+                          ]
+                        )
+                      ])
+                ]
+              )
+            ]),
             _vm._v(" "),
-            _vm.modalAlta
-              ? _c("span", { staticClass: "minus-circle" }, [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "w-6 h-6",
+            _c("div", { staticClass: "ml-4" })
+          ]),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.modalCartaEditar(_vm.cartaId)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "text-yellow-400 flex items-center" }, [
+                _vm._v("\n          Editar\n\n          "),
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      fill: "none",
+                      viewBox: "0 0 24 24",
+                      stroke: "currentColor"
+                    }
+                  },
+                  [
+                    _c("path", {
                       attrs: {
-                        xmlns: "http://www.w3.org/2000/svg",
-                        fill: "none",
-                        viewBox: "0 0 24 24",
-                        stroke: "currentColor"
+                        strokeLinecap: "round",
+                        strokeLinejoin: "round",
+                        strokeWidth: "{2}",
+                        d:
+                          "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                       }
-                    },
-                    [
-                      _c("path", {
-                        attrs: {
-                          "stroke-linecap": "round",
-                          "stroke-linejoin": "round",
-                          "stroke-width": "2",
-                          d: "M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                        }
-                      })
-                    ]
-                  )
-                ])
-              : _c("span", { staticClass: "plus-circle" }, [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "w-6 h-6",
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "svg",
+                  {
+                    staticClass: "h-6 w-6",
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      fill: "currentColor",
+                      stroke: "currentColor",
+                      "stroke-linecap": "round",
+                      "stroke-linejoin": "round",
+                      "stroke-width": "2",
+                      viewBox: "0 0 24 24"
+                    }
+                  },
+                  [
+                    _c("path", {
                       attrs: {
-                        fill: "none",
-                        stroke: "currentColor",
-                        viewBox: "0 0 24 24",
-                        xmlns: "http://www.w3.org/2000/svg"
+                        d:
+                          "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                       }
-                    },
-                    [
-                      _c("path", {
-                        attrs: {
-                          "stroke-linecap": "round",
-                          "stroke-linejoin": "round",
-                          "stroke-width": "2",
-                          d:
-                            "M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                        }
-                      })
-                    ]
-                  )
-                ])
-          ]
-        ),
+                    })
+                  ]
+                ),
+                _c("span", { staticClass: "text-xl font-bold ml-2" })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.modalCartaEliminar(_vm.cartaId)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "text-yellow-400 flex items-center" }, [
+                _vm._v("\n          Eliminar\n\n          "),
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      fill: "none",
+                      viewBox: "0 0 24 24",
+                      stroke: "currentColor"
+                    }
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        "stroke-linecap": "round",
+                        "stroke-linejoin": "round",
+                        "stroke-width": "2",
+                        d:
+                          "M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "svg",
+                  {
+                    staticClass: "h-6 w-6",
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      fill: "currentColor",
+                      stroke: "currentColor",
+                      "stroke-linecap": "round",
+                      "stroke-linejoin": "round",
+                      "stroke-width": "2",
+                      viewBox: "0 0 24 24"
+                    }
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("span", { staticClass: "text-xl font-bold ml-2" })
+              ])
+            ]
+          )
+        ]),
         _vm._v(" "),
         _vm.modalAlta
           ? _c("establecimientoCartasAlta", {
+              attrs: { cartaEdit: _vm.cartaEdit, modalEdit: _vm.modalEdit },
               on: { "on-guardar": _vm.onGuardar, "on-cancelar": _vm.onCancelar }
             })
           : _vm._e(),
@@ -48266,17 +48664,21 @@ var render = function() {
                       "text-xs font-bold uppercase px-5 py-3 pb-2 shadow rounded block leading-normal bg-green-100",
                     class: {
                       "text-green-600 bg-white": _vm.openTab !== i + 1,
-                      "text-white bg-green-600": _vm.openTab === carta.id
+                      "text-white bg-green-600": _vm.openTab === i + 1
                     },
                     on: {
                       click: function($event) {
-                        return _vm.toggleTabs(i + 1, carta.id)
+                        return _vm.toggleTabs(i + 1, carta.id, carta)
                       }
                     }
                   },
                   [
                     _vm._v(
-                      "\n          " + _vm._s(carta.nombre) + "\n            "
+                      "\n            " +
+                        _vm._s(carta.nombre) +
+                        " - " +
+                        _vm._s(carta.id) +
+                        " \n            \n            "
                     )
                   ]
                 )
@@ -48374,70 +48776,23 @@ var render = function() {
                     })
                   : _vm._e(),
                 _vm._v(" "),
-                _c("div", { staticClass: "tab-content tab-space" }, [
-                  _c(
-                    "div",
-                    {
-                      class: {
-                        hidden: _vm.openTab !== 1,
-                        block: _vm.openTab === 1
-                      }
-                    },
-                    _vm._l(this.familias, function(familia, i) {
-                      return _c("accordion", {
-                        key: i,
-                        attrs: {
-                          familia: familia,
-                          title: familia.nombre,
-                          id: familia.id
-                        }
-                      })
-                    }),
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      class: {
-                        hidden: _vm.openTab !== 2,
-                        block: _vm.openTab === 2
-                      }
-                    },
-                    _vm._l(this.familias, function(familia, i) {
-                      return _c("accordion", {
-                        key: i,
-                        attrs: {
-                          familia: familia,
-                          title: familia.nombre,
-                          id: familia.id
-                        }
-                      })
-                    }),
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      class: {
-                        hidden: _vm.openTab !== 3,
-                        block: _vm.openTab === 3
-                      }
-                    },
-                    _vm._l(this.familias, function(familia, i) {
-                      return _c("accordion", {
-                        key: i,
-                        attrs: {
-                          familia: familia,
-                          title: familia.nombre,
-                          id: familia.id
-                        }
-                      })
-                    }),
-                    1
-                  )
-                ])
+                _c(
+                  "div",
+                  { staticClass: "tab-content tab-space" },
+                  _vm._l(this.familias, function(familia, i) {
+                    return _c("accordion", {
+                      key: i,
+                      attrs: {
+                        familia: familia,
+                        title: familia.nombre,
+                        id: familia.id,
+                        platos: _vm.platos
+                      },
+                      on: { "on-guardarPlatos": _vm.onGuardarPlatos }
+                    })
+                  }),
+                  1
+                )
               ],
               1
             )
@@ -48478,6 +48833,17 @@ var render = function() {
           "p-4 mb-3 flex justify-between items-center bg-green-100\n   bg-white border border-white shadow rounded-lg cursor-move"
       },
       [
+        _vm.modalEdit
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "block uppercase tracking-wide text-charcoal-darker text-xs font-bold"
+              },
+              [_vm._v("Editar Carta ")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _c("div", { staticClass: "flex-auto w-full" }, [
           _c(
             "label",
@@ -49684,6 +50050,18 @@ var render = function() {
   return _c("div", { staticClass: "flex flex-wrap mx-1" }, [
     _c("div", { staticClass: "bg-indigo-300 ..." }, [
       _c("div", { staticClass: "bg-indigo-300 ..." }, [
+        _vm._v("\n        " + _vm._s(_vm.cQr) + "\n\n        "),
+        _c("img", { attrs: { src: "{!!cQrr!!}" } }),
+        _vm._v(
+          "\n\n\n\n        {!! QrCode::generate('MyNotePaper'); !!}\n        "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "bg-indigo-300 ..." }, [
+        _vm._v("\n        " + _vm._s(_vm.cQrr) + "\n        ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "bg-indigo-300 ..." }, [
         _c("img", {
           staticClass: "object-contain md:object-scale-down",
           attrs: { src: "../img/qrcode_chrome.png" }
@@ -49719,7 +50097,7 @@ var render = function() {
       "div",
       {
         staticClass:
-          " mb-3 content-start md:content-around justify-between items-center bg-green-200\n   bg-white border border-white shadow rounded-lg cursor-move"
+          "mb-3 content-start md:content-around justify-between items-center bg-green-200 bg-white border border-white shadow rounded-lg cursor-move"
       },
       [
         _c("section", { staticClass: "my-8 pr-4" }, [
@@ -49773,7 +50151,7 @@ var render = function() {
                         staticClass:
                           "block uppercase tracking-wide text-charcoal-darker text-xs font-bold"
                       },
-                      [_vm._v("Nombre Plato : ")]
+                      [_vm._v("Nombre Plato :\n              ")]
                     ),
                     _vm._v(" "),
                     _c("input", {
@@ -49810,7 +50188,7 @@ var render = function() {
                         staticClass:
                           "block uppercase tracking-wide text-charcoal-darker text-xs font-bold"
                       },
-                      [_vm._v("Descripcion : ")]
+                      [_vm._v("Descripcion :\n              ")]
                     ),
                     _vm._v(" "),
                     _c("input", {
@@ -49851,7 +50229,7 @@ var render = function() {
                         staticClass:
                           "block uppercase tracking-wide text-charcoal-darker text-xs font-bold"
                       },
-                      [_vm._v("Precio : ")]
+                      [_vm._v("Precio :\n              ")]
                     ),
                     _vm._v(" "),
                     _c("input", {
@@ -49889,7 +50267,7 @@ var render = function() {
                         staticClass:
                           "block uppercase tracking-wide text-charcoal-darker text-xs font-bold"
                       },
-                      [_vm._v("Moneda : ")]
+                      [_vm._v("Moneda :\n              ")]
                     ),
                     _vm._v(" "),
                     _c("input", {
@@ -49923,7 +50301,7 @@ var render = function() {
                     "div",
                     { staticClass: "max-w-md mx-auto shadow-xl rounded my-8" },
                     [
-                      _c("div", { staticClass: "flex justify-center mb-10 " }, [
+                      _c("div", { staticClass: "flex justify-center mb-10" }, [
                         _c(
                           "button",
                           {
@@ -49988,11 +50366,13 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("div", { staticClass: "ml-4" }, [
         _c("div", { staticClass: "font-bold" }, [
-          _vm._v("Indique Nombre del Plato ")
+          _vm._v("Indique Nombre del Plato")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "mt-1 text-xs text-gray-500" }, [
-          _vm._v("y Observaciones si es necesario")
+          _vm._v(
+            "\n                    y Observaciones si es necesario\n                  "
+          )
         ])
       ])
     ])
@@ -50905,12 +51285,12 @@ var render = function() {
           on: {
             click: function($event) {
               $event.preventDefault()
-              _vm.active = !_vm.active
+              return _vm.muestraPlatos(_vm.id)
             }
           }
         },
         [
-          _c("strong", [_vm._v(_vm._s(_vm.title))]),
+          _c("strong", [_vm._v(_vm._s(_vm.title) + " -" + _vm._s(_vm.id))]),
           _vm._v(" "),
           _c(
             "span",
@@ -51034,13 +51414,13 @@ var render = function() {
           ? _c("establecimientoCartasAltaPlato", {
               attrs: { familia_id: _vm.familia.id },
               on: {
-                "on-guardarPlato": _vm.onGuardarPlato,
-                "on-cancelarPlato": _vm.onCancelarPlato
+                "on-GuardarPlato": _vm.onGuardarPlato,
+                "on-CancelarPlato": _vm.onCancelarPlato
               }
             })
           : _vm._e(),
         _vm._v(" "),
-        _vm._l(_vm.platos, function(plato, i) {
+        _vm._l(_vm.filteredPlato(_vm.id), function(plato, i) {
           return _c(
             "div",
             {
@@ -51049,7 +51429,15 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "flex-auto text-left" }, [
-                _vm._v("\n         " + _vm._s(plato.nombre) + " "),
+                _vm._v(
+                  "\n         " +
+                    _vm._s(plato.nombre) +
+                    " - " +
+                    _vm._s(plato.id) +
+                    " " +
+                    _vm._s(plato.pivot.familia_id) +
+                    " "
+                ),
                 _c("br"),
                 _vm._v(" "),
                 _c("span", { staticClass: "text-xs mb-4 font-thin" }, [
@@ -51063,7 +51451,7 @@ var render = function() {
                     _vm._s(plato.precio) +
                     " " +
                     _vm._s(plato.moneda) +
-                    "\n       "
+                    " \n       "
                 )
               ])
             ]

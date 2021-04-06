@@ -21,8 +21,7 @@ class FamiliaPlatoSeeder extends Seeder
                 'familia_id' => 1,
                 'plato_id' => 1,
                 
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+              
             ]);
     
             DB::table('familia_plato')->insert([
@@ -31,9 +30,7 @@ class FamiliaPlatoSeeder extends Seeder
                 'familia_id' => 1,
                 'plato_id' => 2,
                 
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
+                ]);
 
 
             // segundo plato
@@ -44,8 +41,7 @@ class FamiliaPlatoSeeder extends Seeder
                 'familia_id' => 2,
                 'plato_id' => 3,
                 
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               
             ]);
             DB::table('familia_plato')->insert([
     
@@ -53,8 +49,7 @@ class FamiliaPlatoSeeder extends Seeder
                 'familia_id' => 2,
                 'plato_id' => 4,
                 
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               
             ]);
             DB::table('familia_plato')->insert([
     
@@ -62,8 +57,7 @@ class FamiliaPlatoSeeder extends Seeder
                 'familia_id' => 2,
                 'plato_id' => 5,
                 
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               
             ]);
     
     
@@ -76,10 +70,8 @@ class FamiliaPlatoSeeder extends Seeder
                 
                 'familia_id' => 3,
                 'plato_id' => 6,
-                
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
+                ]);  
+              
 
             DB::table('familia_plato')->insert([
     
@@ -87,8 +79,7 @@ class FamiliaPlatoSeeder extends Seeder
                 'familia_id' => 3,
                 'plato_id' => 7,
                 
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+               
             ]);
     
     

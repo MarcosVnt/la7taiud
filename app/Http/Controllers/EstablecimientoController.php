@@ -133,10 +133,34 @@ class EstablecimientoController extends Controller
     // dd($establecimiento);
      
         $familias = $carta->familias;
+        $resultado = collect();
+        
+        //dd($familias->plato;
+        foreach ($familias as $familia) {
 
-      // dd($familias);
 
-        return ['familias' => $familias];
+
+            $platos = $familia->platos()->orderBy('nombre')->get();
+
+            $resultado = $resultado->concat($platos);
+
+          
+
+
+           /*  foreach ($familia->platos as $plato) {
+
+                dd($plato,$plato->pivot,$plato->pivot->familia_id);
+
+            } */
+            //
+            
+           
+        }
+
+      //  dd($familias,$platos,$resultado);
+      //dd($resultado);
+
+        return ['familias' => $familias, 'platos' => $resultado];
     }
 
     public function familiaplatos(Request $request, Familia $familia)

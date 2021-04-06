@@ -114,10 +114,18 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::get('/cartas/familias/platos/{familia}', 'EstablecimientoController@familiaplatos')->name('establecimientos.familiaplatos');
     
     Route::post('/cartas/store', 'CartaController@store')->name('cartas.store');
+    Route::post('/cartas/update', 'CartaController@update')->name('cartas.update');
+    Route::delete('/cartas/{carta}', 'CartaController@delete')->name('cartas.delete');
+
+
     Route::post('/subcartas/store', 'FamiliaController@store')->name('subcartas.store');
     Route::post('/platos/store', 'PlatoController@store')->name('plato.store');
 
-
+    Route::get('qrcode', function () {
+        return QrCode::size(250)
+            ->backgroundColor(255, 255, 204)
+            ->generate('MyNotePaper');
+    });
     
 
 });

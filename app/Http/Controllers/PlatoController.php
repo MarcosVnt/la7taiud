@@ -31,7 +31,11 @@ class PlatoController extends Controller
             $plato->establecimiento_id = $establecimiento;
             $plato->save();
 
-           // dd($request,$user->establecimiento);
+
+            $plato->familia()->attach($request->familia_id);
+
+
+          // dd($plato->familia()->attach($request->familia_id));
 
           
             

@@ -359,6 +359,54 @@ Route::group(['as'=>'admin.','prefix' => 'admin','namespace'=>'Admin','middlewar
 
 
 
+Editar eliminar carta
+
+botones añadir editar en  ECarta.vue
+
+al seleccionar toggleTabs ->cartaId, cartaEdit.
+
+metodos modalCartaEditar, modalAlta 
+        establecimientoCartasAlta
+                :cartaEdit
+        modoEdit -> update
+
+
+ESTABLECIMIENTO---CARTAS
+
+        modalCarta 
+                modalAlta = ! modalAlta
+
+        modalCartaEditar(cartaId)
+                modalAlta = ! modalAlta
+                cartaEdit
+
+        establecimientoCartasAlta.vue
+                :cartaEdit
+                :modalEdit 
+                onGuardar
+                onCancelar
+
+web updtate, delete, stores carta ....
+
+
+
+        [EstablecimientoCartasAlta]
+
+
+CODIGO QR 
+https://shouts.dev/generate-qr-code-in-laravel
+
+composer require simplesoftwareio/simple-qrcode
+ config/app.php
+
+	SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+
+
+
+AL GUARDAR PLATO , AÑAIDR TABLA PIVOT
+php artisan tinker 
+
+
 
 
 

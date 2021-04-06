@@ -45,8 +45,24 @@ TRAIGO LAS CARTAS DISPONIBLES
 LAS SUBCARTAS 
  -->
 
+<!--  {{QrCode::size(300)->generate('MyNotePaper')
+ -->
+
 <div class="bg-indigo-300 ...">
       <div class="bg-indigo-300 ...">
+        {{ cQr }}
+
+        <img src="{!!cQrr!!}">
+
+
+
+        {!! QrCode::generate('MyNotePaper'); !!}
+        </div>
+        <div class="bg-indigo-300 ...">
+        {{ cQrr }}
+        </div>
+        <div class="bg-indigo-300 ...">
+        
         <img
           class="object-contain md:object-scale-down"
           :src="'../img/qrcode_chrome.png'"
@@ -70,13 +86,35 @@ export default {
     },
   data() {
     return {
-      openTab: 1
+      openTab: 1,
+      cQr: '',
+      cQrr: '',
     }
   },
   methods: {
     toggleTabs: function(tabNumber){
       this.openTab = tabNumber
+    },
+     codeQr: function(){
+         axios
+        .get("/qrcode")
+        .then((respuesta) => {
+          console.log('codeQr',respuesta);
+          this.cQr= respuesta;
+          this.cQrr= respuesta.data;
+          
+         // this.$emit("on-guardar", respuesta.data.carta);
+
+          // Eliminar del DOM  simpre borra del padre hacia el hijo
+          //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-  }
+  },
+   created() {
+    this.codeQr();
+  },
 }
 </script>

@@ -9,12 +9,82 @@
                 Alta Carta
               </span> -->
 
-      <a href="#" class="" @click.prevent="modalCarta">
-        <strong>Alta Carta</strong>
+      <div class="flex justify-between">
+        <div class="flex">
+          <div>
+            <a href="#" class="" @click.prevent="modalCarta">
+              <strong>Alta Carta</strong>
 
-        <span v-if="modalAlta" class="minus-circle">
+              <span v-if="modalAlta" class="minus-circle">
+                <svg
+                  class="w-6 h-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </span>
+
+              <span v-else class="plus-circle">
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </span>
+            </a>
+          </div>
+
+          <div class="ml-4"></div>
+        </div>
+        <a href="#" class="" @click.prevent="modalCartaEditar(cartaId)">
+        <div class="text-yellow-400 flex items-center">
+          Editar
+
+          <svg xmlns="http://www.w3.org/2000/svg" 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+</svg>
           <svg
-            class="w-6 h-6"
+            class="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+             d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+            ></path></svg
+          ><span class="text-xl font-bold ml-2"></span>
+        </div>
+        </a>
+  <a href="#" class="" @click.prevent="modalCartaEliminar(cartaId)">
+        <div class="text-yellow-400 flex items-center">
+          Eliminar
+
+          <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -24,40 +94,36 @@
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2"
-              d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+              d="M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
             />
           </svg>
-        </span>
-
-        <span v-else class="plus-circle">
           <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+            class="h-6 w-6"
             xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+              d="M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
             ></path>
           </svg>
-        </span>
+          <span class="text-xl font-bold ml-2"></span>
+        </div>
       </a>
+      </div>
 
-      
+      <!--   <listaDraggable></listaDraggable> -->
 
-
-  <!--   <listaDraggable></listaDraggable> -->
-
-      <establecimientoCartasAlta 
-      v-if="modalAlta"
-          
-          @on-guardar="onGuardar"
-          @on-cancelar="onCancelar"
-
+      <establecimientoCartasAlta
+        v-if="modalAlta"
+        :cartaEdit = "cartaEdit"
+        :modalEdit = "modalEdit"
+        @on-guardar="onGuardar"
+        @on-cancelar="onCancelar"
       >
       </establecimientoCartasAlta>
 
@@ -68,17 +134,25 @@
           v-bind:key="i"
         >
           <!--   {{carta.nombre}} -->
+       
           <a
             class="text-xs font-bold uppercase px-5 py-3 pb-2 shadow rounded block leading-normal bg-green-100"
-            v-on:click="toggleTabs(i + 1, carta.id)"
+            v-on:click="toggleTabs(i + 1, carta.id,carta)"
             v-bind:class="{
               'text-green-600 bg-white': openTab !== i + 1,
-              'text-white bg-green-600': openTab === carta.id,
+              'text-white bg-green-600': openTab === i +1,
             }"
           >
-          {{ carta.nombre }}
+            {{ carta.nombre }} - {{carta.id}} 
+            
+            <!-- {{openTab}} {{carta.id}} -->
             <!--  NOmbre: {{carta.nombre}}--id1-{{i+1}}-cartaid-{{carta.id}}-- -->
           </a>
+
+
+
+          
+
         </li>
 
         <!--   <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -101,57 +175,69 @@
         </li> -->
       </ul>
 
-      <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
+      <div
+        class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
       >
         <div class="px-4 py-5 flex-auto">
-           <a href="#" class="" @click.prevent="modalSubCarta">
-        <strong>Alta SubCarta</strong>
+          <a href="#" class="" @click.prevent="modalSubCarta">
+            <strong>Alta SubCarta</strong>
 
-        <span v-if="modalAltaSubCarta" class="minus-circle">
-          <svg
-            class="w-6 h-6"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+            <span v-if="modalAltaSubCarta" class="minus-circle">
+              <svg
+                class="w-6 h-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </span>
+
+            <span v-else class="plus-circle">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </span>
+          </a>
+
+          <establecimientoCartasAltaSubCarta
+            v-if="modalAltaSubCarta"
+            :cartaId="cartaId"
+            @on-guardarSC="onGuardarSubCarta"
+            @on-cancelarSC="onCancelarSubCarta"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        </span>
-
-        <span v-else class="plus-circle">
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path>
-          </svg>
-        </span>
-      </a>
-
-      <establecimientoCartasAltaSubCarta 
-      v-if="modalAltaSubCarta"
-          :cartaId ="cartaId"
-          @on-guardarSC="onGuardarSubCarta"
-          @on-cancelarSC="onCancelarSubCarta"
-
-      >
-      </establecimientoCartasAltaSubCarta>
+          </establecimientoCartasAltaSubCarta>
 
           <div class="tab-content tab-space">
+            <accordion
+              v-for="(familia, i) in this.familias"
+              v-bind:key="i"
+              :familia="familia"
+              :title="familia.nombre"
+              :id="familia.id"
+              :platos="platos"
+              @on-guardarPlatos="onGuardarPlatos"
+
+            >
+            </accordion>
+            <!--     
             <div v-bind:class="{ hidden: openTab !== 1, block: openTab === 1 }">
               <accordion
                 v-for="(familia, i) in this.familias"
@@ -162,7 +248,7 @@
               >
               </accordion>
             </div>
-            <div v-bind:class="{ hidden: openTab !== 2, block: openTab === 2 }">
+             <div v-bind:class="{ hidden: openTab !== 2, block: openTab === 2 }">
               <accordion
                 v-for="(familia, i) in this.familias"
                 v-bind:key="i"
@@ -180,8 +266,8 @@
                 :title="familia.nombre"
                 :id="familia.id"
               >
-              </accordion>
-            </div>
+              </accordion> 
+            </div> -->
           </div>
         </div>
       </div>
@@ -203,8 +289,7 @@ import modal from "../Modal.vue";
 import establecimientoCartasAlta from "./EstablecimientoCartasAlta.vue";
 import establecimientoCartasAltaSubCarta from "./EstablecimientoCartasAltaSubCarta.vue";
 
-
-import listaDraggable  from "../ListaDraggable.vue";
+import listaDraggable from "../ListaDraggable.vue";
 
 export default {
   name: "EstablecimientoCartas",
@@ -223,74 +308,136 @@ export default {
       cartas: {},
       familias: {},
       platos: {},
-      establecimientoId:'',
-      cartaId: '',
+      establecimientoId: "",
+      cartaId: "",
+      cartaEdit: {},
+      modalEdit: false,
 
       modalAlta: false,
       modalAltaSubCarta: false,
     };
   },
   methods: {
+    
+
+    onGuardarPlatos(){
+
+              this.toggleTabs( this.openTab,this.cartaId,1);
 
 
+    },
+    
+    
+    /* SUBCARTA */
 
-
-/* SUBCARTA */ 
-
-  onGuardarSubCarta(subCarta){
-      console.log('onGuardarSubCarta', subCarta);
+    
+    onGuardarSubCarta(subCarta) {
+      console.log("onGuardarSubCarta", subCarta);
       this.familias.push(subCarta);
       this.onCancelarSubCarta();
-
     },
-    onCancelarSubCarta(){
-      console.log('onCancelarSubCarta ....');
+    onCancelarSubCarta() {
+      console.log("onCancelarSubCarta ....");
       this.modalAltaSubCarta = false;
-
     },
-
 
     modalSubCarta() {
-
       this.modalAltaSubCarta = !this.modalAltaSubCarta;
     },
 
+    /* CARTA */
 
-/* CARTA */
-
-    onGuardar(carta){
-      console.log('onGuardar', carta);
+    onGuardar(carta) {
+      console.log("onGuardar", carta);
       this.cartas.push(carta);
       this.onCancelar();
-
     },
-    onCancelar(){
-      console.log('onCancelar ....');
+    onCancelar() {
+      console.log("onCancelar ....");
       this.modalAlta = false;
-
     },
     /*  modalSubCartaAlta(event) {
       
       this.modalAlta = !this.modalAlta;
     
     },  */
-   
+
+    modalCartaEliminar(cartaId){
+      console.log('modalCartaEliminar',cartaId);
+
+
+         this.$swal.fire({
+                title: '¿Deseas eliminar la Carta Y todos sus componentes?',
+                text: "Una vez eliminada no se puede recuperar!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si',
+                cancelButtonText:'No'
+                }).then((result) => {
+                    if (result.value) {
+
+                        const params = {
+                            id: cartaId,
+                            _method: 'delete'
+                        }
+
+                        // Enviar petición a axios
+                        axios.post(`/cartas/${cartaId}`, params)
+                            .then(respuesta => {
+                                // console.log(respuesta)
+                                this.$swal.fire(
+                                    'Carta  Eliminada',
+                                    respuesta.data.mensaje,
+                                    'success'
+                                );
+                                this.inicializarCartas();
+
+                                // Eliminar del DOM  simpre borra del padre hacia el hijo
+                               /*  this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode); */
+                            })
+                            .catch(error => {
+                                console.log(error);
+                            })
+
+
+                    }
+                })
+
+
+    },
+
+
+     modalCartaEditar(cartaId) {
+      console.log("modalCartaEditar : ", cartaId);
+      console.log("modalCartaEditar : ", this.modalAlta);
+
+      this.modalAlta = !this.modalAlta;
+      this.modalEdit = true;
+      console.log("modalCartaEditar : ", this.modalAlta, this.cartaEdit);
+      //this.cartaEdit = this.carta;
+      //this.$emit('altaCarta',true);
+    },
 
     modalCarta(event) {
       console.log("modalCarta : ", event);
       console.log("modalCarta : ", this.modalAlta);
+      this.modalEdit= false;
 
       this.modalAlta = !this.modalAlta;
       console.log("modalCarta : ", this.modalAlta);
+      this.cartaEdit={};
 
       //this.$emit('altaCarta',true);
     },
 
-
-    toggleTabs: function (tabNumber, cartaId) {
+    toggleTabs: function (tabNumber, cartaId, carta) {
       this.openTab = tabNumber;
       console.log("toggleTabs", tabNumber, this.openTab, cartaId);
       this.cartaId = cartaId;
+      this.cartaEdit = carta;
+            this.modalAlta = false;
 
       axios
         .get(`/cartas/familias/${cartaId}`)
@@ -298,6 +445,7 @@ export default {
           console.log(respuesta);
 
           this.familias = respuesta.data.familias;
+          this.platos = respuesta.data.platos;
           // Eliminar del DOM  simpre borra del padre hacia el hijo
           //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
         })
@@ -305,35 +453,41 @@ export default {
           console.log(error);
         });
     },
-  },
-  created() {
-    console.log("created : ESTABLECIMIENTO CARTAS ", this.esta, this.esta.id);
+
+    inicializarCartas(){
+  console.log("created : ESTABLECIMIENTO CARTAS ", this.esta, this.esta.id);
     const id = this.esta.id;
     const params = {
       estado: this.esta,
     };
+
+  
 
     console.log(this.esta.id);
     //  axios.post(`/cartas/${this.esta.id}`, params)
     axios
       .get(`/cartas/${id}`)
       .then((respuesta) => {
-        console.log(respuesta);
+        console.log("respuesta", respuesta);
 
         this.cartas = respuesta.data.cartas;
-        this.toggleTabs(1,this.openTab);
+        this.toggleTabs(1, this.cartas[0]['id'],this.cartas[0]);
 
-        //todo 
+        //todo
         //this.establecimientoId = this.cartas[0]['establecimiento_id'];
 
-
-        console.log('todo', this.establecimientoId);
+        console.log("todo", this.establecimientoId);
         // Eliminar del DOM  simpre borra del padre hacia el hijo
         //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
       })
       .catch((error) => {
         console.log(error);
       });
+
+    }
+  },
+  created() {
+    this.inicializarCartas();
   },
 };
 </script>

@@ -8,9 +8,9 @@
       <a
         href="#"
         class="tab__link bg-green-500 text-red p-4 block bg-blue-dark hover:bg-blue-darker no-underline border-b-2 border-red flex justify-between"
-        @click.prevent="active = !active"
+        @click.prevent="muestraPlatos(id)"
       >
-        <strong>{{ title }}</strong>
+        <strong>{{ title }} -{{id}}</strong>
         <span class="down-Arrow" v-show="!active">&#9660;</span>
         <span class="up-Arrow" v-show="active">&#9650;</span>
       </a>
@@ -59,8 +59,8 @@
             <establecimientoCartasAltaPlato 
             v-if="modalAltaPlato"
                 :familia_id="familia.id"
-                @on-guardarPlato="onGuardarPlato"
-                @on-cancelarPlato="onCancelarPlato"
+                @on-GuardarPlato="onGuardarPlato"
+                @on-CancelarPlato="onCancelarPlato"
           
             
             
@@ -69,17 +69,17 @@
 
       <div
         class="flex bg-green-200 border-b-2 p-4 block m-6"
-        v-for="(plato, i) in platos"
+        v-for="(plato, i) in filteredPlato(id)"
         v-bind:key="i"
       >
         <div class="flex-auto text-left">
           <!-- Will grow and shrink as needed taking initial size into account -->
-          {{ plato.nombre }} <br />
+          {{ plato.nombre }} - {{plato.id}} {{ plato.pivot.familia_id }} <br />
           <span class="text-xs mb-4 font-thin">{{ plato.observaciones }}.</span>
         </div>
         <div class="flex-auto text-right">
           <!-- Will grow and shrink as needed taking initial size into account -->
-          {{ plato.precio }} {{ plato.moneda }}
+          {{ plato.precio }} {{ plato.moneda }} 
         </div>
       </div>
 
@@ -98,7 +98,8 @@
 import establecimientoCartasAltaPlato from "./Establecimientos/establecimientoCartasAltaPlato.vue";
 
 export default {
-  props: ["title", "id", "familia"],
+  name: "EstablecimientoCarta",
+  props: ["title", "id", "familia","platos"],
     components: {
   
     establecimientoCartasAltaPlato,
@@ -107,12 +108,71 @@ export default {
   data() {
     return {
       active: false,
-      platos: {},
+      platosFiltro: {},
       modalAltaPlato: false,
       
     };
   },
   methods: {
+
+    muestraPlatos(id){
+      this.active = !this.active;
+      //this.platos = {};
+
+      this.filteredPlato(id);
+
+      console.log('muestraPlatos',       this.filteredPlato(id));
+            console.log('muestraPlatos3', this.platos);
+
+
+      if(this.active){
+        // this.familiaPlatos(this.id);
+
+
+      }
+
+    },
+
+ filteredPlato(id) {
+
+         console.log('filteredPlato - id',  id);
+
+
+ return this.platos.filter((plato) => {
+     
+        const compo = plato.pivot.familia_id.toString().toLowerCase();
+
+                 console.log('filteredPlato - compo',  compo);
+
+       
+        return compo.includes(id);
+
+
+      });
+    },
+
+
+    filteredRows1(a) {
+      // console.log("filteredRows1 inicio ", a);
+      return this.componentes.filter((componente) => {
+        /*  console.log(
+          "filteredRows1 return ",
+          this.componentes,
+          componente.articulo_principal,
+          a
+        ); */
+        const compo = componente.articulo_principal.toString().toLowerCase();
+        const compo2 = componente.idpresupuestolinea.toString().toLowerCase();
+        /* console.log(
+          "filteredRows1 return dos compo  ",
+         compo,compo2
+        ); */
+        //return compo.includes(a.articulo);
+        return compo2.includes(a.id);
+      });
+    },
+
+  
 
     
     
@@ -122,6 +182,8 @@ export default {
       console.log('onGuardarPlato', plato);
       this.platos.push(plato);
       this.onCancelarPlato();
+      this.$emit("on-guardarPlatos");
+
 
     },
     onCancelarPlato(){
@@ -159,7 +221,7 @@ export default {
   },
   created() {
     console.log("CREATED ACCORDION ", this.title, this.id);
-    this.familiaPlatos(this.id);
+   // this.familiaPlatos(this.id);
   },
 };
 </script>

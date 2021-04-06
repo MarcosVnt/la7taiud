@@ -5,6 +5,10 @@
     <div class="p-4 mb-3 flex justify-between items-center bg-green-100
      bg-white border border-white shadow rounded-lg cursor-move">
 
+       <div v-if="modalEdit"
+          class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold"
+          >Editar Carta </div>
+
        <div class="flex-auto w-full">
         <label
           class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold"
@@ -89,12 +93,20 @@
 <script>
 export default {
   name: "EstablecimientoCartasAlta",
-  props: ["establecimiento_id"],
+  props: ["establecimiento_id","cartaEdit","modalEdit"],
   
   data() {
     return {
       carta: {},
+      
     };
+  },
+   created() {
+    console.log("CREATED CARTAS ALTA 222", this.cartaEdit,this.modalEdit);
+    if(this.cartaEdit.nombre){
+      this.carta['nombre']=this.cartaEdit.nombre;
+      this.modalEdit = true;
+    }
   },
   methods: {
       cancelar() {
@@ -123,6 +135,23 @@ export default {
         orden: this.carta.orden,
       };
 
+      if(this.modalEdit){
+         axios
+        .post("/cartas/update/", params)
+        .then((respuesta) => {
+          console.log(respuesta);
+
+          this.$emit("on-guardar", respuesta.data.carta);
+
+          // Eliminar del DOM  simpre borra del padre hacia el hijo
+          //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      }else{
+
       axios
         .post("/cartas/store/", params)
         .then((respuesta) => {
@@ -136,6 +165,7 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      }
     },
   },
 };

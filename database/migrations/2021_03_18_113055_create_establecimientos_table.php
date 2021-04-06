@@ -74,7 +74,7 @@ class CreateEstablecimientosTable extends Migration
             $table->string('observaciones')->nullable();
 
             $table->integer('orden')->nullable();
-            $table->double('precio', 10, 2);
+            $table->double('precio', 10, 2)->nullable();
 
             $table->string('moneda')->nullable();
             
@@ -86,12 +86,12 @@ class CreateEstablecimientosTable extends Migration
 
         // platos que hay por cada familia de una carta de un establacimiento 
         Schema::create('familia_plato', function (Blueprint $table) {
-            $table->id();
+            //$table->id();
             $table->foreignId('familia_id')->constrained()->onDelete('cascade');
             $table->foreignId('plato_id')->constrained()->onDelete('cascade');
             $table->integer('orden')->nullable();
 
-            $table->timestamps();
+           // $table->timestamps();
         });
 
 
@@ -110,12 +110,12 @@ class CreateEstablecimientosTable extends Migration
 
          // platos que hay por cada familia de una carta de un establacimiento 
          Schema::create('plato_alergeno', function (Blueprint $table) {
-            $table->id();
+           // $table->id();
             $table->foreignId('alergeno_id')->constrained()->onDelete('cascade');
             $table->foreignId('plato_id')->constrained()->onDelete('cascade');
             $table->integer('orden')->nullable();
 
-            $table->timestamps();
+           // $table->timestamps();
         });
 
 
