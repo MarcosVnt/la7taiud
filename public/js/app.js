@@ -3995,7 +3995,7 @@ __webpack_require__.r(__webpack_exports__);
         moneda: this.plato.moneda,
         familia_id: this.familia_id
       };
-      axios.post("/platos/store/", params).then(function (respuesta) {
+      axios.put("/platos/store/", params).then(function (respuesta) {
         console.log("respuesta alta plato store", respuesta);
 
         _this.$emit("on-GuardarPlato", respuesta.data.plato); // Eliminar del DOM  simpre borra del padre hacia el hijo

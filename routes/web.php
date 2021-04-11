@@ -141,7 +141,7 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::put('/familias/reordenar', 'FamiliaController@reordenar')->name('subcartas.reordenar');
 
 
-    Route::post('/platos/store', 'PlatoController@store')->name('plato.store');
+    Route::put('/platos/store', 'PlatoController@store')->name('plato.store');
     Route::delete('/platos/{plato}', 'PlatoController@delete')->name('plato.delete');
 
 

@@ -196,7 +196,7 @@ export default {
       };
 
       axios
-        .post("/platos/store/", params)
+        .put("/platos/store/", params)
         .then((respuesta) => {
           console.log("respuesta alta plato store", respuesta);
 
