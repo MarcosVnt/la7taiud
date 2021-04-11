@@ -136,7 +136,7 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::delete('/cartas/{carta}', 'CartaController@delete')->name('cartas.delete');
 
 
-    Route::post('/subcartas/store', 'FamiliaController@store')->name('subcartas.store');
+    Route::put('/subcartas/store', 'FamiliaController@store')->name('subcartas.store');
     Route::delete('/familias/{familia}', 'FamiliaController@delete')->name('subcartas.delete');
     Route::put('/familias/reordenar', 'FamiliaController@reordenar')->name('subcartas.reordenar');
 

@@ -125,7 +125,7 @@ export default {
       };
 
       axios
-        .post("/subcartas/store/", params)
+        .put("/subcartas/store/", params)
         .then((respuesta) => {
           console.log(respuesta);
 

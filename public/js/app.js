@@ -2878,7 +2878,7 @@ __webpack_require__.r(__webpack_exports__);
         orden: this.subCarta.orden,
         cartaId: this.cartaId
       };
-      axios.post("/subcartas/store/", params).then(function (respuesta) {
+      axios.put("/subcartas/store/", params).then(function (respuesta) {
         console.log(respuesta);
 
         _this.$emit("on-guardarSC", respuesta.data.subCarta); // Eliminar del DOM  simpre borra del padre hacia el hijo
