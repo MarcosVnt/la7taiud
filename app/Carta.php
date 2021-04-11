@@ -15,6 +15,9 @@ class Carta extends Model
     public function familias()
     {
         return $this->hasMany(Familia::class);
+
+
+        
     }
   
 }

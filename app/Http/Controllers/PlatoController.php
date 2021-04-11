@@ -46,4 +46,32 @@ class PlatoController extends Controller
 
       //  dd($request);
     }
+
+
+    public function delete(Request $request,Plato $plato){
+
+    // dd($request->familia_id, $plato->familias);
+  //  $plato = Plato::find($request->id);
+
+        // dd($request->familia_id,$plato, $plato->familia);
+
+
+
+     $plato->familia()->detach($request->familia_id);
+
+     //$user->roles()->detach($roleId);
+
+
+      
+    
+      
+  
+  return ['plato' => $plato];
+
+
+
+//  dd($request);
+}
+
+
 }

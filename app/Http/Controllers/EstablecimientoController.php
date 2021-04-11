@@ -132,7 +132,9 @@ class EstablecimientoController extends Controller
     {
     // dd($establecimiento);
      
-        $familias = $carta->familias;
+        //$familias = $carta->familias;
+        $familias = $carta->familias()->orderBy('orden')->get();
+
         $resultado = collect();
         
         //dd($familias->plato;
@@ -172,6 +174,20 @@ class EstablecimientoController extends Controller
       // dd($familias);
 
         return ['platos' => $platos];
+    }
+
+
+    public function mostrar(Establecimiento $establecimiento)
+    {
+        //
+      //  echo url("/posts/{$post->id}");
+
+      return view('front.establecimiento.index',compact('establecimiento'));
+
+//dd($establecimiento);
+
+
+
     }
 
 

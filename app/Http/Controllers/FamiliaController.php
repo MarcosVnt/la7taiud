@@ -37,4 +37,39 @@ class FamiliaController extends Controller
 
       //  dd($request);
     }
+
+
+
+    
+    public function delete(Request $request,Familia $familia){
+
+   
+  
+  
+       $familia->platos()->detach();
+  
+      $familia->delete();
+  
+        
+      
+        
+    
+    return ['familia' => $familia];
+  
+  
+  
+  //  dd($request);
+  }
+
+
+  public function reordenar(Request $request) {
+
+    dd($request);
+
+
+
+  }
+
+
+
 }

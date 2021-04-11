@@ -22,10 +22,28 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true ]);
 
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+
+
+Route::get('/establecimiento/{establecimiento}', 'EstablecimientoController@mostrar')->name('establecimientos.show');
+
+Route::get('/carta/{establecimiento}', 'EstablecimientoController@cartas')->name('establecimientos.cartas');
+Route::get('/carta/familias/{carta}', 'EstablecimientoController@cartafamilias')->name('establecimientos.cartafamilias');
+Route::get('/carta/familias/platos/{familia}', 'EstablecimientoController@familiaplatos')->name('establecimientos.familiaplatos');
+
+
+
+
+
+
+
+
 Route::group(['as'=>'admin.','prefix' => 'admin','namespace'=>'Admin','middleware'=>['auth','admin']], function () {
+
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
     Route::get('/vacantes', 'VacanteController@index')->name('vacantes.index');
@@ -119,12 +137,21 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
 
 
     Route::post('/subcartas/store', 'FamiliaController@store')->name('subcartas.store');
+    Route::delete('/familias/{familia}', 'FamiliaController@delete')->name('subcartas.delete');
+    Route::put('/familias/reordenar', 'FamiliaController@reordenar')->name('subcartas.reordenar');
+
+
     Route::post('/platos/store', 'PlatoController@store')->name('plato.store');
+    Route::delete('/platos/{plato}', 'PlatoController@delete')->name('plato.delete');
+
+
+    
+
 
     Route::get('qrcode', function () {
         return QrCode::size(250)
             ->backgroundColor(255, 255, 204)
-            ->generate('MyNotePaper');
+            ->generate('http://www.rutasgp.com');
     });
     
 

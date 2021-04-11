@@ -402,9 +402,23 @@ composer require simplesoftwareio/simple-qrcode
 	SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
 
+CODIGO QR VUE 
+npm i vue-qrcode
+
+
+
+
+
 
 AL GUARDAR PLATO , AÑAIDR TABLA PIVOT
 php artisan tinker 
+
+
+
+front establecimiento
+
+
+
 
 
 
@@ -454,3 +468,26 @@ git push -u origin main
 
 
 php artisan storage:link
+
+
+
+
+TODO 
+
+Registro , email envio 
+front establecimiento
+        foto 
+        direccion
+        carta
+
+publicidad registrar y mostrar
+codigo Qr mas pdf
+
+ALERGENOS EN PLATO
+platos Lista
+
+subir fotos , platos, y establecimiento.
+
+reordenar platos
+
+

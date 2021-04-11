@@ -45,7 +45,7 @@
                   <div class="ml-4">
                     <div class="font-bold">Indique Nombre del Plato</div>
                     <div class="mt-1 text-xs text-gray-500">
-                      y Observaciones si es necesario
+                      y Observaciones si es necesario {{familia_id}}
                     </div>
                   </div>
                 </div>

@@ -40,6 +40,9 @@ Vue.component('establecimiento-cartas', require('./components/Establecimientos/E
 Vue.component('establecimiento-qr', require('./components/Establecimientos/EstablecimientoQr.vue').default);
 //Vue.component('navegador', require('./components/Navegador.vue').default);
 
+Vue.component('establecimiento-carta', require('./components/Establecimientos/Front/EstablecimientoCarta.vue').default);
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -28,6 +28,8 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "qrcode": "^1.4.4",
+        "vue-qrcode": "^0.3.5",
         "vue-sweetalert2": "^4.2.1",
         "vue-tailwind": "^2.1.4",
         "vuedraggable": "^2.24.3"

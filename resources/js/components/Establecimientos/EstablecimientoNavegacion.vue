@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap mx-1">
+  <div class="flex flex-wrap mx-1 sm:p-10">
 
 <!--      <modal v-if="modalCarta" @altaCarta="altaModalCarta"></modal>
  -->
