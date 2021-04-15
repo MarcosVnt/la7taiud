@@ -32,6 +32,13 @@
     
       </ul>
 
+     <publicidad
+     :tipo="tipos"
+     :seccion ="seccions"
+     >
+
+     </publicidad>
+
       <div
         class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
       >
@@ -67,16 +74,18 @@ LAS SUBCARTAS
 
 <script>
 import accordionfront from "./AccordionFront.vue";
+import publicidad from "./Publicidad.vue";
 
 
 
 /* import listaDraggable from "../ListaDraggable.vue";
  */
 export default {
-  name: "EstablecimientoCarta",
+  name: "EstablecimientoCartaFront",
   props: ["esta"],
   components: {
     accordionfront,
+    publicidad
     
 /*     listaDraggable,
  */  },
@@ -97,6 +106,9 @@ export default {
 
       modalAlta: false,
       modalAltaSubCarta: false,
+
+       tipos:1,
+        seccions:1,
     };
   },
   methods: {

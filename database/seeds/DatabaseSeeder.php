@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
        $this->call(FamiliaPlatoSeeder::class);   
        $this->call(PublicidadSeeder::class);    
 
+       $this->call(AlergenosSeeder::class);    
 
 
 

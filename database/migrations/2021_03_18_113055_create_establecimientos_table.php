@@ -77,6 +77,8 @@ class CreateEstablecimientosTable extends Migration
             $table->double('precio', 10, 2)->nullable();
 
             $table->string('moneda')->nullable();
+            $table->string('imagen')->nullable();
+
             
             $table->foreignId('establecimiento_id')->constrained()->onDelete('cascade');
 
@@ -99,6 +101,7 @@ class CreateEstablecimientosTable extends Migration
             $table->id();
             $table->string('nombre')->nullable();
             $table->string('observaciones')->nullable();
+            $table->string('imagen')->nullable();
 
             $table->integer('orden')->nullable();
             $table->boolean('activa')->default(true);
@@ -109,7 +112,7 @@ class CreateEstablecimientosTable extends Migration
         });
 
          // platos que hay por cada familia de una carta de un establacimiento 
-         Schema::create('plato_alergeno', function (Blueprint $table) {
+         Schema::create('alergeno_plato', function (Blueprint $table) {
            // $table->id();
             $table->foreignId('alergeno_id')->constrained()->onDelete('cascade');
             $table->foreignId('plato_id')->constrained()->onDelete('cascade');

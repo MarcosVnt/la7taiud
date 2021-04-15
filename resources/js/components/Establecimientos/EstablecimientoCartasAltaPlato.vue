@@ -123,6 +123,10 @@
                 />
               </div>
 
+              <alergenos-lista
+               @alergenosMarcados="alergenosM"
+              ></alergenos-lista>
+
               <div class="max-w-md mx-auto shadow-xl rounded my-8">
                 <div class="flex justify-center mb-10">
                   <button
@@ -151,21 +155,38 @@
 </template>
 
 <script>
+
+import AlergenosLista from "./AlergenosLista.vue";
+
 export default {
    name: "EstablecimientoCartasAltaPlato",
   props: ["familia_id"],
+
+  components: {
+    AlergenosLista
+    },
   
   data() {
     return {
       plato: {},
+      alergenosMarcados: {},
     };
   },
   methods: {
+    alergenosM(alergenos){
+      console.log('alergenosM',alergenos);
+      this.alergenosMarcados = alergenos;
+    },
     cancelar() {
       this.$emit("on-CancelarPlato");
     },
     guardar() {
-      console.log("guardar", this.plato);
+      console.log("guardar UNO ", this.plato,this.alergenosMarcados);
+
+      const alergenosArray = Array.from(this.alergenosMarcados);
+      //[...this.alergenosMarcados;
+      console.log("guardar UNO ", this.plato,alergenosArray);
+
 
       if (!this.plato.nombre) {
         this.$swal.fire({
@@ -193,12 +214,14 @@ export default {
         precio: this.plato.precio,
         moneda: this.plato.moneda,
         familia_id: this.familia_id,
+        alergenos : alergenosArray,
+        
       };
-
+console.log('guardar DOS', params);
       axios
         .put("/platos/store/", params)
         .then((respuesta) => {
-          console.log("respuesta alta plato store", respuesta);
+          console.log(" A - DOS  respuesta alta plato store", respuesta);
 
           this.$emit("on-GuardarPlato", respuesta.data.plato);
 

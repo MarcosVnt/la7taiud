@@ -2,8 +2,10 @@
 
 namespace App;
 
-use App\Plato;
+use App\Alergeno;
 use App\Establecimiento;
+use App\Familia;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Plato extends Model
@@ -18,11 +20,17 @@ class Plato extends Model
         return $this->belongsTo(Establecimiento::class);
     }
 
-    public function familia()
+    public function familias() //todo familias
     {
         return $this->belongsToMany(Familia::class);
     }
-  
+
+
+  public function alergenos()
+    {
+        return $this->belongsToMany(Alergeno::class);
+    }
+ 
 
 
 }

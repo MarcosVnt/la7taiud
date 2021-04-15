@@ -195,6 +195,22 @@ class PublicidadController extends Controller
         return response()->json(['respuesta' => 'Correcto']);
     }
 
-   
+
+    public function mostrar(Request $request)
+    {
+        // $publicidads = auth()->user()->vacantes;
+       // dd($request);
+       
+
+        //$publicidads = Publicidad::where('seccion_id', $request->seccions )->where('establecimiento_tipo_id',$request->tipos)->get();
+        $publicidads = Publicidad::first();
+
+        return response()->json(['publicidads' => $publicidads]);
+        
+        //return view('publicidads.index',compact('publicidads'));
+    }
+
+
+
 
 }

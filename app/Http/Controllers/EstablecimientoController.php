@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Establecimiento;
 use App\Carta;
 use App\Familia;
+use App\Publicidad;
 use Illuminate\Http\Request;
 
 class EstablecimientoController extends Controller
@@ -136,6 +137,7 @@ class EstablecimientoController extends Controller
         $familias = $carta->familias()->orderBy('orden')->get();
 
         $resultado = collect();
+        $alergenosR = collect();
         
         //dd($familias->plato;
         foreach ($familias as $familia) {
@@ -146,23 +148,33 @@ class EstablecimientoController extends Controller
 
             $resultado = $resultado->concat($platos);
 
-          
+            foreach ($platos as $plato) {
+                /*  echo $plato;
+                 echo '.-----------------------------';
+                 echo $plato->alergenos()->get();
+                 */ 
+                 
+                 $alergenos = $plato->alergenos()->get();
+     
+                
+     
+                $alergenosR = $alergenosR->concat($alergenos);
+     
+             } 
 
 
-           /*  foreach ($familia->platos as $plato) {
-
-                dd($plato,$plato->pivot,$plato->pivot->familia_id);
-
-            } */
+       
             //
             
            
         }
 
+       
+
       //  dd($familias,$platos,$resultado);
       //dd($resultado);
 
-        return ['familias' => $familias, 'platos' => $resultado];
+        return ['familias' => $familias, 'platos' => $resultado, 'alergenos' => $alergenosR];
     }
 
     public function familiaplatos(Request $request, Familia $familia)
@@ -181,8 +193,9 @@ class EstablecimientoController extends Controller
     {
         //
       //  echo url("/posts/{$post->id}");
+      $publicidad = Publicidad::all();
 
-      return view('front.establecimiento.index',compact('establecimiento'));
+      return view('front.establecimiento.index',compact('establecimiento','publicidad'));
 
 //dd($establecimiento);
 

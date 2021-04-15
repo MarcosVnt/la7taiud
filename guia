@@ -23,6 +23,7 @@ php artisan ui vue
         no bootstrap -- si tailwind
 
 npm install 
+
 npm run watch
 
 php artisan serve
@@ -470,6 +471,20 @@ git push -u origin main
 php artisan storage:link
 
 
+14/04/2021
+
+php artisan make:seeder AlergenosSeed
+
+php artisan make:seeder AlergenoPlatoSeed
+
+
+
+
+
+
+
+
+
 
 
 TODO 
@@ -489,5 +504,10 @@ platos Lista
 subir fotos , platos, y establecimiento.
 
 reordenar platos
+
+reordenar familias y guardar ...
+
+cookies 
+
 
 

@@ -96,18 +96,25 @@
         v-for="(plato, i) in filteredPlato(id)"
         v-bind:key="i"
       >
-        <div class="flex-auto text-left">
+
+     <div class="container w-full">
+      <div class="flex block">
+        <div class="flex-auto w-3/5 text-left">
           <!-- Will grow and shrink as needed taking initial size into account -->
           {{ plato.nombre }} - {{ plato.id }} {{ plato.pivot.familia_id }}
           <br />
           <span class="text-xs mb-4 font-thin">{{ plato.observaciones }}.</span>
         </div>
-        <div class="flex-auto text-right">
+        <div class="flex-auto w-1/5 text-right">
           <!-- Will grow and shrink as needed taking initial size into account -->
           {{ plato.precio }} {{ plato.moneda }}
         </div>
 
-        <div class="tab__link bg-green-200 p-4 block flex justify-between">
+
+      
+
+
+        <div class="flex-auto w-1 bg-green-200 p-4  text-right">
           <a href="#" class="" @click.prevent="modalPlatoEliminar(plato, i)">
             <div class="text-yellow-400 flex items-center">
               <svg
@@ -148,9 +155,44 @@
             </div>
           </a>
         </div> -->
+      </div>  
+<!--      {{filteredAlergeno(plato.id)}}
+ --><div class="dish-miniature__content__allergens flex block" 
+ 
+>   <img
+           v-for="(alergeno, i) in filteredAlergeno(plato.id)"
+        v-bind:key="i"
+        
+          :src="'../storage/'+alergeno.imagen" 
+          :alt="alergeno.nombre"
+          :title="alergeno.nombre"
+          class="w-12 h-12 p-2"
+
+
+        />
+              
+              <!--   <img class="" src="/media/uploads/2017/02/Gluten.png" alt="Gluten" title="Gluten">
+              
+                <img class="" src="/media/uploads/2017/02/Granos-de-sesamo.png" alt="Granos de Sésamo" title="Granos de Sésamo">
+              
+                <img class="" src="/media/uploads/2017/02/Pescado.png" alt="Pescado" title="Pescado">
+              
+                <img class="" src="/media/uploads/2017/02/Soja.png" alt="Soja" title="Soja">
+               -->
+          </div>
+
+</div>
+   
+
+
+
+
       </div>
+
+    </div>        
+
     </div>
-  </div>
+
 </template>
 <script>
 
@@ -158,8 +200,8 @@ import establecimientoCartasAltaPlato from "./Establecimientos/establecimientoCa
 import Draggable from "vuedraggable";
 
 export default {
-  name: "EstablecimientoCarta",
-  props: ["title", "id", "familia", "platos"],
+  name: "EstablecimientoCartaLista",
+  props: ["title", "id", "familia", "platos","alergenos"],
   components: {
     establecimientoCartasAltaPlato,
     Draggable,
@@ -169,6 +211,7 @@ export default {
     return {
       active: false,
       platosFiltro: {},
+      alergenosFiltro: {},
       modalAltaPlato: false,
     };
   },
@@ -229,8 +272,9 @@ export default {
     },
     modalPlatoEliminar(plato, i) {
       console.log("modalPlatoEliminar", plato);
+      let me = this;
 
-      this.$swal
+      me.$swal
         .fire({
           title: "¿Deseas quitar Plato de la Carta ?",
           text: "Una vez eliminada no se puede recuperar!",
@@ -240,6 +284,7 @@ export default {
           cancelButtonColor: "#d33",
           confirmButtonText: "Si",
           cancelButtonText: "No",
+          timer: 3000,
         })
         .then((result) => {
           if (result.value) {
@@ -254,16 +299,28 @@ export default {
               .post(`/platos/${plato.id}`, params)
               .then((respuesta) => {
                 // console.log(respuesta)
-                this.$swal.fire(
+              /*   me.$swal.fire(
                   "Plato  Eliminado de Carta",
                   respuesta.data.mensaje,
                   "success"
-                );
-                //this.inicializarCartas();
-                this.platos.splice(i, 1);
+                ); */
 
+                me.$swal.fire({
+  icon: 'success',
+  title: 'Eliminado Correctamente',
+  showConfirmButton: false,
+  timer: 1500
+})
+
+             /*    me.$swal('Congratulation!', 'You successfully copy paste this code', 'success', 3000, false); */
+
+                //this.inicializarCartas();
+                      console.log("modalPlatoEliminar", plato);
+
+                me.platos.splice(i, 1);
+                console.log(me.$el,me.$el.parentNode);
                 // Eliminar del DOM  simpre borra del padre hacia el hijo
-                /*  this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode); */
+               /*  me.$el.parentNode.parentNode.parentNode.removeChild(me.$el.parentNode.parentNode);  */
               })
               .catch((error) => {
                 console.log(error);
@@ -290,14 +347,32 @@ export default {
       // TODO : AL GUARDAR  plato nuevo no existe pivot y por tanto no exite familia_id..
       // como volvemos a cargar platos .. se soluciona pero da error ..
 
-      /* console.log("filteredPlato - id", id); */
+       console.log("filteredPlato - id", id); 
 
       return this.platos.filter((plato) => {
-/*         console.log("filtered plato ", plato);
- */      
-  const compo = plato.pivot.familia_id.toString().toLowerCase();
-/*         console.log("filteredPlato - compo", compo);
- */
+         //console.log("filtered plato ", plato);
+    
+          const compo = plato.pivot.familia_id.toString().toLowerCase();
+         console.log("filteredPlato - compo",  compo.includes(id));
+
+       //  this.filteredAlergeno(plato);
+ 
+        return compo.includes(id);
+      });
+    },
+
+    filteredAlergeno(id) {
+      // TODO : AL GUARDAR  plato nuevo no existe pivot y por tanto no exite familia_id..
+      // como volvemos a cargar platos .. se soluciona pero da error ..
+
+       console.log("filteredAlergeno - id", id); 
+
+      return this.alergenos.filter((alergeno) => {
+         //console.log("filtered plato ", plato);
+    
+          const compo = alergeno.pivot.plato_id.toString().toLowerCase();
+         console.log("filteredPlato - compo",  compo.includes(id));
+ 
         return compo.includes(id);
       });
     },
@@ -323,7 +398,7 @@ export default {
       this.modalAltaPlato = !this.modalAltaPlato;
     },
 
-    familiaPlatos(familia) {
+    familiaPlatos(familia) { // OJO SIN USO
       console.log("familaPlatos", familia);
 
       axios
@@ -346,3 +421,15 @@ export default {
   },
 };
 </script>
+<style scoped>
+
+.dish-miniature__content__allergens{
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 8px;
+    min-height: 36px;
+    max-height: 36px;
+    overflow: hidden;
+
+    }
+</style>

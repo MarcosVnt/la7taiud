@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Plato;
+use App\Alergeno;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +33,29 @@ class PlatoController extends Controller
             $plato->save();
 
 
-            $plato->familia()->attach($request->familia_id);
+            $plato->familias()->attach($request->familia_id);
+
+            foreach ($request->alergenos as $alergeno) {
+
+              $a = '';
+              $a = Alergeno::where('nombre','=',$alergeno)->first();
+             
+              
+              if($a) {
+
+              // dd($a->id);
+              $plato->alergenos()->attach($a->id);
+              
+            }else{
+              dd('else');
+            }
+
+                  
+              //
+             // $plato->alergenos()->attach($alergeno->);
+          }
+          
+
 
 
           // dd($plato->familia()->attach($request->familia_id));
@@ -57,7 +80,7 @@ class PlatoController extends Controller
 
 
 
-     $plato->familia()->detach($request->familia_id);
+     $plato->familias()->detach($request->familia_id);
 
      //$user->roles()->detach($roleId);
 

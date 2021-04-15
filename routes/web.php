@@ -35,6 +35,7 @@ Route::get('/carta/{establecimiento}', 'EstablecimientoController@cartas')->name
 Route::get('/carta/familias/{carta}', 'EstablecimientoController@cartafamilias')->name('establecimientos.cartafamilias');
 Route::get('/carta/familias/platos/{familia}', 'EstablecimientoController@familiaplatos')->name('establecimientos.familiaplatos');
 
+Route::get('/publi', 'PublicidadController@mostrar')->name('publicidads.mostrar');
 
 
 
@@ -144,6 +145,7 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::put('/platos/store', 'PlatoController@store')->name('plato.store');
     Route::delete('/platos/{plato}', 'PlatoController@delete')->name('plato.delete');
 
+    Route::get('/alergenos', 'AlergenosController@index')->name('alergenos.index');
 
     
 
