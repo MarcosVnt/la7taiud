@@ -28,20 +28,48 @@
         v-for="(plato, i) in filteredPlato(id)"
         v-bind:key="i"
       >
-        <div class="flex-auto text-left">
-          <!-- Will grow and shrink as needed taking initial size into account -->
+     <!--    <div class="flex-auto text-left">
           {{ plato.nombre }} - {{ plato.id }} {{ plato.pivot.familia_id }}
           <br />
           <span class="text-xs mb-4 font-thin">{{ plato.observaciones }}.</span>
         </div>
      
         <div class="flex-auto text-right">
-          <!-- Will grow and shrink as needed taking initial size into account -->
           {{ plato.precio }} {{ plato.moneda }}
-        </div>
+        </div> -->
 
      
-     
+       <div class="container w-full">
+          <div class="flex block">
+            <div class="flex-auto w-3/5 text-left">
+              <!-- Will grow and shrink as needed taking initial size into account -->
+              {{ plato.nombre }} - {{ plato.id }} {{ plato.pivot.familia_id }}
+              <br />
+              <span class="text-xs mb-4 font-thin"
+                >{{ plato.observaciones }}.</span
+              >
+            </div>
+            <div class="flex-auto w-1/5 text-right">
+              <!-- Will grow and shrink as needed taking initial size into account -->
+              {{ plato.precio }} {{ plato.moneda }}
+            </div>
+
+          
+          </div>
+          <!--      {{filteredAlergeno(plato.id)}}-->
+          <div class="dish-miniature__content__allergens flex block">
+            <img
+              v-for="(alergeno, i) in filteredAlergeno(plato.id)"
+              v-bind:key="i"
+              :src="'../storage/' + alergeno.imagen"
+              :alt="alergeno.nombre"
+              :title="alergeno.nombre"
+              class="w-12 h-12 p-2"
+            />
+
+       
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -51,7 +79,7 @@
 
 export default {
   name: "accordionfront",
-  props: ["title", "id", "familia", "platos"],
+  props: ["title", "id", "familia", "platos","alergenos"],
   components: {
   },
 
@@ -64,7 +92,21 @@ export default {
   },
   methods: {
 
+   filteredAlergeno(id) {
+      // TODO : AL GUARDAR  plato nuevo no existe pivot y por tanto no exite familia_id..
+      // como volvemos a cargar platos .. se soluciona pero da error ..
 
+      console.log("filteredAlergeno - id", id);
+
+      return this.alergenos.filter((alergeno) => {
+        //console.log("filtered plato ", plato);
+
+        const compo = alergeno.pivot.plato_id.toString().toLowerCase();
+        console.log("filteredPlato - compo", compo.includes(id));
+
+        return compo.includes(id);
+      });
+    },
 
     muestraPlatos(id) {
       this.active = !this.active;
@@ -121,3 +163,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.dish-miniature__content__allergens {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 8px;
+  min-height: 36px;
+  max-height: 36px;
+  overflow: hidden;
+}
+</style>

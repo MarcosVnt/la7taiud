@@ -55,6 +55,7 @@
               :title="familia.nombre"
               :id="familia.id"
               :platos="platos"
+              :alergenos="alergenos"
             >
             </accordionfront>
        
@@ -99,6 +100,7 @@ export default {
       cartas: {},
       familias: {},
       platos: {},
+      alergenos: {},
       establecimientoId: "",
       cartaId: "",
       cartaEdit: {},
@@ -131,6 +133,7 @@ export default {
           this.familiasNew = respuesta.data.familias;
           
           this.platos = respuesta.data.platos;
+          this.alergenos = respuesta.data.alergenos;
           // Eliminar del DOM  simpre borra del padre hacia el hijo
           //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
         })

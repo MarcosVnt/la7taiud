@@ -8,7 +8,6 @@
       >
         <strong>{{ title }} </strong>
 
-      
         <span class="down-Arrow" v-show="!active">&#9660;</span>
         <span class="up-Arrow" v-show="active">&#9650;</span>
       </a>
@@ -96,112 +95,71 @@
         v-for="(plato, i) in filteredPlato(id)"
         v-bind:key="i"
       >
-
-     <div class="container w-full">
-      <div class="flex block">
-        <div class="flex-auto w-3/5 text-left">
-          <!-- Will grow and shrink as needed taking initial size into account -->
-          {{ plato.nombre }} - {{ plato.id }} {{ plato.pivot.familia_id }}
-          <br />
-          <span class="text-xs mb-4 font-thin">{{ plato.observaciones }}.</span>
-        </div>
-        <div class="flex-auto w-1/5 text-right">
-          <!-- Will grow and shrink as needed taking initial size into account -->
-          {{ plato.precio }} {{ plato.moneda }}
-        </div>
-
-
-      
-
-
-        <div class="flex-auto w-1 bg-green-200 p-4  text-right">
-          <a href="#" class="" @click.prevent="modalPlatoEliminar(plato, i)">
-            <div class="text-yellow-400 flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+        <div class="container w-full">
+          <div class="flex block">
+            <div class="flex-auto w-3/5 text-left">
+              <!-- Will grow and shrink as needed taking initial size into account -->
+              {{ plato.nombre }} - {{ plato.id }} {{ plato.pivot.familia_id }}
+              <br />
+              <span class="text-xs mb-4 font-thin"
+                >{{ plato.observaciones }}.</span
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
             </div>
-          </a>
-        </div>
-        <!-- 070420 -->
-        <!--       <div class="tab__link bg-green-200 p-4 block flex justify-between">
-          <a href="#" class="" @click.prevent="modalPlatoEliminar(plato)">
-            <div class="text-yellow-400 flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+            <div class="flex-auto w-1/5 text-right">
+              <!-- Will grow and shrink as needed taking initial size into account -->
+              {{ plato.precio }} {{ plato.moneda }}
+            </div>
+
+            <div class="flex-auto w-1 bg-green-200 p-4 text-right">
+              <a
+                href="#"
+                class=""
+                @click.prevent="modalPlatoEliminar(plato, i)"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                />
-              </svg>
+                <div class="text-yellow-400 flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
+                </div>
+              </a>
             </div>
-          </a>
-        </div> -->
-      </div>  
-<!--      {{filteredAlergeno(plato.id)}}
- --><div class="dish-miniature__content__allergens flex block" 
- 
->   <img
-           v-for="(alergeno, i) in filteredAlergeno(plato.id)"
-        v-bind:key="i"
-        
-          :src="'../storage/'+alergeno.imagen" 
-          :alt="alergeno.nombre"
-          :title="alergeno.nombre"
-          class="w-12 h-12 p-2"
-
-
-        />
-              
-              <!--   <img class="" src="/media/uploads/2017/02/Gluten.png" alt="Gluten" title="Gluten">
-              
-                <img class="" src="/media/uploads/2017/02/Granos-de-sesamo.png" alt="Granos de Sésamo" title="Granos de Sésamo">
-              
-                <img class="" src="/media/uploads/2017/02/Pescado.png" alt="Pescado" title="Pescado">
-              
-                <img class="" src="/media/uploads/2017/02/Soja.png" alt="Soja" title="Soja">
-               -->
           </div>
+          <!--      {{filteredAlergeno(plato.id)}}-->
+          <div class="dish-miniature__content__allergens flex block">
+            <img
+              v-for="(alergeno, i) in filteredAlergeno(plato.id)"
+              v-bind:key="i"
+              :src="'../storage/' + alergeno.imagen"
+              :alt="alergeno.nombre"
+              :title="alergeno.nombre"
+              class="w-12 h-12 p-2"
+            />
 
-</div>
-   
-
-
-
-
+       
+          </div>
+        </div>
       </div>
-
-    </div>        
-
     </div>
-
+  </div>
 </template>
 <script>
-
 import establecimientoCartasAltaPlato from "./Establecimientos/establecimientoCartasAltaPlato.vue";
 import Draggable from "vuedraggable";
 
 export default {
   name: "EstablecimientoCartaLista",
-  props: ["title", "id", "familia", "platos","alergenos"],
+  props: ["title", "id", "familia", "platos", "alergenos"],
   components: {
     establecimientoCartasAltaPlato,
     Draggable,
@@ -216,12 +174,8 @@ export default {
     };
   },
   methods: {
-
-
-    modalFamiliaEliminar(id){
-
-      console.log('modalFamiliaEliminar',id);
-
+    modalFamiliaEliminar(id) {
+      console.log("modalFamiliaEliminar", id);
 
       this.$swal
         .fire({
@@ -252,11 +206,10 @@ export default {
                   "success"
                 );
                 //this.inicializarCartas();
-               // this.familias.splice(i, 1);
+                // this.familias.splice(i, 1);
 
-               //TODO aprovecho guardar platos para recargar la carta y no ver lo borrado
-                     this.$emit("on-guardarPlatos");
-
+                //TODO aprovecho guardar platos para recargar la carta y no ver lo borrado
+                this.$emit("on-guardarPlatos");
 
                 // Eliminar del DOM  simpre borra del padre hacia el hijo
                 /*  this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode); */
@@ -266,9 +219,6 @@ export default {
               });
           }
         });
-
-
-
     },
     modalPlatoEliminar(plato, i) {
       console.log("modalPlatoEliminar", plato);
@@ -299,28 +249,28 @@ export default {
               .post(`/platos/${plato.id}`, params)
               .then((respuesta) => {
                 // console.log(respuesta)
-              /*   me.$swal.fire(
+                /*   me.$swal.fire(
                   "Plato  Eliminado de Carta",
                   respuesta.data.mensaje,
                   "success"
                 ); */
 
                 me.$swal.fire({
-  icon: 'success',
-  title: 'Eliminado Correctamente',
-  showConfirmButton: false,
-  timer: 1500
-})
+                  icon: "success",
+                  title: "Eliminado Correctamente",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
 
-             /*    me.$swal('Congratulation!', 'You successfully copy paste this code', 'success', 3000, false); */
+                /*    me.$swal('Congratulation!', 'You successfully copy paste this code', 'success', 3000, false); */
 
                 //this.inicializarCartas();
-                      console.log("modalPlatoEliminar", plato);
+                console.log("modalPlatoEliminar", plato);
 
                 me.platos.splice(i, 1);
-                console.log(me.$el,me.$el.parentNode);
+                console.log(me.$el, me.$el.parentNode);
                 // Eliminar del DOM  simpre borra del padre hacia el hijo
-               /*  me.$el.parentNode.parentNode.parentNode.removeChild(me.$el.parentNode.parentNode);  */
+                /*  me.$el.parentNode.parentNode.parentNode.removeChild(me.$el.parentNode.parentNode);  */
               })
               .catch((error) => {
                 console.log(error);
@@ -347,16 +297,16 @@ export default {
       // TODO : AL GUARDAR  plato nuevo no existe pivot y por tanto no exite familia_id..
       // como volvemos a cargar platos .. se soluciona pero da error ..
 
-       console.log("filteredPlato - id", id); 
+      console.log("filteredPlato - id", id);
 
       return this.platos.filter((plato) => {
-         //console.log("filtered plato ", plato);
-    
-          const compo = plato.pivot.familia_id.toString().toLowerCase();
-         console.log("filteredPlato - compo",  compo.includes(id));
+        //console.log("filtered plato ", plato);
 
-       //  this.filteredAlergeno(plato);
- 
+        const compo = plato.pivot.familia_id.toString().toLowerCase();
+        console.log("filteredPlato - compo", compo.includes(id));
+
+        //  this.filteredAlergeno(plato);
+
         return compo.includes(id);
       });
     },
@@ -365,14 +315,14 @@ export default {
       // TODO : AL GUARDAR  plato nuevo no existe pivot y por tanto no exite familia_id..
       // como volvemos a cargar platos .. se soluciona pero da error ..
 
-       console.log("filteredAlergeno - id", id); 
+      console.log("filteredAlergeno - id", id);
 
       return this.alergenos.filter((alergeno) => {
-         //console.log("filtered plato ", plato);
-    
-          const compo = alergeno.pivot.plato_id.toString().toLowerCase();
-         console.log("filteredPlato - compo",  compo.includes(id));
- 
+        //console.log("filtered plato ", plato);
+
+        const compo = alergeno.pivot.plato_id.toString().toLowerCase();
+        console.log("filteredPlato - compo", compo.includes(id));
+
         return compo.includes(id);
       });
     },
@@ -398,7 +348,8 @@ export default {
       this.modalAltaPlato = !this.modalAltaPlato;
     },
 
-    familiaPlatos(familia) { // OJO SIN USO
+    familiaPlatos(familia) {
+      // OJO SIN USO
       console.log("familaPlatos", familia);
 
       axios
@@ -422,14 +373,12 @@ export default {
 };
 </script>
 <style scoped>
-
-.dish-miniature__content__allergens{
-    display: flex;
-    flex-flow: row wrap;
-    margin-top: 8px;
-    min-height: 36px;
-    max-height: 36px;
-    overflow: hidden;
-
-    }
+.dish-miniature__content__allergens {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 8px;
+  min-height: 36px;
+  max-height: 36px;
+  overflow: hidden;
+}
 </style>
