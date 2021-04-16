@@ -132,8 +132,8 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::get('/cartas/familias/{carta}', 'EstablecimientoController@cartafamilias')->name('establecimientos.cartafamilias');
     Route::get('/cartas/familias/platos/{familia}', 'EstablecimientoController@familiaplatos')->name('establecimientos.familiaplatos');
     
-    Route::post('/cartas/store', 'CartaController@store')->name('cartas.store');
-    Route::post('/cartas/update', 'CartaController@update')->name('cartas.update');
+    Route::put('/cartas/store', 'CartaController@store')->name('cartas.store');
+    Route::put('/cartas/update', 'CartaController@update')->name('cartas.update');
     Route::delete('/cartas/{carta}', 'CartaController@delete')->name('cartas.delete');
 
 
