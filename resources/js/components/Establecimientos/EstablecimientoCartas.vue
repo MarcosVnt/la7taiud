@@ -228,7 +228,7 @@
 
           <div class="tab-content tab-space">
 
-             <draggable
+            <!--  <draggable
                 tag="ul"
                 group="all-users"
                 class="draggable-list"
@@ -238,7 +238,7 @@
                 :animation="200"
                 :move ="onMove"
                  @change="update"
-              >
+              > -->
            <accordion
               v-for="(familia, i) in this.familiasNew"
               v-bind:key="i"
@@ -250,8 +250,8 @@
               @on-guardarPlatos="onGuardarPlatos"
             >
             </accordion>
-          </draggable>
-
+<!--           </draggable>
+ -->
             <!--     
             <div v-bind:class="{ hidden: openTab !== 1, block: openTab === 1 }">
               <accordion

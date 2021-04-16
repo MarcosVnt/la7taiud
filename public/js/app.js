@@ -55556,38 +55556,19 @@ var render = function() {
                 _c(
                   "div",
                   { staticClass: "tab-content tab-space" },
-                  [
-                    _c(
-                      "draggable",
-                      {
-                        staticClass: "draggable-list",
-                        attrs: {
-                          tag: "ul",
-                          group: "all-users",
-                          "ghost-class": "moving-card",
-                          filter: ".action-button",
-                          list: _vm.familiasNew,
-                          animation: 200,
-                          move: _vm.onMove
-                        },
-                        on: { change: _vm.update }
+                  _vm._l(this.familiasNew, function(familia, i) {
+                    return _c("accordion", {
+                      key: i,
+                      attrs: {
+                        familia: familia,
+                        title: familia.nombre,
+                        id: familia.id,
+                        platos: _vm.platos,
+                        alergenos: _vm.alergenos
                       },
-                      _vm._l(this.familiasNew, function(familia, i) {
-                        return _c("accordion", {
-                          key: i,
-                          attrs: {
-                            familia: familia,
-                            title: familia.nombre,
-                            id: familia.id,
-                            platos: _vm.platos,
-                            alergenos: _vm.alergenos
-                          },
-                          on: { "on-guardarPlatos": _vm.onGuardarPlatos }
-                        })
-                      }),
-                      1
-                    )
-                  ],
+                      on: { "on-guardarPlatos": _vm.onGuardarPlatos }
+                    })
+                  }),
                   1
                 )
               ],

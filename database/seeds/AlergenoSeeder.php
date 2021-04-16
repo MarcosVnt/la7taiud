@@ -24,6 +24,7 @@ class AlergenoSeeder extends Seeder
         
 
         ]);
+        
         DB::table('alergenos')->insert([
             'nombre' => 'Apio',
             'imagen' => 'Alergenos/Apio.png',
@@ -97,5 +98,5 @@ class AlergenoSeeder extends Seeder
 
         ]); 
     }
-    }
+    
 }
