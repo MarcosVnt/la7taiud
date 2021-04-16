@@ -2594,11 +2594,13 @@ __webpack_require__.r(__webpack_exports__);
     onGuardarSubCarta: function onGuardarSubCarta(subCarta) {
       console.log("onGuardarSubCarta", subCarta);
       this.familias.push(subCarta);
+      this.toggleTabs(this.openTab, this.cartaId, 1);
       this.onCancelarSubCarta();
     },
     onCancelarSubCarta: function onCancelarSubCarta() {
       console.log("onCancelarSubCarta ....");
       this.modalAltaSubCarta = false;
+      this.toggleTabs(this.openTab, this.cartaId, 1);
     },
     modalSubCarta: function modalSubCarta() {
       this.modalAltaSubCarta = !this.modalAltaSubCarta;

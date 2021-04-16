@@ -374,12 +374,16 @@ export default {
     onGuardarSubCarta(subCarta) {
       console.log("onGuardarSubCarta", subCarta);
       this.familias.push(subCarta);
-      
+           
+           this.toggleTabs(this.openTab, this.cartaId, 1);
+
       this.onCancelarSubCarta();
     },
     onCancelarSubCarta() {
       console.log("onCancelarSubCarta ....");
       this.modalAltaSubCarta = false;
+            this.toggleTabs(this.openTab, this.cartaId, 1);
+
     },
 
     modalSubCarta() {
@@ -391,6 +395,9 @@ export default {
     onGuardar(carta) {
       console.log("onGuardar", carta);
       this.cartas.push(carta);
+            this.toggleTabs(this.openTab, this.cartaId, 1);
+
+      
       this.onCancelar();
     },
     onCancelar() {
