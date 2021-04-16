@@ -2864,7 +2864,7 @@ __webpack_require__.r(__webpack_exports__);
       };
 
       if (this.modalEdit) {
-        axios.post("/cartas/update/", params).then(function (respuesta) {
+        axios.put("/cartas/update/", params).then(function (respuesta) {
           console.log(respuesta);
 
           _this.$emit("on-guardar", respuesta.data.carta); // Eliminar del DOM  simpre borra del padre hacia el hijo
@@ -2874,7 +2874,7 @@ __webpack_require__.r(__webpack_exports__);
           console.log(error);
         });
       } else {
-        axios.post("/cartas/store/", params).then(function (respuesta) {
+        axios.put("/cartas/store/", params).then(function (respuesta) {
           console.log(respuesta);
 
           _this.$emit("on-guardar", respuesta.data.carta); // Eliminar del DOM  simpre borra del padre hacia el hijo

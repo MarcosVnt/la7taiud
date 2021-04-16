@@ -137,7 +137,7 @@ export default {
 
       if(this.modalEdit){
          axios
-        .post("/cartas/update/", params)
+        .put("/cartas/update/", params)
         .then((respuesta) => {
           console.log(respuesta);
 
@@ -153,7 +153,7 @@ export default {
       }else{
 
       axios
-        .post("/cartas/store/", params)
+        .put("/cartas/store/", params)
         .then((respuesta) => {
           console.log(respuesta);
 
