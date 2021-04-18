@@ -99,7 +99,8 @@
           <div class="flex block">
             <div class="flex-auto w-3/5 text-left">
               <!-- Will grow and shrink as needed taking initial size into account -->
-              {{ plato.nombre }} - {{ plato.id }} {{ plato.pivot.familia_id }}
+              {{ plato.nombre }} 
+              <!-- - {{ plato.id }} {{ plato.pivot.familia_id }} -->
               <br />
               <span class="text-xs mb-4 font-thin"
                 >{{ plato.observaciones }}.</span

@@ -149,7 +149,7 @@
               'text-white bg-green-600': openTab === i + 1,
             }"
           >
-            {{ carta.nombre }} - {{ carta.id }}
+            {{ carta.nombre }} 
 
             <!-- {{openTab}} {{carta.id}} -->
             <!--  NOmbre: {{carta.nombre}}--id1-{{i+1}}-cartaid-{{carta.id}}-- -->
@@ -179,7 +179,7 @@
       <div
         class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
       >
-        <div class="px-4 py-5 flex-auto">
+        <div v-if="cartaId>0" class="px-4 py-5 flex-auto">
           <a href="#" class="" @click.prevent="modalSubCarta">
             <strong>Alta SubCarta</strong>
 
@@ -330,7 +330,7 @@ export default {
       platos: {},
       alergenos: {},
       establecimientoId: "",
-      cartaId: "",
+      cartaId: 0,
       cartaEdit: {},
       modalEdit: false,
 
@@ -395,7 +395,8 @@ export default {
     onGuardar(carta) {
       console.log("onGuardar", carta);
       this.cartas.push(carta);
-            this.toggleTabs(this.openTab, this.cartaId, 1);
+      this.cartaId = carta.id;
+      this.toggleTabs(this.openTab, this.cartaId, 1);
 
       
       this.onCancelar();
@@ -441,6 +442,7 @@ export default {
                   respuesta.data.mensaje,
                   "success"
                 );
+                this.cartaId=1;
                 this.inicializarCartas();
 
                 // Eliminar del DOM  simpre borra del padre hacia el hijo
@@ -502,26 +504,43 @@ export default {
     },
 
     inicializarCartas() {
-      console.log("created : ESTABLECIMIENTO CARTAS ", this.esta, this.esta.id);
+      console.log("created : inicializar  CARTAS ",this.cartas,this.cartaId,
+       this.esta, this.esta.id);
+
+       let me = this;
       const id = this.esta.id;
       const params = {
         estado: this.esta,
       };
 
-      console.log(this.esta.id);
+       let c1 = 1 ; 
+        let c2 = 1 ; 
+
+    
+
+      console.log(me.esta.id);
       //  axios.post(`/cartas/${this.esta.id}`, params)
       axios
         .get(`/cartas/${id}`)
         .then((respuesta) => {
           console.log("respuesta", respuesta);
 
-          this.cartas = respuesta.data.cartas;
-          this.toggleTabs(1, this.cartas[0]["id"], this.cartas[0]);
+          me.cartas = respuesta.data.cartas;
+       
+            if (me.cartas[0]){
+
+              c1 = me.cartas[0]["id"];
+              c2 = me.cartas[0];
+
+            }     
+          //me.toggleTabs(1, me.cartas[0]["id"], me.cartas[0]);
+           me.toggleTabs(1, c1, c2);
+
 
           //todo
           //this.establecimientoId = this.cartas[0]['establecimiento_id'];
 
-          console.log("todo", this.establecimientoId);
+          console.log("todo", me.establecimientoId);
           // Eliminar del DOM  simpre borra del padre hacia el hijo
           //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
         })

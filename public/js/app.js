@@ -2559,7 +2559,7 @@ __webpack_require__.r(__webpack_exports__);
       platos: {},
       alergenos: {},
       establecimientoId: "",
-      cartaId: "",
+      cartaId: 0,
       cartaEdit: {},
       modalEdit: false,
       modalAlta: false,
@@ -2610,6 +2610,8 @@ __webpack_require__.r(__webpack_exports__);
     onGuardar: function onGuardar(carta) {
       console.log("onGuardar", carta);
       this.cartas.push(carta);
+      this.cartaId = carta.id;
+      this.toggleTabs(this.openTab, this.cartaId, 1);
       this.onCancelar();
     },
     onCancelar: function onCancelar() {
@@ -2645,6 +2647,8 @@ __webpack_require__.r(__webpack_exports__);
           axios.post("/cartas/".concat(cartaId), params).then(function (respuesta) {
             // console.log(respuesta)
             _this.$swal.fire("Carta  Eliminada", respuesta.data.mensaje, "success");
+
+            _this.cartaId = 1;
 
             _this.inicializarCartas(); // Eliminar del DOM  simpre borra del padre hacia el hijo
 
@@ -2692,24 +2696,30 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     inicializarCartas: function inicializarCartas() {
-      var _this3 = this;
-
-      console.log("created : ESTABLECIMIENTO CARTAS ", this.esta, this.esta.id);
+      console.log("created : inicializar  CARTAS ", this.cartas, this.cartaId, this.esta, this.esta.id);
+      var me = this;
       var id = this.esta.id;
       var params = {
         estado: this.esta
       };
-      console.log(this.esta.id); //  axios.post(`/cartas/${this.esta.id}`, params)
+      var c1 = 1;
+      var c2 = 1;
+      console.log(me.esta.id); //  axios.post(`/cartas/${this.esta.id}`, params)
 
       axios.get("/cartas/".concat(id)).then(function (respuesta) {
         console.log("respuesta", respuesta);
-        _this3.cartas = respuesta.data.cartas;
+        me.cartas = respuesta.data.cartas;
 
-        _this3.toggleTabs(1, _this3.cartas[0]["id"], _this3.cartas[0]); //todo
+        if (me.cartas[0]) {
+          c1 = me.cartas[0]["id"];
+          c2 = me.cartas[0];
+        } //me.toggleTabs(1, me.cartas[0]["id"], me.cartas[0]);
+
+
+        me.toggleTabs(1, c1, c2); //todo
         //this.establecimientoId = this.cartas[0]['establecimiento_id'];
 
-
-        console.log("todo", _this3.establecimientoId); // Eliminar del DOM  simpre borra del padre hacia el hijo
+        console.log("todo", me.establecimientoId); // Eliminar del DOM  simpre borra del padre hacia el hijo
         //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
       })["catch"](function (error) {
         console.log(error);
@@ -4687,6 +4697,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Establecimientos_establecimientoCartasAltaPlato_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Establecimientos/establecimientoCartasAltaPlato.vue */ "./resources/js/components/Establecimientos/establecimientoCartasAltaPlato.vue");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_1__);
+//
 //
 //
 //
@@ -55455,9 +55466,7 @@ var render = function() {
                     _vm._v(
                       "\n            " +
                         _vm._s(carta.nombre) +
-                        " - " +
-                        _vm._s(carta.id) +
-                        "\n\n            "
+                        " \n\n            "
                     )
                   ]
                 )
@@ -55474,108 +55483,111 @@ var render = function() {
               "relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
           },
           [
-            _c(
-              "div",
-              { staticClass: "px-4 py-5 flex-auto" },
-              [
-                _c(
-                  "a",
-                  {
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.modalSubCarta($event)
-                      }
-                    }
-                  },
+            _vm.cartaId > 0
+              ? _c(
+                  "div",
+                  { staticClass: "px-4 py-5 flex-auto" },
                   [
-                    _c("strong", [_vm._v("Alta SubCarta")]),
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.modalSubCarta($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("strong", [_vm._v("Alta SubCarta")]),
+                        _vm._v(" "),
+                        _vm.modalAltaSubCarta
+                          ? _c("span", { staticClass: "minus-circle" }, [
+                              _c(
+                                "svg",
+                                {
+                                  staticClass: "w-6 h-6",
+                                  attrs: {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    fill: "none",
+                                    viewBox: "0 0 24 24",
+                                    stroke: "currentColor"
+                                  }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      "stroke-linecap": "round",
+                                      "stroke-linejoin": "round",
+                                      "stroke-width": "2",
+                                      d:
+                                        "M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    }
+                                  })
+                                ]
+                              )
+                            ])
+                          : _c("span", { staticClass: "plus-circle" }, [
+                              _c(
+                                "svg",
+                                {
+                                  staticClass: "w-6 h-6",
+                                  attrs: {
+                                    fill: "none",
+                                    stroke: "currentColor",
+                                    viewBox: "0 0 24 24",
+                                    xmlns: "http://www.w3.org/2000/svg"
+                                  }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      "stroke-linecap": "round",
+                                      "stroke-linejoin": "round",
+                                      "stroke-width": "2",
+                                      d:
+                                        "M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    }
+                                  })
+                                ]
+                              )
+                            ])
+                      ]
+                    ),
                     _vm._v(" "),
                     _vm.modalAltaSubCarta
-                      ? _c("span", { staticClass: "minus-circle" }, [
-                          _c(
-                            "svg",
-                            {
-                              staticClass: "w-6 h-6",
-                              attrs: {
-                                xmlns: "http://www.w3.org/2000/svg",
-                                fill: "none",
-                                viewBox: "0 0 24 24",
-                                stroke: "currentColor"
-                              }
-                            },
-                            [
-                              _c("path", {
-                                attrs: {
-                                  "stroke-linecap": "round",
-                                  "stroke-linejoin": "round",
-                                  "stroke-width": "2",
-                                  d: "M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                                }
-                              })
-                            ]
-                          )
-                        ])
-                      : _c("span", { staticClass: "plus-circle" }, [
-                          _c(
-                            "svg",
-                            {
-                              staticClass: "w-6 h-6",
-                              attrs: {
-                                fill: "none",
-                                stroke: "currentColor",
-                                viewBox: "0 0 24 24",
-                                xmlns: "http://www.w3.org/2000/svg"
-                              }
-                            },
-                            [
-                              _c("path", {
-                                attrs: {
-                                  "stroke-linecap": "round",
-                                  "stroke-linejoin": "round",
-                                  "stroke-width": "2",
-                                  d:
-                                    "M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                                }
-                              })
-                            ]
-                          )
-                        ])
-                  ]
-                ),
-                _vm._v(" "),
-                _vm.modalAltaSubCarta
-                  ? _c("establecimientoCartasAltaSubCarta", {
-                      attrs: { cartaId: _vm.cartaId },
-                      on: {
-                        "on-guardarSC": _vm.onGuardarSubCarta,
-                        "on-cancelarSC": _vm.onCancelarSubCarta
-                      }
-                    })
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "tab-content tab-space" },
-                  _vm._l(this.familiasNew, function(familia, i) {
-                    return _c("accordion", {
-                      key: i,
-                      attrs: {
-                        familia: familia,
-                        title: familia.nombre,
-                        id: familia.id,
-                        platos: _vm.platos,
-                        alergenos: _vm.alergenos
-                      },
-                      on: { "on-guardarPlatos": _vm.onGuardarPlatos }
-                    })
-                  }),
+                      ? _c("establecimientoCartasAltaSubCarta", {
+                          attrs: { cartaId: _vm.cartaId },
+                          on: {
+                            "on-guardarSC": _vm.onGuardarSubCarta,
+                            "on-cancelarSC": _vm.onCancelarSubCarta
+                          }
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "tab-content tab-space" },
+                      _vm._l(this.familiasNew, function(familia, i) {
+                        return _c("accordion", {
+                          key: i,
+                          attrs: {
+                            familia: familia,
+                            title: familia.nombre,
+                            id: familia.id,
+                            platos: _vm.platos,
+                            alergenos: _vm.alergenos
+                          },
+                          on: { "on-guardarPlatos": _vm.onGuardarPlatos }
+                        })
+                      }),
+                      1
+                    )
+                  ],
                   1
                 )
-              ],
-              1
-            )
+              : _vm._e()
           ]
         )
       ],
@@ -58211,12 +58223,9 @@ var render = function() {
                     _vm._v(
                       "\n            " +
                         _vm._s(plato.nombre) +
-                        " - " +
-                        _vm._s(plato.id) +
-                        " " +
-                        _vm._s(plato.pivot.familia_id) +
-                        "\n            "
+                        " \n            "
                     ),
+                    _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
                     _c("span", { staticClass: "text-xs mb-4 font-thin" }, [
