@@ -42,6 +42,7 @@ Vue.component('establecimiento-qr', require('./components/Establecimientos/Estab
 
 Vue.component('establecimiento-carta', require('./components/Establecimientos/Front/EstablecimientoCarta.vue').default);
 
+Vue.component('foto-obra-dropzone', require('./components/Fotos/FotoObraDropzone.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

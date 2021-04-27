@@ -79,6 +79,7 @@ Route::group(['as'=>'admin.','prefix' => 'admin','namespace'=>'Admin','middlewar
     Route::get('establecimientos/profile', 'EstablecimientoController@profile')->name('establecimientos.profile');
     Route::get('/establecimientos/{establecimiento}', 'EstablecimientoController@show')->name('establecimientos.show');
     Route::post('/establecimientos/update/', 'EstablecimientoController@update')->name('establecimientos.update');
+    Route::post('/establecimientos/altafoto', 'EstablecimientoController@altafoto')->name('establecimientos.altafoto');
     
 
 
@@ -109,7 +110,7 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::post('/publicidad/borrarimagen', 'PublicidadController@borrarimagen')->name('publicidads.borrar');
     Route::post('/publicidad/store', 'PublicidadController@store')->name('publicidads.store');
     Route::post('/publicidad/update', 'PublicidadController@update')->name('publicidads.update');
-
+    
     Route::get('/publicidad/{publicidad}/edit', 'PublicidadController@edit')->name('publicidads.edit');
 
     Route::get('/publicidad/{publicidad}', 'PublicidadController@show')->name('publicidads.show');
@@ -120,6 +121,7 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
 
     
 
+    Route::post('/establecimientos/altafoto', 'EstablecimientoController@altafoto')->name('establecimientos.altafoto');
 
     Route::get('/establecimientos', 'EstablecimientoController@index')->name('establecimientos.index');
 

@@ -478,6 +478,9 @@ php artisan make:seeder AlergenosSeed
 php artisan make:seeder AlergenoPlatoSeed
 
 
+24/04/2021
+DE rotuleon cogemos gestor de fotos
+npm install vue2-dropzone
 
 
 

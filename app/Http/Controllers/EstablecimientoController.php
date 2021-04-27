@@ -205,4 +205,58 @@ class EstablecimientoController extends Controller
 
 
 
+
+    public function altafoto(Request $request, Establecimiento $establecimiento)
+    {
+        //
+       //return $request->all();
+        //"subiendo imagen";
+
+     //   dd($establecimiento);
+
+        $estable= $request->establecimientoCodigo;
+            $imagen = $request->file('file');
+            $nombreImagen = time() . '.' . $imagen->extension();
+           // $nombreImagen = $imagen->realname();
+            $imagen->move(public_path('storage/establecimiento/'.$estable), $nombreImagen );
+
+            if ($imagen){
+                $establecimiento = Establecimiento::where('id','=',$estable)->first();
+                $establecimiento->imagen = $nombreImagen;
+//  dd($esta,$estable,$establecimiento,$nombreImagen);
+              
+
+                $establecimiento->save();
+            }
+
+
+            //return response()->json($nombreImagen);
+            return $nombreImagen;
+
+
+        
+    
+    }
+
+    public function borrarimagen(Request $request)
+    {
+
+
+        if($request->ajax()) {
+        
+            $imagen = $request->get('imagen');
+            $establecimiento= $request->establecimientoCodigo;
+   
+   
+            if( File::exists( 'storage/establecimiento/'.$establecimiento.'/'. $imagen ) ) {
+                File::delete( 'storage/establecimiento/'.$establecimiento.'/'. $imagen );
+            }
+   
+            return response('Imagen Eliminada', 200);
+        }
+    }
+
+
+
+
 }

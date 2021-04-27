@@ -171,12 +171,12 @@
         <p id="error"></p>
     </div>
 
-{{$seccions}}
+{{-- {{$seccions}}
 <br>
 {{$establecimiento_tipos}}
 <br>
 {{$tamanos}}
-
+ --}}
     <button 
     type="submit"
     class="bg-green-500 w-full hover:bg-green-600 text-gray-100 font-bold p-3 focus:outline focus:shadow-outline uppercase"

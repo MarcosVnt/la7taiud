@@ -239,13 +239,15 @@
     </div>
 
 
-    <div class="bg-indigo-300 ...">
-      <div class="bg-indigo-300 ...">
+    <div class="">
+      <div class="">
         <img
           class="object-contain md:object-scale-down"
-          :src="'../img/Vile_m.JPG'"
+
+         :src="'../storage/establecimiento/'+esta.id+'/'+imagenEstablecimiento" 
         />
       </div>
+ <!-- :src="'../img/Vile_m.JPG'" -->
 <!--       <img class="object-contain md:object-scale-down" :src="esta.imagen" />-->   
     </div>
 
@@ -272,6 +274,12 @@
       :src="esta.imagen"
       alt="avatar"
     /> -->
+
+
+ <foto-obra-dropzone
+                    @finalizar="finalizarSubirFotos"              
+                    :establecimiento ="esta">
+                </foto-obra-dropzone>
 
 
 
@@ -362,6 +370,8 @@
 
 
 <script>
+import FotosObraDropzone from "../Fotos/FotoObraDropzone.vue";
+
 export default {
   name: "EstablecimientoDatos",
   props: ["esta"],
@@ -371,6 +381,7 @@ export default {
   data: function () {
     return {
       editar: false,
+      imagenEstablecimiento :"",
 
       user: [
         {
@@ -386,6 +397,16 @@ export default {
     };
   },
   methods: {
+
+    finalizarSubirFotos(fin,nombre){
+
+        console.log('finalizar Subir Fotos..',this.esta,fin, nombre, this.imagenEstablecimiento);
+           this.imagenEstablecimiento= nombre;
+
+            console.log('finalizar subir fotos...',this.imagenEstablecimiento);
+
+
+    },
     guardarDatos() {
       this.editar = false;
       console.log("guardarDatos", this.esta.id);
@@ -419,6 +440,7 @@ export default {
   },
   created() {
     console.log("created : ESTABLECIMIENTO DATOS ", this.esta);
+    this.imagenEstablecimiento= this.esta.imagen;
   },
 };
 </script>

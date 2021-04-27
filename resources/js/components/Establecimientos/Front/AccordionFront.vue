@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="tab__header m-3">
+    <div class="tab__header ">
       <a
         href="#"
         class="tab__link bg-green-500 text-red p-4 block bg-blue-dark hover:bg-blue-darker no-underline border-b-2 border-red flex justify-between"
@@ -24,7 +24,7 @@
      
 
       <div
-        class="flex bg-green-200 border-b-2 p-2 block m-2"
+        class="flex bg-green-200 border-b-2 p-2 block "
         v-for="(plato, i) in filteredPlato(id)"
         v-bind:key="i"
       >

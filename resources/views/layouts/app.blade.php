@@ -23,7 +23,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="bg-white min-h-screen leading-none">
-    <div id="app" class="mx-2">
+    <div id="app" class="mx-5 sm:mx-10 md:mx-22 lg:mx-44">
         <nav class="bg-white shadow-md py-6">
             <div class="container mx-auto md:px-0">
                 <div class="flex items-center justify-around">

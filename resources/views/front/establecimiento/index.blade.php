@@ -34,13 +34,19 @@
     </div>
 
     <div class="">
-        <img
+     {{--    <img
           class="object-contain md:object-scale-down"
-          :src="'../img/Vile_m.JPG'"
-        />
+         :src="'../img/Vile_m.JPG'" 
+         
+        /> --}}
+
+{{--         <img class="h-8 w-auto"  src="{{ asset('{{$establecimiento['imagen'] }}') }}" alt="">
+ --}}        <img src="/storage/establecimiento/{{ $establecimiento->id }}/{{ $establecimiento->imagen }}"  class="object-contain md:object-scale-down">
+
+
       </div>
 
-    <div class="py-4 px-6">
+    <div class="m-1 md:m-4">
       <h1 class="text-2xl font-semibold text-gray-800">
         {{ $establecimiento['nombre_comercial'] }}
       </h1>

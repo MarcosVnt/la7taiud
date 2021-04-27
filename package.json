@@ -32,6 +32,7 @@
         "vue-qrcode": "^0.3.5",
         "vue-sweetalert2": "^4.2.1",
         "vue-tailwind": "^2.1.4",
+        "vue2-dropzone": "^3.6.0",
         "vuedraggable": "^2.24.3"
     }
 }

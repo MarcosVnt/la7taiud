@@ -13,7 +13,7 @@ class Establecimiento extends Model
 
     protected $fillable = [
         'nombre_comercial','nombre_fiscal','nif','direccion','codigo_postal','poblacion','provincia',
-        'telefono','movil','email','web','contacto','observaciones','activa'
+        'telefono','movil','email','web','contacto','observaciones','activa','imagen'
     ];
 
     public function user()
