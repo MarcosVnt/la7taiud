@@ -56,7 +56,7 @@
 
             <div class=" flex block" v-if="plato.imagen">
             <img
-              :src="'../storage/establecimiento/' + plato.establecimiento_id +'/platos/'+plato.imagen"
+              :src="'../storage/establecimiento/' + plato.establecimiento_id +'/'+plato.imagen"
               :alt="plato.nombre"
               :title="plato.nombre"
               class="w-32 h-32 p-2"

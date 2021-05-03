@@ -57168,7 +57168,7 @@ var render = function() {
                             src:
                               "../storage/establecimiento/" +
                               plato.establecimiento_id +
-                              "/platos/" +
+                              "/" +
                               plato.imagen,
                             alt: plato.nombre,
                             title: plato.nombre
