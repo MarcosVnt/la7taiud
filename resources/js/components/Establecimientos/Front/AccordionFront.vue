@@ -54,21 +54,34 @@
               {{ plato.precio }} {{ plato.moneda }}
             </div>
 
-          
-          </div>
-          <!--      {{filteredAlergeno(plato.id)}}-->
-          <div class="dish-miniature__content__allergens flex block">
+            <div class=" flex block" v-if="plato.imagen">
             <img
-              v-for="(alergeno, i) in filteredAlergeno(plato.id)"
-              v-bind:key="i"
-              :src="'../storage/' + alergeno.imagen"
-              :alt="alergeno.nombre"
-              :title="alergeno.nombre"
-              class="w-12 h-12 p-2"
+              :src="'../storage/establecimiento/' + plato.establecimiento_id +'/platos/'+plato.imagen"
+              :alt="plato.nombre"
+              :title="plato.nombre"
+              class="w-32 h-32 p-2"
             />
 
        
           </div>
+
+          
+          </div>
+          <!--      {{filteredAlergeno(plato.id)}}-->
+            <div class="dish-miniature__content__allergens flex inline-block"
+           >
+              <img
+                 v-for="(alergeno, i) in filteredAlergeno(plato.id)"
+                v-bind:key="i"
+                :src="'../storage/' + alergeno.imagen"
+                :alt="alergeno.nombre"
+                :title="alergeno.nombre"
+                class="w-12 h-12 p-2 mb-2"
+              />
+              
+
+        
+            </div>
         </div>
       </div>
     </div>
@@ -170,7 +183,7 @@ export default {
   flex-flow: row wrap;
   margin-top: 8px;
   min-height: 36px;
-  max-height: 36px;
+  /* max-height: 36px; */
   overflow: hidden;
 }
 </style>

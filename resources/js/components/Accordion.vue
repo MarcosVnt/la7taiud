@@ -111,7 +111,7 @@
               {{ plato.precio }} {{ plato.moneda }}
             </div>
 
-            <div class="flex-auto w-1 bg-green-200 p-4 text-right">
+            <div class="flex block w-1 bg-green-200 p-4 text-right">
               <a
                 href="#"
                 class=""
@@ -135,6 +135,17 @@
                 </div>
               </a>
             </div>
+
+            <div class=" flex block" v-if="plato.imagen">
+            <img
+              :src="'../storage/establecimiento/' + plato.establecimiento_id +'/platos/'+plato.imagen"
+              :alt="plato.nombre"
+              :title="plato.nombre"
+              class="w-32 h-32 p-2"
+            />
+
+       
+          </div>
           </div>
           <!--      {{filteredAlergeno(plato.id)}}-->
           <div class="dish-miniature__content__allergens flex block">
@@ -144,7 +155,7 @@
               :src="'../storage/' + alergeno.imagen"
               :alt="alergeno.nombre"
               :title="alergeno.nombre"
-              class="w-12 h-12 p-2"
+              class="w-12 h-12 p-2 mb-2"
             />
 
        
@@ -379,7 +390,7 @@ export default {
   flex-flow: row wrap;
   margin-top: 8px;
   min-height: 36px;
-  max-height: 36px;
-  overflow: hidden;
+/*   max-height: 36px;
+ */  overflow: hidden;
 }
 </style>

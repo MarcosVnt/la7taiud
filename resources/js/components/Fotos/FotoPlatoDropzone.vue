@@ -37,7 +37,7 @@ export default {
  */
   props: {
    
-    establecimiento: Object,
+    plato: Object,
   
   },
 
@@ -49,7 +49,7 @@ export default {
      
       
       dropzoneOptions: {
-        url: "/establecimientos/altafoto",
+        url: "/establecimientos/plato/altafoto",
         maxFiles: 1,
         /*  maxFilesize: 2, // MB
                 maxFiles: 4,
@@ -63,10 +63,10 @@ export default {
             .content
         }, 
         params: {
-          establecimientoCodigo: this.establecimiento.id,
-          establecimientoNombre: this.establecimiento.nombre_comercial,
+          plato: this.plato,
+       /*    establecimientoNombre: this.establecimiento.nombre_comercial,
           establecimiento : this.establecimiento,
-
+ */
         }
       }
     };
@@ -80,32 +80,16 @@ export default {
   
    this.inicio();
 
-      /*       if(localStorage.getItem('codigoObraFoto') === null){
-
-
-            }else{
-
-                this.a = localStorage.getItem('codigoObraFoto' );
-                this.dropzoneOptions.params.slot=  localStorage.getItem('codigoObraFoto' );
-                this.dropzoneOptions.params.establecimiento=  JSON.parse(localStorage.getItem('codigoObraFoto') );
-
-            } */
+      
 
    
-    console.log('FOTOOBRADROPZ<ONE -> inicio ',
-      this.establecimiento,
+    console.log('FOTOOBRADROPZ<ONE -> me plato inicio',
+      this.plato,
       'DROPOPTIONS',this.dropzoneOptions
       
     );
 
-    this.dropzoneOptions.params.codigoObra=this.establecimiento.id;
-     this.dropzoneOptions.acceptedFiles= 'image/*';
-     console.log('FOTOOBRADROPZONE -> inicio 222222222',
-      this.establecimiento,
-      'DROPOPTIONS',this.dropzoneOptions
-      
-    );
-
+   
 
 
   },
@@ -113,13 +97,17 @@ export default {
     finalizar: function finalizar(){
       console.log('FOTOOBRADROPZONE - FINALIZAR');
       let fin = true;
-                this.$emit('finalizar',fin);
+      this.$emit('finalizar',fin);
 
     },
     inicio: function inicio() {
       let me = this;
 
-      console.log('FOTOOBRADROPZONE -> INICIO ',me.establecimiento,me.dropzoneOptions);
+      let miPlato = Object.keys(me.plato).map((key) => {
+     return me.plato[key]
+   })
+
+      console.log('FOTOOBRADROPZONE -> me plato  ',me.plato,miPlato);
 
     },
     removeFile(file){

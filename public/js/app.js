@@ -3773,6 +3773,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "accordionfront",
   props: ["title", "id", "familia", "platos", "alergenos"],
@@ -4088,6 +4101,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AlergenosLista_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AlergenosLista.vue */ "./resources/js/components/Establecimientos/AlergenosLista.vue");
+/* harmony import */ var _Fotos_FotoPlatoDropzone_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Fotos/FotoPlatoDropzone.vue */ "./resources/js/components/Fotos/FotoPlatoDropzone.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4245,6 +4270,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "EstablecimientoCartasAltaPlato",
   props: ["familia_id"],
@@ -4258,6 +4284,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    finalizarSubirFotos: function finalizarSubirFotos(fin, nombre) {
+      console.log('finalizar Subir Fotos..');
+      this.plato.imagen = nombre;
+      console.log('finalizar Subir Fotos..', fin, nombre);
+    },
     alergenosM: function alergenosM(alergenos) {
       console.log('alergenosM', alergenos);
       this.alergenosMarcados = alergenos;
@@ -4299,7 +4330,8 @@ __webpack_require__.r(__webpack_exports__);
         precio: this.plato.precio,
         moneda: this.plato.moneda,
         familia_id: this.familia_id,
-        alergenos: alergenosArray
+        alergenos: alergenosArray,
+        imagen: this.plato.imagen
       };
       console.log('guardar DOS', params);
       axios.put("/platos/store/", params).then(function (respuesta) {
@@ -4514,6 +4546,127 @@ __webpack_require__.r(__webpack_exports__);
     inicio: function inicio() {
       var me = this;
       console.log('FOTOOBRADROPZONE -> INICIO ', me.establecimiento, me.dropzoneOptions);
+    },
+    removeFile: function removeFile(file) {
+      console.log('removeFile', file);
+    },
+    removeAllFiles: function removeAllFiles() {
+      console.log("FOTOOBRADROPZONE this.$refs.dropzone", "this.$refs.dropzoneRef"); // this.$refs.dropzone.removeAllFiles();
+    },
+    afterComplete: function afterComplete(file) {
+      this.dropzoneOptions.params.slot = this.establecimiento;
+      var fin = true;
+      this.$emit('finalizar', fin, file.xhr.response);
+      console.log("FOTOOBRADROPZONE", this.dropzoneOptions.params.slot, "CONSOLE.LGO", file.xhr.response); //this.establecimiento, file,file.xhr);
+    }
+  },
+  watch: {
+    codigoDeObra: function codigoDeObra(value) {
+      console.log('FOTOOBRADROPZONE->WATCH ', value);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Fotos/FotoPlatoDropzone.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Fotos/FotoPlatoDropzone.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-dropzone */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.js");
+/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-dropzone/dist/vue2Dropzone.min.css */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.min.css");
+/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    vueDropzone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
+
+  /*   props: ["codigoDeObra", "writtenByMe"],
+   */
+  props: {
+    plato: Object
+  },
+  data: function data() {
+    return {
+      establecimientoCodigo: "",
+      establecimientoNombre: "",
+      dropzoneOptions: {
+        url: "/establecimientos/plato/altafoto",
+        maxFiles: 1,
+
+        /*  maxFilesize: 2, // MB
+                maxFiles: 4,
+                chunking: true,
+                chunkSize: 500, // Bytes
+                thumbnailWidth: 150, // px
+                thumbnailHeight: 150, */
+        addRemoveLinks: true,
+        headers: {
+          "X-CSRF-TOKEN": document.head.querySelector("[name=csrf-token]").content
+        },
+        params: {
+          plato: this.plato
+          /*    establecimientoNombre: this.establecimiento.nombre_comercial,
+             establecimiento : this.establecimiento,
+          */
+
+        }
+      }
+    };
+  },
+  computed: {//return this.pagination.current_page;ç
+  },
+  mounted: function mounted() {
+    this.inicio();
+    console.log('FOTOOBRADROPZ<ONE -> me plato inicio', this.plato, 'DROPOPTIONS', this.dropzoneOptions);
+  },
+  methods: {
+    finalizar: function finalizar() {
+      console.log('FOTOOBRADROPZONE - FINALIZAR');
+      var fin = true;
+      this.$emit('finalizar', fin);
+    },
+    inicio: function inicio() {
+      var me = this;
+      var miPlato = Object.keys(me.plato).map(function (key) {
+        return me.plato[key];
+      });
+      console.log('FOTOOBRADROPZONE -> me plato  ', me.plato, miPlato);
     },
     removeFile: function removeFile(file) {
       console.log('removeFile', file);
@@ -4840,6 +4993,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Establecimientos_establecimientoCartasAltaPlato_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Establecimientos/establecimientoCartasAltaPlato.vue */ "./resources/js/components/Establecimientos/establecimientoCartasAltaPlato.vue");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11685,7 +11849,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".dish-miniature__content__allergens[data-v-145d9aa4] {\n  display: flex;\n  flex-flow: row wrap;\n  margin-top: 8px;\n  min-height: 36px;\n  max-height: 36px;\n  overflow: hidden;\n}\r\n", ""]);
+exports.push([module.i, ".dish-miniature__content__allergens[data-v-145d9aa4] {\n  display: flex;\n  flex-flow: row wrap;\n  margin-top: 8px;\n  min-height: 36px;\n  /* max-height: 36px; */\n  overflow: hidden;\n}\r\n", ""]);
 
 // exports
 
@@ -11742,7 +11906,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".dish-miniature__content__allergens[data-v-2f8b48e6] {\n  display: flex;\n  flex-flow: row wrap;\n  margin-top: 8px;\n  min-height: 36px;\n  max-height: 36px;\n  overflow: hidden;\n}\r\n", ""]);
+exports.push([module.i, ".dish-miniature__content__allergens[data-v-2f8b48e6] {\n  display: flex;\n  flex-flow: row wrap;\n  margin-top: 8px;\n  min-height: 36px;\n  /*   max-height: 36px;\r\n */  overflow: hidden;\n}\r\n", ""]);
 
 // exports
 
@@ -56994,18 +57158,36 @@ var render = function() {
                         _vm._s(plato.moneda) +
                         "\n          "
                     )
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  plato.imagen
+                    ? _c("div", { staticClass: " flex block" }, [
+                        _c("img", {
+                          staticClass: "w-32 h-32 p-2",
+                          attrs: {
+                            src:
+                              "../storage/establecimiento/" +
+                              plato.establecimiento_id +
+                              "/platos/" +
+                              plato.imagen,
+                            alt: plato.nombre,
+                            title: plato.nombre
+                          }
+                        })
+                      ])
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c(
                   "div",
                   {
-                    staticClass: "dish-miniature__content__allergens flex block"
+                    staticClass:
+                      "dish-miniature__content__allergens flex inline-block"
                   },
                   _vm._l(_vm.filteredAlergeno(plato.id), function(alergeno, i) {
                     return _c("img", {
                       key: i,
-                      staticClass: "w-12 h-12 p-2",
+                      staticClass: "w-12 h-12 p-2 mb-2",
                       attrs: {
                         src: "../storage/" + alergeno.imagen,
                         alt: alergeno.nombre,
@@ -57377,35 +57559,54 @@ var render = function() {
                       [_vm._v("Moneda :\n              ")]
                     ),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.plato.moneda,
-                          expression: "plato.moneda"
-                        }
-                      ],
-                      staticClass: "w-full shadow-inner p-4 border-0 text-xs",
-                      attrs: {
-                        type: "text",
-                        name: "descripcion",
-                        placeholder: "descripcion"
-                      },
-                      domProps: { value: _vm.plato.moneda },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.plato.moneda,
+                            expression: "plato.moneda"
                           }
-                          _vm.$set(_vm.plato, "moneda", $event.target.value)
+                        ],
+                        staticClass:
+                          "block uppercase tracking-wide text-charcoal-darker text-xs font-bold",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.plato,
+                              "moneda",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
                         }
-                      }
-                    })
+                      },
+                      [
+                        _c("option", { attrs: { value: "€", default: "" } }, [
+                          _vm._v("€")
+                        ])
+                      ]
+                    )
                   ]),
                   _vm._v(" "),
                   _c("alergenos-lista", {
                     on: { alergenosMarcados: _vm.alergenosM }
+                  }),
+                  _vm._v(" "),
+                  _c("foto-plato-dropzone", {
+                    attrs: { plato: _vm.plato },
+                    on: { finalizar: _vm.finalizarSubirFotos }
                   }),
                   _vm._v(" "),
                   _c(
@@ -57591,7 +57792,7 @@ var render = function() {
             { staticClass: "card-body" },
             [
               _vm._v(
-                "\n          Pincha en el recuadro de abajo para adjuntar las fotos \n          "
+                "\n            Pincha en el recuadro de abajo para adjuntar las fotos \n            "
               ),
               _c("vue-dropzone", {
                 ref: "dropzoneRef",
@@ -57602,17 +57803,62 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
+              _vm._v("\n              Espere a que se procesen la foto\n")
+            ],
+            1
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Fotos/FotoPlatoDropzone.vue?vue&type=template&id=f4abfd48&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Fotos/FotoPlatoDropzone.vue?vue&type=template&id=f4abfd48& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Gestor de Fotos .")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
               _vm._v(
-                "\n            Espere a que se procesen las fotos y pulse en finalizar para terminar\n            "
+                "\n            Pincha en el recuadro de abajo para adjuntar las fotos \n            "
               ),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-success float-right",
-                  on: { click: _vm.finalizar }
-                },
-                [_vm._v("Finalizar ")]
-              )
+              _c("vue-dropzone", {
+                ref: "dropzoneRef",
+                attrs: { id: "dropzoneId", options: _vm.dropzoneOptions },
+                on: {
+                  "vdropzone-complete": _vm.afterComplete,
+                  "vdropzone-removed-file": _vm.removeFile
+                }
+              }),
+              _vm._v(" "),
+              _vm._v("\n              Espere a que se procesen la foto\n")
             ],
             1
           )
@@ -58485,7 +58731,7 @@ var render = function() {
                   _c(
                     "div",
                     {
-                      staticClass: "flex-auto w-1 bg-green-200 p-4 text-right"
+                      staticClass: "flex block w-1 bg-green-200 p-4 text-right"
                     },
                     [
                       _c(
@@ -58534,7 +58780,24 @@ var render = function() {
                         ]
                       )
                     ]
-                  )
+                  ),
+                  _vm._v(" "),
+                  plato.imagen
+                    ? _c("div", { staticClass: " flex block" }, [
+                        _c("img", {
+                          staticClass: "w-32 h-32 p-2",
+                          attrs: {
+                            src:
+                              "../storage/establecimiento/" +
+                              plato.establecimiento_id +
+                              "/platos/" +
+                              plato.imagen,
+                            alt: plato.nombre,
+                            title: plato.nombre
+                          }
+                        })
+                      ])
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c(
@@ -58545,7 +58808,7 @@ var render = function() {
                   _vm._l(_vm.filteredAlergeno(plato.id), function(alergeno, i) {
                     return _c("img", {
                       key: i,
-                      staticClass: "w-12 h-12 p-2",
+                      staticClass: "w-12 h-12 p-2 mb-2",
                       attrs: {
                         src: "../storage/" + alergeno.imagen,
                         alt: alergeno.nombre,
@@ -73465,10 +73728,12 @@ Vue.component('establecimiento', __webpack_require__(/*! ./components/Establecim
 Vue.component('establecimiento-navegacion', __webpack_require__(/*! ./components/Establecimientos/EstablecimientoNavegacion.vue */ "./resources/js/components/Establecimientos/EstablecimientoNavegacion.vue")["default"]);
 Vue.component('establecimiento-datos', __webpack_require__(/*! ./components/Establecimientos/EstablecimientoDatos.vue */ "./resources/js/components/Establecimientos/EstablecimientoDatos.vue")["default"]);
 Vue.component('establecimiento-cartas', __webpack_require__(/*! ./components/Establecimientos/EstablecimientoCartas.vue */ "./resources/js/components/Establecimientos/EstablecimientoCartas.vue")["default"]);
-Vue.component('establecimiento-qr', __webpack_require__(/*! ./components/Establecimientos/EstablecimientoQr.vue */ "./resources/js/components/Establecimientos/EstablecimientoQr.vue")["default"]); //Vue.component('navegador', require('./components/Navegador.vue').default);
+Vue.component('establecimiento-qr', __webpack_require__(/*! ./components/Establecimientos/EstablecimientoQr.vue */ "./resources/js/components/Establecimientos/EstablecimientoQr.vue")["default"]); //Vue.component('inicio', require('./components/Inicio.vue').default);
+//Vue.component('navegador', require('./components/Navegador.vue').default);
 
 Vue.component('establecimiento-carta', __webpack_require__(/*! ./components/Establecimientos/Front/EstablecimientoCarta.vue */ "./resources/js/components/Establecimientos/Front/EstablecimientoCarta.vue")["default"]);
 Vue.component('foto-obra-dropzone', __webpack_require__(/*! ./components/Fotos/FotoObraDropzone.vue */ "./resources/js/components/Fotos/FotoObraDropzone.vue")["default"]);
+Vue.component('foto-plato-dropzone', __webpack_require__(/*! ./components/Fotos/FotoPlatoDropzone.vue */ "./resources/js/components/Fotos/FotoPlatoDropzone.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -74719,6 +74984,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FotoObraDropzone_vue_vue_type_template_id_3b48718c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FotoObraDropzone_vue_vue_type_template_id_3b48718c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Fotos/FotoPlatoDropzone.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/Fotos/FotoPlatoDropzone.vue ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _FotoPlatoDropzone_vue_vue_type_template_id_f4abfd48___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FotoPlatoDropzone.vue?vue&type=template&id=f4abfd48& */ "./resources/js/components/Fotos/FotoPlatoDropzone.vue?vue&type=template&id=f4abfd48&");
+/* harmony import */ var _FotoPlatoDropzone_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FotoPlatoDropzone.vue?vue&type=script&lang=js& */ "./resources/js/components/Fotos/FotoPlatoDropzone.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _FotoPlatoDropzone_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FotoPlatoDropzone_vue_vue_type_template_id_f4abfd48___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FotoPlatoDropzone_vue_vue_type_template_id_f4abfd48___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Fotos/FotoPlatoDropzone.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Fotos/FotoPlatoDropzone.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/Fotos/FotoPlatoDropzone.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FotoPlatoDropzone_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./FotoPlatoDropzone.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Fotos/FotoPlatoDropzone.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FotoPlatoDropzone_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Fotos/FotoPlatoDropzone.vue?vue&type=template&id=f4abfd48&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/Fotos/FotoPlatoDropzone.vue?vue&type=template&id=f4abfd48& ***!
+  \********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FotoPlatoDropzone_vue_vue_type_template_id_f4abfd48___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./FotoPlatoDropzone.vue?vue&type=template&id=f4abfd48& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Fotos/FotoPlatoDropzone.vue?vue&type=template&id=f4abfd48&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FotoPlatoDropzone_vue_vue_type_template_id_f4abfd48___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FotoPlatoDropzone_vue_vue_type_template_id_f4abfd48___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

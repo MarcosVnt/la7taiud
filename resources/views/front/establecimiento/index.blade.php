@@ -33,7 +33,7 @@
       </h1>
     </div>
 
-    <div class="">
+    <div class="objetc-center bg-gray-900">
      {{--    <img
           class="object-contain md:object-scale-down"
          :src="'../img/Vile_m.JPG'" 
@@ -41,7 +41,7 @@
         /> --}}
 
 {{--         <img class="h-8 w-auto"  src="{{ asset('{{$establecimiento['imagen'] }}') }}" alt="">
- --}}        <img src="/storage/establecimiento/{{ $establecimiento->id }}/{{ $establecimiento->imagen }}"  class="object-contain md:object-scale-down">
+ --}}        <img src="/storage/establecimiento/{{ $establecimiento->id }}/{{ $establecimiento->imagen }}"  class=" mx-auto object-contain md:object-scale-down">
 
 
       </div>

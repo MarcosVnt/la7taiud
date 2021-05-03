@@ -114,19 +114,30 @@
                   class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold"
                   >Moneda :
                 </label>
-                <input
+                  <select
+                  class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold"
+                          v-model="plato.moneda"
+                        >
+                          <option value="€" default>€</option>
+                        </select>
+             <!--    <input
                   v-model="plato.moneda"
                   class="w-full shadow-inner p-4 border-0 text-xs"
                   type="text"
                   name="descripcion"
                   placeholder="descripcion"
-                />
+                /> -->
               </div>
 
               <alergenos-lista
                @alergenosMarcados="alergenosM"
               ></alergenos-lista>
 
+               <foto-plato-dropzone
+                    @finalizar="finalizarSubirFotos"              
+                    :plato ="plato">
+                </foto-plato-dropzone>
+              
               <div class="max-w-md mx-auto shadow-xl rounded my-8">
                 <div class="flex justify-center mb-10">
                   <button
@@ -157,6 +168,8 @@
 <script>
 
 import AlergenosLista from "./AlergenosLista.vue";
+import FotoPlatoDropzone from "../Fotos/FotoPlatoDropzone.vue";
+
 
 export default {
    name: "EstablecimientoCartasAltaPlato",
@@ -173,6 +186,18 @@ export default {
     };
   },
   methods: {
+
+    finalizarSubirFotos(fin,nombre){
+
+        console.log('finalizar Subir Fotos..');
+        this.plato.imagen = nombre;
+                console.log('finalizar Subir Fotos..',fin, nombre);
+
+        
+        
+
+    },
+
     alergenosM(alergenos){
       console.log('alergenosM',alergenos);
       this.alergenosMarcados = alergenos;
@@ -215,6 +240,7 @@ export default {
         moneda: this.plato.moneda,
         familia_id: this.familia_id,
         alergenos : alergenosArray,
+        imagen : this.plato.imagen,
         
       };
 console.log('guardar DOS', params);

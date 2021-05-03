@@ -38,11 +38,14 @@ Vue.component('establecimiento-navegacion', require('./components/Establecimient
 Vue.component('establecimiento-datos', require('./components/Establecimientos/EstablecimientoDatos.vue').default);
 Vue.component('establecimiento-cartas', require('./components/Establecimientos/EstablecimientoCartas.vue').default);
 Vue.component('establecimiento-qr', require('./components/Establecimientos/EstablecimientoQr.vue').default);
+//Vue.component('inicio', require('./components/Inicio.vue').default);
+
 //Vue.component('navegador', require('./components/Navegador.vue').default);
 
 Vue.component('establecimiento-carta', require('./components/Establecimientos/Front/EstablecimientoCarta.vue').default);
 
 Vue.component('foto-obra-dropzone', require('./components/Fotos/FotoObraDropzone.vue').default);
+Vue.component('foto-plato-dropzone', require('./components/Fotos/FotoPlatoDropzone.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

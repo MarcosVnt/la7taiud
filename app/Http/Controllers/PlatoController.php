@@ -30,8 +30,12 @@ class PlatoController extends Controller
             $plato->moneda = $request->moneda;
             
             $plato->establecimiento_id = $establecimiento;
+            $plato->imagen = $request->imagen;
+
             $plato->save();
 
+
+          
 
             $plato->familias()->attach($request->familia_id);
 
@@ -47,7 +51,7 @@ class PlatoController extends Controller
               $plato->alergenos()->attach($a->id);
               
             }else{
-              dd('else');
+             // dd('else');
             }
 
                   

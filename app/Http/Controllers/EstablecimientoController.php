@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Establecimiento;
+use App\Plato;
 use App\Carta;
 use App\Familia;
 use App\Publicidad;
+use App\User;
+
 use Illuminate\Http\Request;
+use Image;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Auth;
+
 
 class EstablecimientoController extends Controller
 {
@@ -206,35 +213,100 @@ class EstablecimientoController extends Controller
 
 
 
-    public function altafoto(Request $request, Establecimiento $establecimiento)
-    {
-        //
-       //return $request->all();
-        //"subiendo imagen";
 
-     //   dd($establecimiento);
+    public function altafotoOriginal(Request $request, Establecimiento $establecimiento)
+    {
+     
 
         $estable= $request->establecimientoCodigo;
             $imagen = $request->file('file');
             $nombreImagen = time() . '.' . $imagen->extension();
-           // $nombreImagen = $imagen->realname();
             $imagen->move(public_path('storage/establecimiento/'.$estable), $nombreImagen );
 
             if ($imagen){
                 $establecimiento = Establecimiento::where('id','=',$estable)->first();
                 $establecimiento->imagen = $nombreImagen;
-//  dd($esta,$estable,$establecimiento,$nombreImagen);
               
 
                 $establecimiento->save();
             }
 
 
-            //return response()->json($nombreImagen);
             return $nombreImagen;
+    
+    }
 
 
+    public function altafoto(Request $request, Establecimiento $establecimiento)
+    {
+     //comprimiendo 
+     $this->validate($request, [
+        'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:12048',
+    ]);
+
+        $estable= $request->establecimientoCodigo;
+
+
+
+            $image = $request->file('file');
+            $nombreImagen = time() . '.' . $image->extension();
+
+            $destinationPath = public_path('/storage/establecimiento/');
+            $destinationPath2 =  public_path('/storage/establecimiento/'.$estable);
+
+            if (!file_exists($destinationPath2)) {
+                mkdir($destinationPath2, 666, true);
+            }
+
+
+
+           $img = Image::make($image->getRealPath());
+
+          //  $destinationPath2 =  public_path('`\storage\establecimiento\`'.$estable);
+         
+         
+         //   dd($img,$image,$image->getRealPath(),$destinationPath,$destinationPath2);
+           
+            $img->resize(3400, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->orientate(); 
+            
+
+          //  $img->resize(800, 800)->save($destinationPath2.'/'.$nombreImagen);
+            
+ 
+           /*   $img->resize(400, 400, function ($constraint) {
+                $constraint->aspectRatio();
+               $constraint->upsize();
+            });  */
+          //  $img->rotate(-45);
+
+           // dd($img,$image);
+            
+            $img->save($destinationPath2.'/'.$nombreImagen);
+
+           //  dd($img,$image);
+
+         //   $img->save($destinationPath2.'/'.$nombreImagen); 
+
+
+
+         //  $image->move($destinationPath2, $nombreImagen);
         
+            if ($image){
+                $establecimiento = Establecimiento::where('id','=',$estable)->first();
+                $establecimiento->imagen = $nombreImagen;
+              
+
+                $establecimiento->save();
+            }
+
+            /* if( File::exists( 'storage/establecimiento/'.$estable.'/'. $nombreImagen ) ) {
+                File::delete( 'storage/establecimiento/'.$estable.'/'. $nombreImagen );
+            }
+ */
+            return $nombreImagen;
     
     }
 
@@ -256,6 +328,63 @@ class EstablecimientoController extends Controller
         }
     }
 
+
+
+    public function altafotoplato(Request $request, Plato $plato)
+    {
+     $this->validate($request, [
+        'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:12048',
+        ]);
+
+        if(Auth::check() ){
+
+            $user = User::find(Auth::user()->id);
+            $estable = $user->establecimiento->id;
+        }else{
+            return ['file'=> 'debe registrarse para subir platos '];
+        }
+
+        $plato= $request;
+      //  dd($plato,$user, $estable);
+
+
+            $image = $request->file('file');
+            $nombreImagen = time() . '.' . $image->extension();
+
+            $destinationPath = public_path('/storage/establecimiento/');
+            $destinationPath2 =  public_path('/storage/establecimiento/'.$estable.'/platos/');
+
+            if (!file_exists($destinationPath2)) {
+                mkdir($destinationPath2, 666, true);
+            }
+
+
+           $img = Image::make($image->getRealPath());
+
+           
+            $img->resize(3400, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->orientate(); 
+            
+
+            
+            $img->save($destinationPath2.'/'.$nombreImagen);
+
+        
+           /* PRIMERO GUARDAR PLATO ...   
+           if ($image){
+                $plato = Plato::where('id','=',$estable)->first();
+                $plato->imagen = $nombreImagen;
+              
+
+                $plato->save();
+            } */
+
+       
+            return $nombreImagen;
+    
+    }
 
 
 
