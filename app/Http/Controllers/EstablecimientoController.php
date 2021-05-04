@@ -354,11 +354,11 @@ class EstablecimientoController extends Controller
             $destinationPath = public_path('/storage/establecimiento/');
             $destinationPath2 =  public_path('/storage/establecimiento/'.$estable);
 
-           /* $destinationPath2 =  public_path('/storage/establecimiento/'.$estable.'/platos/');
+           /* $destinationPath2 =  public_path('/storage/establecimiento/'.$estable.'/platos/');*/
 
              if (!file_exists($destinationPath2)) {
                 mkdir($destinationPath2, 666, true);
-            }*/
+            }
  
 
            $img = Image::make($image->getRealPath());
