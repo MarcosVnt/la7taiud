@@ -5160,6 +5160,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -58585,7 +58586,7 @@ var render = function() {
                 }
               },
               [
-                _c("strong", [_vm._v("Alta Plato")]),
+                _c("strong", [_vm._v("Alta Plato :")]),
                 _vm._v(" "),
                 _vm.modalAltaPlato
                   ? _c("span", { staticClass: "minus-circle" }, [
@@ -58706,9 +58707,9 @@ var render = function() {
                 _c("div", { staticClass: "flex block" }, [
                   _c("div", { staticClass: "flex-auto w-3/5 text-left" }, [
                     _vm._v(
-                      "\n            " +
+                      "\n              " +
                         _vm._s(plato.nombre) +
-                        " \n            "
+                        " \n              "
                     ),
                     _vm._v(" "),
                     _c("br"),
@@ -58720,11 +58721,11 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "flex-auto w-1/5 text-right" }, [
                     _vm._v(
-                      "\n            " +
+                      "\n              " +
                         _vm._s(plato.precio) +
                         " " +
                         _vm._s(plato.moneda) +
-                        "\n          "
+                        "\n            "
                     )
                   ]),
                   _vm._v(" "),
@@ -58790,12 +58791,13 @@ var render = function() {
                             src:
                               "../storage/establecimiento/" +
                               plato.establecimiento_id +
-                              "/platos/" +
+                              "/" +
                               plato.imagen,
                             alt: plato.nombre,
                             title: plato.nombre
                           }
-                        })
+                        }),
+                        _vm._v("\n            \n<\n       \n          ")
                       ])
                     : _vm._e()
                 ]),
