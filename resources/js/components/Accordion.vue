@@ -23,7 +23,7 @@
             class=""
             @click.prevent="modalAltaPlato = !modalAltaPlato"
           >
-            <strong>Alta Plato</strong>
+            <strong>Alta Plato :</strong>
 
             <span v-if="modalAltaPlato" class="minus-circle">
               <svg
@@ -143,8 +143,8 @@
               :title="plato.nombre"
               class="w-32 h-32 p-2"
             />
-            qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
-
+            
+<
        
           </div>
           </div>
