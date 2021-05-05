@@ -8,6 +8,8 @@ use App\Alergeno;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+
 
 class PlatoController extends Controller
 {
@@ -77,7 +79,7 @@ class PlatoController extends Controller
 
     public function delete(Request $request,Plato $plato){
 
-    // dd($request->familia_id, $plato->familias);
+//     dd($request, $plato);
   //  $plato = Plato::find($request->id);
 
         // dd($request->familia_id,$plato, $plato->familia);
@@ -87,6 +89,14 @@ class PlatoController extends Controller
      $plato->familias()->detach($request->familia_id);
 
      //$user->roles()->detach($roleId);
+     if( File::exists( 'storage/establecimiento/'.$plato->establecimiento_id.'/'. $plato->imagen ) ) {
+
+     // dd($plato->establecimiento_id,$plato->imagen ,'existe');
+    
+     if( File::delete( 'storage/establecimiento/'.$plato->establecimiento_id.'/'. $plato->imagen )){
+       dd('borrado',$plato);
+     }
+  }
 
 
       

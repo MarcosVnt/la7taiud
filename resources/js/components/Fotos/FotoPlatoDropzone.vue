@@ -9,6 +9,8 @@
             <vue-dropzone
               ref="dropzoneRef"
               id="dropzoneId"
+              v-on:vdropzone-file-added="fileAdded"
+   
               @vdropzone-complete="afterComplete"
               @vdropzone-removed-file="removeFile"
 
@@ -61,7 +63,19 @@ export default {
         headers: {
           "X-CSRF-TOKEN": document.head.querySelector("[name=csrf-token]")
             .content
-        }, 
+        },
+        init: function () {
+        console.log('firstthis ',this)
+        //this.inicio();
+
+        this.on("addedfile", function(file) {
+           console.log("Added file ", file); 
+              //   this.inicio();
+
+          //  globalThis.form.photo = file // I want to assign the value of the file to the form field
+        });
+        // this.vdropzone-duplicate-file(file)
+      },
         params: {
           plato: this.plato,
        /*    establecimientoNombre: this.establecimiento.nombre_comercial,
@@ -94,6 +108,12 @@ export default {
 
   },
   methods: {
+    fileAdded(file) {
+    console.log('fileAdded 11111111111');
+    this.$parent.muestroGuardar=false;
+    
+    },
+
     finalizar: function finalizar(){
       console.log('FOTOOBRADROPZONE - FINALIZAR');
       let fin = true;
@@ -102,6 +122,7 @@ export default {
     },
     inicio: function inicio() {
       let me = this;
+
 
       let miPlato = Object.keys(me.plato).map((key) => {
      return me.plato[key]
@@ -118,6 +139,7 @@ export default {
       console.log("FOTOOBRADROPZONE this.$refs.dropzone", "this.$refs.dropzoneRef");
       // this.$refs.dropzone.removeAllFiles();
     },
+  
     afterComplete(file) {
       this.dropzoneOptions.params.slot=this.establecimiento;
         let fin = true;

@@ -134,12 +134,13 @@
               ></alergenos-lista>
 
                <foto-plato-dropzone
+                      @iniciar="iniciarSubirFotos" 
                     @finalizar="finalizarSubirFotos"              
                     :plato ="plato">
                 </foto-plato-dropzone>
               
               <div class="max-w-md mx-auto shadow-xl rounded my-8">
-                <div class="flex justify-center mb-10">
+                <div class="flex justify-center mb-10" v-if="muestroGuardar">
                   <button
                     class="flex items-center bg-green-100 shadow-md border border-gray-200 rounded px-4 py-2 mr-10"
                     @click.prevent="guardar"
@@ -182,15 +183,28 @@ export default {
   data() {
     return {
       plato: {},
+      muestroGuardar: true,
       alergenosMarcados: {},
     };
   },
   methods: {
 
+    iniciarSubirFotos(fin,nombre){
+
+        console.log('iniciarSubirFotos Subir Fotos..');
+        this.muestroGuardar = false;
+                console.log('iniciarSubirFotos Subir Fotos..',fin, nombre);
+
+        
+        
+
+    },
+
     finalizarSubirFotos(fin,nombre){
 
         console.log('finalizar Subir Fotos..');
         this.plato.imagen = nombre;
+        this.muestroGuardar = true;
                 console.log('finalizar Subir Fotos..',fin, nombre);
 
         

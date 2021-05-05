@@ -2143,6 +2143,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   //  props: ['alergenos', 'oldalergenos'],
   data: function data() {
@@ -2169,19 +2175,21 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     document.querySelector('#alergenos').value = this.oldalergenos;
   },
   methods: {
-    activar: function activar(e) {
-      console.log('ACTIVAR', e.target.textContent);
+    activar: function activar(e, i, a) {
+      console.log('ACTIVAR', e.target, i, a);
+      var elemento = document.getElementById(i);
+      console.log('ACTIVAR,dd333', document.getElementById(i));
 
-      if (e.target.classList.contains('bg-green-100')) {
+      if (elemento.classList.contains('bg-green-100')) {
         // el alergeno esta en activo
-        e.target.classList.remove('bg-green-100'); // Eliminar del set de habilidades
+        elemento.classList.remove('bg-green-100'); // Eliminar del set de habilidades
 
-        this.habilidades["delete"](e.target.textContent);
+        this.habilidades["delete"](elemento.textContent);
       } else {
         // No esta activo, añadirlo
-        e.target.classList.add('bg-green-100'); // Agregar al set de habilidades
+        elemento.classList.add('bg-green-100'); // Agregar al set de habilidades
 
-        this.habilidades.add(e.target.textContent);
+        this.habilidades.add(elemento.textContent);
       } // agregar las habilidades al input hidden
 
 
@@ -4269,6 +4277,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4280,13 +4289,20 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       plato: {},
+      muestroGuardar: true,
       alergenosMarcados: {}
     };
   },
   methods: {
+    iniciarSubirFotos: function iniciarSubirFotos(fin, nombre) {
+      console.log('iniciarSubirFotos Subir Fotos..');
+      this.muestroGuardar = false;
+      console.log('iniciarSubirFotos Subir Fotos..', fin, nombre);
+    },
     finalizarSubirFotos: function finalizarSubirFotos(fin, nombre) {
       console.log('finalizar Subir Fotos..');
       this.plato.imagen = nombre;
+      this.muestroGuardar = true;
       console.log('finalizar Subir Fotos..', fin, nombre);
     },
     alergenosM: function alergenosM(alergenos) {
@@ -4609,6 +4625,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4639,6 +4657,14 @@ __webpack_require__.r(__webpack_exports__);
         headers: {
           "X-CSRF-TOKEN": document.head.querySelector("[name=csrf-token]").content
         },
+        init: function init() {
+          console.log('firstthis ', this); //this.inicio();
+
+          this.on("addedfile", function (file) {
+            console.log("Added file ", file); //   this.inicio();
+            //  globalThis.form.photo = file // I want to assign the value of the file to the form field
+          }); // this.vdropzone-duplicate-file(file)
+        },
         params: {
           plato: this.plato
           /*    establecimientoNombre: this.establecimiento.nombre_comercial,
@@ -4656,6 +4682,10 @@ __webpack_require__.r(__webpack_exports__);
     console.log('FOTOOBRADROPZ<ONE -> me plato inicio', this.plato, 'DROPOPTIONS', this.dropzoneOptions);
   },
   methods: {
+    fileAdded: function fileAdded(file) {
+      console.log('fileAdded 11111111111');
+      this.$parent.muestroGuardar = false;
+    },
     finalizar: function finalizar() {
       console.log('FOTOOBRADROPZONE - FINALIZAR');
       var fin = true;
@@ -4993,6 +5023,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Establecimientos_establecimientoCartasAltaPlato_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Establecimientos/establecimientoCartasAltaPlato.vue */ "./resources/js/components/Establecimientos/establecimientoCartasAltaPlato.vue");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11812,7 +11857,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".imagen{\n  margin-right: 10px;\n  height: 25px;\n  vertical-align: middle;\n  border-style: none;\n}\r\n\r\n", ""]);
+exports.push([module.i, ".imagen{\n  margin-right: 10px;\n  height: 25px;\n  vertical-align: middle;\n  text-align: center;\n  border-style: none;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -11907,7 +11952,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".dish-miniature__content__allergens[data-v-2f8b48e6] {\n  display: flex;\n  flex-flow: row wrap;\n  margin-top: 8px;\n  min-height: 36px;\n  /*   max-height: 36px;\r\n */  overflow: hidden;\n}\r\n", ""]);
+exports.push([module.i, ".dish-miniature__content__allergens[data-v-2f8b48e6] {\n  display: flex;\n  flex-flow: row wrap;\n  margin-top: 8px;\n  min-height: 36px;\n  /*   max-height: 36px;\r\n */\n  overflow: hidden;\n}\r\n", ""]);
 
 // exports
 
@@ -55480,23 +55525,37 @@ var render = function() {
           "li",
           {
             key: i,
-            staticClass: "border border-gray-500 px-10 py-3 mb-3 rounded mr-4",
-            class: _vm.verificarClaseActiva(alergeno),
-            on: {
-              click: function($event) {
-                return _vm.activar($event)
-              }
-            }
+            staticClass: "border border-gray-500 px-1 py-1 mb-1 rounded",
+            class: _vm.verificarClaseActiva(alergeno)
           },
           [
-            _c("img", {
-              staticClass: "object-contain md:object-scale-down imagen",
-              attrs: { src: "../storage/" + alergeno.imagen }
-            }),
-            _vm._v(" "),
-            _c("span", { staticStyle: { "font-size": "0.838rem" } }, [
-              _vm._v(_vm._s(alergeno.nombre))
-            ])
+            _c(
+              "div",
+              {
+                staticClass: "h-24 w-24",
+                attrs: { id: i },
+                on: {
+                  click: function($event) {
+                    return _vm.activar($event, i, alergeno)
+                  }
+                }
+              },
+              [
+                _c("img", {
+                  staticClass: "object-center md:object-scale-down imagen",
+                  attrs: { src: "../storage/" + alergeno.imagen }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "text-center",
+                    staticStyle: { "font-size": "0.838rem" }
+                  },
+                  [_vm._v(_vm._s(alergeno.nombre))]
+                )
+              ]
+            )
           ]
         )
       }),
@@ -57607,52 +57666,65 @@ var render = function() {
                   _vm._v(" "),
                   _c("foto-plato-dropzone", {
                     attrs: { plato: _vm.plato },
-                    on: { finalizar: _vm.finalizarSubirFotos }
+                    on: {
+                      iniciar: _vm.iniciarSubirFotos,
+                      finalizar: _vm.finalizarSubirFotos
+                    }
                   }),
                   _vm._v(" "),
                   _c(
                     "div",
                     { staticClass: "max-w-md mx-auto shadow-xl rounded my-8" },
                     [
-                      _c("div", { staticClass: "flex justify-center mb-10" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "flex items-center bg-green-100 shadow-md border border-gray-200 rounded px-4 py-2 mr-10",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.guardar($event)
-                              }
-                            }
-                          },
-                          [
-                            _c("div", { staticClass: "text-indigo-700" }, [
-                              _vm._v("Aceptar")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "flex items-center bg-red-100 shadow-md border border-gray-200 rounded px-4 py-2 mr-2",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.cancelar($event)
-                              }
-                            }
-                          },
-                          [
-                            _c("div", { staticClass: "text-indigo-700" }, [
-                              _vm._v("Cancelar")
-                            ])
-                          ]
-                        )
-                      ])
+                      _vm.muestroGuardar
+                        ? _c(
+                            "div",
+                            { staticClass: "flex justify-center mb-10" },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "flex items-center bg-green-100 shadow-md border border-gray-200 rounded px-4 py-2 mr-10",
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.guardar($event)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "text-indigo-700" },
+                                    [_vm._v("Aceptar")]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "flex items-center bg-red-100 shadow-md border border-gray-200 rounded px-4 py-2 mr-2",
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.cancelar($event)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "text-indigo-700" },
+                                    [_vm._v("Cancelar")]
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        : _vm._e()
                     ]
                   )
                 ],
@@ -57854,6 +57926,7 @@ var render = function() {
                 ref: "dropzoneRef",
                 attrs: { id: "dropzoneId", options: _vm.dropzoneOptions },
                 on: {
+                  "vdropzone-file-added": _vm.fileAdded,
                   "vdropzone-complete": _vm.afterComplete,
                   "vdropzone-removed-file": _vm.removeFile
                 }
@@ -58705,88 +58778,43 @@ var render = function() {
             [
               _c("div", { staticClass: "container w-full" }, [
                 _c("div", { staticClass: "flex block" }, [
-                  _c("div", { staticClass: "flex-auto w-3/5 text-left" }, [
-                    _vm._v(
-                      "\n              " +
-                        _vm._s(plato.nombre) +
-                        " \n              "
-                    ),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "text-xs mb-4 font-thin" }, [
-                      _vm._v(_vm._s(plato.observaciones) + ".")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "flex-auto w-1/5 text-right" }, [
-                    _vm._v(
-                      "\n              " +
-                        _vm._s(plato.precio) +
-                        " " +
-                        _vm._s(plato.moneda) +
-                        "\n            "
-                    )
-                  ]),
+                  _c(
+                    "div",
+                    { staticClass: "flex-auto w-3/5 text-left font-bold" },
+                    [
+                      _vm._v(
+                        "\n            " +
+                          _vm._s(plato.nombre) +
+                          "\n            "
+                      ),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "text-xs mb-4 font-thin" }, [
+                        _vm._v(_vm._s(plato.observaciones) + ".")
+                      ])
+                    ]
+                  ),
                   _vm._v(" "),
                   _c(
                     "div",
-                    {
-                      staticClass: "flex block w-1 bg-green-200 p-4 text-right"
-                    },
+                    { staticClass: "flex-auto w-1/5 text-right font-bold" },
                     [
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "#" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.modalPlatoEliminar(plato, i)
-                            }
-                          }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "text-yellow-400 flex items-center"
-                            },
-                            [
-                              _c(
-                                "svg",
-                                {
-                                  staticClass: "h-6 w-6",
-                                  attrs: {
-                                    xmlns: "http://www.w3.org/2000/svg",
-                                    fill: "none",
-                                    viewBox: "0 0 24 24",
-                                    stroke: "currentColor"
-                                  }
-                                },
-                                [
-                                  _c("path", {
-                                    attrs: {
-                                      "stroke-linecap": "round",
-                                      "stroke-linejoin": "round",
-                                      "stroke-width": "2",
-                                      d:
-                                        "M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                                    }
-                                  })
-                                ]
-                              )
-                            ]
-                          )
-                        ]
+                      _vm._v(
+                        "\n            " +
+                          _vm._s(plato.precio) +
+                          " " +
+                          _vm._s(plato.moneda) +
+                          "\n          "
                       )
                     ]
                   ),
                   _vm._v(" "),
                   plato.imagen
-                    ? _c("div", { staticClass: " flex block" }, [
+                    ? _c("div", { staticClass: "flex block" }, [
                         _c("img", {
-                          staticClass: "w-32 h-32 p-2",
+                          staticClass:
+                            "w-32 h-32 p-2 rounded-full h-24 w-24 flex items-center justify-center",
                           attrs: {
                             src:
                               "../storage/establecimiento/" +
@@ -58796,8 +58824,7 @@ var render = function() {
                             alt: plato.nombre,
                             title: plato.nombre
                           }
-                        }),
-                        _vm._v("\n            \n<\n       \n          ")
+                        })
                       ])
                     : _vm._e()
                 ]),
@@ -58819,6 +58846,30 @@ var render = function() {
                     })
                   }),
                   0
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "font-bold text-yellow-400 text-right" },
+                  [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.modalPlatoEliminar(plato, i)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n              Eliminar Plato \n              "
+                        )
+                      ]
+                    )
+                  ]
                 )
               ])
             ]

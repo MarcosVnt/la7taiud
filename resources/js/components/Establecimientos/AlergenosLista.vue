@@ -10,23 +10,29 @@
 
         <ul class="flex flex-wrap justify-center">
             <li
-                class="border border-gray-500 px-10 py-3 mb-3 rounded mr-4"
+                class="border border-gray-500 px-1 py-1 mb-1 rounded"
                 :class="verificarClaseActiva(alergeno)"
                 v-for="(alergeno, i )  in this.alergenos"
                 v-bind:key="i"
-                @click="activar($event)"
+              
                 
             >
-            
-            
-             <img
-          class="object-contain md:object-scale-down imagen"
+            <div class="h-24 w-24" v-bind:id="i"
+              @click="activar($event,i,alergeno)"
+            >
+                    <img
+          class="object-center md:object-scale-down imagen"
           :src="'../storage/'+alergeno.imagen" 
 
 
         />
-        <span class="" style="font-size: 0.838rem;">{{alergeno.nombre}}</span>
-            </li>
+        <span class="text-center" style="font-size: 0.838rem; ">{{alergeno.nombre}}</span>
+
+
+            </div>
+            
+            
+        </li>
 
             <!--   <img
           class="object-contain md:object-scale-down"
@@ -68,20 +74,25 @@
             document.querySelector('#alergenos').value = this.oldalergenos;
         },
         methods: {
-            activar(e) {
-                console.log('ACTIVAR',e.target.textContent);
+            activar(e,i,a) {
+                console.log('ACTIVAR',e.target,i,a);
+                let elemento = document.getElementById(i);
 
-                if( e.target.classList.contains('bg-green-100') ) {
+                console.log('ACTIVAR,dd333',document.getElementById(i));
+                
+
+
+                if( elemento.classList.contains('bg-green-100') ) {
                     // el alergeno esta en activo
-                    e.target.classList.remove('bg-green-100');
+                   elemento.classList.remove('bg-green-100');
 
                     // Eliminar del set de habilidades
-                    this.habilidades.delete(e.target.textContent);
+                    this.habilidades.delete(elemento.textContent);
                 } else {
                     // No esta activo, añadirlo
-                    e.target.classList.add('bg-green-100');
+                   elemento.classList.add('bg-green-100');
                     // Agregar al set de habilidades
-                    this.habilidades.add(e.target.textContent);
+                    this.habilidades.add(elemento.textContent);
                 }
 
                 // agregar las habilidades al input hidden
@@ -139,6 +150,7 @@
         margin-right: 10px;
     height: 25px;
     vertical-align: middle;
+    text-align: center;
     border-style: none;
 
 

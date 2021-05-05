@@ -97,21 +97,24 @@
       >
         <div class="container w-full">
           <div class="flex block">
-            <div class="flex-auto w-3/5 text-left">
+            <div class="flex-auto w-3/5 text-left font-bold">
               <!-- Will grow and shrink as needed taking initial size into account -->
-              {{ plato.nombre }} 
+              {{ plato.nombre }}
               <!-- - {{ plato.id }} {{ plato.pivot.familia_id }} -->
               <br />
               <span class="text-xs mb-4 font-thin"
                 >{{ plato.observaciones }}.</span
               >
+            
+
+
             </div>
-            <div class="flex-auto w-1/5 text-right">
+            <div class="flex-auto w-1/5 text-right font-bold">
               <!-- Will grow and shrink as needed taking initial size into account -->
               {{ plato.precio }} {{ plato.moneda }}
             </div>
 
-            <div class="flex block w-1 bg-green-200 p-4 text-right">
+           <!--  <div class="flex block w-1 bg-green-200 p-4 text-right">
               <a
                 href="#"
                 class=""
@@ -134,19 +137,21 @@
                   </svg>
                 </div>
               </a>
-            </div>
+            </div> -->
 
-            <div class=" flex block" v-if="plato.imagen">
-            <img
-              :src="'../storage/establecimiento/' + plato.establecimiento_id +'/'+plato.imagen"
-              :alt="plato.nombre"
-              :title="plato.nombre"
-              class="w-32 h-32 p-2"
-            />
-            
-<
-       
-          </div>
+            <div class="flex block" v-if="plato.imagen">
+              <img
+                :src="
+                  '../storage/establecimiento/' +
+                  plato.establecimiento_id +
+                  '/' +
+                  plato.imagen
+                "
+                :alt="plato.nombre"
+                :title="plato.nombre"
+                class="w-32 h-32 p-2 rounded-full h-24 w-24 flex items-center justify-center"
+              />
+            </div>
           </div>
           <!--      {{filteredAlergeno(plato.id)}}-->
           <div class="dish-miniature__content__allergens flex block">
@@ -158,9 +163,19 @@
               :title="alergeno.nombre"
               class="w-12 h-12 p-2 mb-2"
             />
-
-       
           </div>
+            <div class="font-bold text-yellow-400 text-right">
+                  <a
+                href="#"
+                class=""
+                @click.prevent="modalPlatoEliminar(plato, i)">
+                Eliminar Plato 
+                </a>
+              
+              
+              
+              </div>
+
         </div>
       </div>
     </div>
@@ -391,7 +406,8 @@ export default {
   flex-flow: row wrap;
   margin-top: 8px;
   min-height: 36px;
-/*   max-height: 36px;
- */  overflow: hidden;
+  /*   max-height: 36px;
+ */
+  overflow: hidden;
 }
 </style>
