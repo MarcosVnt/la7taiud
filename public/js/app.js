@@ -2151,6 +2151,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   //  props: ['alergenos', 'oldalergenos'],
+  name: "alergenoslista",
   data: function data() {
     return {
       habilidades: new Set(),
@@ -2615,12 +2616,37 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     /* CARTA */
-    onGuardar: function onGuardar(carta) {
-      console.log("onGuardar", carta);
-      this.cartas.push(carta);
+    onGuardar: function onGuardar(carta, estado) {
+      this.inicializarCartas();
       this.cartaId = carta.id;
       this.toggleTabs(this.openTab, this.cartaId, 1);
-      this.onCancelar();
+      return;
+      /*   if(estado=='edit'){
+            let nombre = carta.nombre;
+          let id = carta.id;
+         console.log('onGuardar edit',this.cartas,nombre,id);
+          
+             this.cartas.map((carta, idx) => {
+              if(carta.id = id){
+                  carta.nombre = nombre;
+                }
+                    
+                             console.log('onGuardar edit 22',
+                             carta,nombre,idx,id,carta.id);
+                    })
+         console.log('onGuardar edit',this.cartas,nombre);
+      
+        }else{
+       
+       console.log("onGuardar save", carta,estado);
+        this.cartas.push(carta);
+        this.cartaId = carta.id;
+        this.toggleTabs(this.openTab, this.cartaId, 1);
+          }
+       
+        
+        this.onCancelar();
+        */
     },
     onCancelar: function onCancelar() {
       console.log("onCancelar ....");
@@ -2856,6 +2882,8 @@ __webpack_require__.r(__webpack_exports__);
 
     if (this.cartaEdit.nombre) {
       this.carta['nombre'] = this.cartaEdit.nombre;
+      this.carta['id'] = this.cartaEdit.id;
+      this.carta['establecimiento_id'] = this.cartaEdit.establecimiento_id;
       this.modalEdit = true;
     }
   },
@@ -2879,15 +2907,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
       var params = {
+        id: this.carta.id,
         nombre: this.carta.nombre,
-        orden: this.carta.orden
+        orden: this.carta.orden,
+        establecimiento_id: this.carta.establecimiento_id
       };
 
       if (this.modalEdit) {
         axios.put("/cartas/update/", params).then(function (respuesta) {
           console.log(respuesta);
 
-          _this.$emit("on-guardar", respuesta.data.carta); // Eliminar del DOM  simpre borra del padre hacia el hijo
+          _this.$emit("on-guardar", respuesta.data.carta, 'edit'); // Eliminar del DOM  simpre borra del padre hacia el hijo
           //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
 
         })["catch"](function (error) {
@@ -2897,7 +2927,7 @@ __webpack_require__.r(__webpack_exports__);
         axios.put("/cartas/store/", params).then(function (respuesta) {
           console.log(respuesta);
 
-          _this.$emit("on-guardar", respuesta.data.carta); // Eliminar del DOM  simpre borra del padre hacia el hijo
+          _this.$emit("on-guardar", respuesta.data.carta, 'store'); // Eliminar del DOM  simpre borra del padre hacia el hijo
           //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
 
         })["catch"](function (error) {
@@ -3794,9 +3824,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "accordionfront",
-  props: ["title", "id", "familia", "platos", "alergenos"],
+  props: ["title", "id", "familia", "platos", "alergenos", "alergenosMarcados"],
   components: {},
   data: function data() {
     return {
@@ -3811,9 +3855,8 @@ __webpack_require__.r(__webpack_exports__);
       // como volvemos a cargar platos .. se soluciona pero da error ..
       console.log("filteredAlergeno - id", id);
       return this.alergenos.filter(function (alergeno) {
-        //console.log("filtered plato ", plato);
         var compo = alergeno.pivot.plato_id.toString().toLowerCase();
-        console.log("filteredPlato - compo", compo.includes(id));
+        console.log("filteredAlergeno - compo", compo.includes(id));
         return compo.includes(id);
       });
     },
@@ -3828,27 +3871,48 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     filteredPlato: function filteredPlato(id) {
+      var _this = this;
+
       // TODO : AL GUARDAR  plato nuevo no existe pivot y por tanto no exite familia_id..
       // como volvemos a cargar platos .. se soluciona pero da error ..
 
       /* console.log("filteredPlato - id", id); */
-      return this.platos.filter(function (plato) {
-        /*         console.log("filtered plato ", plato);
-         */
-        var compo = plato.pivot.familia_id.toString().toLowerCase();
-        /*         console.log("filteredPlato - compo", compo);
-         */
+      var flag = false; // false añade, true no añade
 
-        return compo.includes(id);
+      console.log("filteredPlato - 1  flag", flag, id);
+      return this.platos.filter(function (plato) {
+        console.log("filteredPlato - 2 flag", flag, id);
+
+        if (_this.alergenosMarcados.size > 0) {
+          console.log("filteredPlato - 3  flag", flag, id);
+
+          _this.alergenosMarcados.forEach(function (element) {
+            var compo2 = plato.alergenos;
+            var compo3 = JSON.stringify(compo2);
+            var e = '"' + element.substr(1) + '"';
+            flag = compo3.includes(e);
+            console.log("filteredPlato - 4  flag", flag, compo3, e);
+          });
+        }
+
+        console.log("filteredPlato - 5  flag", flag);
+
+        if (!flag) {
+          var compo = plato.pivot.familia_id.toString().toLowerCase();
+          console.log("filteredPlato - 666666b SI AÑADO", id, compo, plato.nombre);
+          return compo.includes(id);
+        } else {
+          console.log("filteredPlato - 77777777 NO AÑADO", plato.nombre);
+        }
       });
     },
     familiaPlatos: function familiaPlatos(familia) {
-      var _this = this;
+      var _this2 = this;
 
       console.log("familaPlatos", familia);
       axios.get("/carta/familias/platos/".concat(familia)).then(function (respuesta) {
         console.log(respuesta);
-        _this.platos = respuesta.data.platos; // Eliminar del DOM  simpre borra del padre hacia el hijo
+        _this2.platos = respuesta.data.platos; // Eliminar del DOM  simpre borra del padre hacia el hijo
         //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
       })["catch"](function (error) {
         console.log(error);
@@ -3856,7 +3920,180 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    console.log("CREATED ACCORDION ", this.title, this.id); // this.familiaPlatos(this.id);
+    console.log("CREATED ACCORDION alergenosMarcados ", this.alergenosMarcados, this.id); // this.familiaPlatos(this.id);
+
+    /*  if(!this.alergnosMarcados){this.alergenosMarcados = []}*/
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "accordionfront",
+  props: ["alergenosMarcados"],
+  //  props: ['alergenos', 'oldalergenos'],
+  data: function data() {
+    return {
+      alergenosFiltro: new Set(),
+      // array pero no permite registros duplicados
+      alergenos: {},
+      image: ""
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    if (this.oldalergenos) {
+      var alergenosArray = this.oldalergenos.split(',');
+      alergenosArray.forEach(function (alergeno) {
+        return _this.alergenosFiltro.add(alergeno);
+      });
+    }
+
+    this.inicializarAlergenos();
+  },
+  mounted: function mounted() {
+    document.querySelector('#alergenos').value = this.oldalergenos;
+  },
+  methods: {
+    aplicarFiltroAlergenos: function aplicarFiltroAlergenos() {
+      console.log('aplicarFiltroAlergenos', this.alergenosFiltro, 'alergenos', this.alergenos, 'alergenosArray', this.alergenosArray, 'oldalergenos', this.oldalergenos);
+      var filtro = Array.from(this.alergenosFiltro);
+      var res = this.alergenos.filter(function (item) {
+        return !filtro.includes(item);
+      });
+      console.log('res', res, 'filtro', filtro);
+    },
+    activar: function activar(e, i, a) {
+      console.log('ACTIVAR compo 3', e.target, i, a);
+      var elemento = document.getElementById(i);
+
+      if (elemento.classList.contains('bg-green-100')) {
+        // el alergeno esta en activo
+        elemento.classList.remove('bg-green-100'); // Eliminar del set de alergenosFiltro
+
+        this.alergenosFiltro["delete"](elemento.textContent);
+      } else {
+        // No esta activo, añadirlo
+        elemento.classList.add('bg-green-100'); // Agregar al set de alergenosFiltro
+
+        this.alergenosFiltro.add(elemento.textContent);
+      } // agregar las alergenosFiltro al input hidden
+
+
+      var stringHabilidades = _toConsumableArray(this.alergenosFiltro);
+
+      document.querySelector('#alergenos').value = stringHabilidades;
+      this.$emit("alergenosMarcado", this.alergenosFiltro);
+    },
+    verificarClaseActiva: function verificarClaseActiva(alergeno) {
+      console.log('verificarClaseActiva', alergeno, 'habilidaddes', this.alergenosFiltro);
+      return this.alergenosFiltro.has(alergeno) ? 'bg-green-400' : '';
+    },
+    inicializarAlergenos: function inicializarAlergenos() {
+      this.alergenosFiltro = new Set(this.alergenosMarcados);
+      var me = this;
+      var params = {
+        tipos: this.tipo,
+        seccions: this.seccion
+      };
+      console.log(this.tipo, this.seccion);
+      axios.get("/alergenos/").then(function (respuesta) {
+        console.log(respuesta, respuesta.data.alergenos.imagen);
+        me.imagen = '/storage/' + respuesta.data.alergenos.imagen;
+        me.alergenos = respuesta.data.alergenos;
+        console.log(me.imagen);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
   }
 });
 
@@ -3873,6 +4110,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AccordionFront_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccordionFront.vue */ "./resources/js/components/Establecimientos/Front/AccordionFront.vue");
 /* harmony import */ var _Publicidad_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Publicidad.vue */ "./resources/js/components/Establecimientos/Front/Publicidad.vue");
+/* harmony import */ var _AlergenosFiltro_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AlergenosFiltro.vue */ "./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue");
 //
 //
 //
@@ -3948,6 +4186,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* import listaDraggable from "../ListaDraggable.vue";
@@ -3958,13 +4233,15 @@ __webpack_require__.r(__webpack_exports__);
   props: ["esta"],
   components: {
     accordionfront: _AccordionFront_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    publicidad: _Publicidad_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    publicidad: _Publicidad_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    alergenosfiltro: _AlergenosFiltro_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
     /*     listaDraggable,
      */
 
   },
   data: function data() {
     return {
+      mostrarFiltroAlergenos: false,
       //familiasNew: this.familias,
       familiasNew: [],
       openTab: 1,
@@ -3976,6 +4253,7 @@ __webpack_require__.r(__webpack_exports__);
       cartaId: "",
       cartaEdit: {},
       modalEdit: false,
+      alergenosMarcados: [],
       modalAlta: false,
       modalAltaSubCarta: false,
       tipos: 1,
@@ -3983,6 +4261,15 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    mostrarFiltroAlergeno: function mostrarFiltroAlergeno() {
+      this.mostrarFiltroAlergenos = !this.mostrarFiltroAlergenos;
+      this.alergenosMarcados = [];
+    },
+    alergenosM: function alergenosM(alergenos) {
+      console.log('alergenosM', alergenos);
+      this.alergenosMarcados = alergenos;
+      this.toggleTabs(this.openTab, this.cartaId, this.cartaId);
+    },
     toggleTabs: function toggleTabs(tabNumber, cartaId, carta) {
       var _this = this;
 
@@ -3996,7 +4283,9 @@ __webpack_require__.r(__webpack_exports__);
         _this.familias = respuesta.data.familias;
         _this.familiasNew = respuesta.data.familias;
         _this.platos = respuesta.data.platos;
-        _this.alergenos = respuesta.data.alergenos; // Eliminar del DOM  simpre borra del padre hacia el hijo
+        _this.alergenos = respuesta.data.alergenos;
+        _this.tipos = 2;
+        _this.seccions = 2; // Eliminar del DOM  simpre borra del padre hacia el hijo
         //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
       })["catch"](function (error) {
         console.log(error);
@@ -11896,6 +12185,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 // module
 exports.push([module.i, ".dish-miniature__content__allergens[data-v-145d9aa4] {\n  display: flex;\n  flex-flow: row wrap;\n  margin-top: 8px;\n  min-height: 36px;\n  /* max-height: 36px; */\n  overflow: hidden;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".imagen{\n  margin-right: 10px;\n  height: 25px;\n  vertical-align: middle;\n  text-align: center;\n  border-style: none;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -50754,6 +51062,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=style&index=0&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=style&index=0&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AlergenosFiltro.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Establecimientos/Front/EstablecimientoCarta.vue?vue&type=style&index=0&lang=css&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Establecimientos/Front/EstablecimientoCarta.vue?vue&type=style&index=0&lang=css& ***!
@@ -57116,7 +57454,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", {}, [
-    _c("div", { staticClass: "tab__header " }, [
+    _c("div", { staticClass: "tab__header" }, [
       _c(
         "a",
         {
@@ -57189,8 +57527,10 @@ var render = function() {
         _vm._l(_vm.filteredPlato(_vm.id), function(plato, i) {
           return _c(
             "div",
-            { key: i, staticClass: "flex bg-green-200 border-b-2 p-2 block " },
+            { key: i, staticClass: "flex bg-green-200 border-b-2 p-2 block" },
             [
+              _c("div", { staticClass: "flex space-x-2" }),
+              _vm._v(" "),
               _c("div", { staticClass: "container w-full" }, [
                 _c("div", { staticClass: "flex block" }, [
                   _c("div", { staticClass: "flex-auto w-3/5 text-left" }, [
@@ -57220,22 +57560,26 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  plato.imagen
-                    ? _c("div", { staticClass: " flex block" }, [
-                        _c("img", {
-                          staticClass: "w-32 h-32 p-2",
-                          attrs: {
-                            src:
-                              "../storage/establecimiento/" +
-                              plato.establecimiento_id +
-                              "/" +
-                              plato.imagen,
-                            alt: plato.nombre,
-                            title: plato.nombre
-                          }
-                        })
-                      ])
-                    : _vm._e()
+                  _c("div", { staticClass: "relative w-24 h-24" }, [
+                    _c("img", {
+                      staticClass:
+                        "rounded-full border border-gray-100 shadow-sm",
+                      attrs: {
+                        src:
+                          "../storage/establecimiento/" +
+                          plato.establecimiento_id +
+                          "/" +
+                          plato.imagen,
+                        alt: plato.nombre,
+                        title: plato.nombre
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass:
+                        "absolute top-0 right-0 h-3 w-3 my-1 border-2 border-white rounded-full bg-green-400 z-2"
+                    })
+                  ])
                 ]),
                 _vm._v(" "),
                 _c(
@@ -57267,6 +57611,120 @@ var render = function() {
   ])
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=template&id=5959caa7&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=template&id=5959caa7& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "flex flex-wrap justify-center" },
+      _vm._l(this.alergenos, function(alergeno, i) {
+        return _c(
+          "li",
+          {
+            key: i,
+            staticClass: "border border-gray-500 px-1 py-1 mb-1 rounded",
+            class: _vm.verificarClaseActiva(alergeno)
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass: "h-24 w-24",
+                attrs: { id: i },
+                on: {
+                  click: function($event) {
+                    return _vm.activar($event, i, alergeno)
+                  }
+                }
+              },
+              [
+                _c("img", {
+                  staticClass: "object-center md:object-scale-down imagen",
+                  attrs: { src: "../storage/" + alergeno.imagen }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "text-center",
+                    staticStyle: { "font-size": "0.838rem" }
+                  },
+                  [_vm._v(_vm._s(alergeno.nombre))]
+                )
+              ]
+            )
+          ]
+        )
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c("input", {
+      attrs: { type: "hidden", name: "alergenos", id: "alergenos" }
+    }),
+    _vm._v(" "),
+    _c("div", { staticClass: "mb-2" }, [
+      _c(
+        "a",
+        {
+          staticClass:
+            "text-green-600 bg-green-100 text-xs font-bold uppercase px-5 py-3 pb-2 shadow rounded block leading-normal bg-green-100",
+          on: {
+            click: function($event) {
+              return _vm.aplicarFiltroAlergenos()
+            }
+          }
+        },
+        [
+          _c("span", [
+            _vm._v(
+              "\nAPLICAR Filtro Alérgenos " +
+                _vm._s(_vm.alergenosFiltro.size) +
+                " --\n          "
+            )
+          ])
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "ml-4 pt-10 pb-10" }, [
+      _c("div", { staticClass: "font-bold" }, [_vm._v(" Alergenos ")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "mt-1 text-xs text-gray-500" }, [
+        _vm._v(
+          "\n                    Seleccione qué Alergenos quiere que NO CONTENGAN los platos mostrados. \n                    "
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -57323,9 +57781,7 @@ var render = function() {
                     _vm._v(
                       "\n            " +
                         _vm._s(carta.nombre) +
-                        " - " +
-                        _vm._s(carta.id) +
-                        "\n\n            "
+                        " \n\n            "
                     )
                   ]
                 )
@@ -57334,6 +57790,33 @@ var render = function() {
           }),
           0
         ),
+        _vm._v(" "),
+        _c("div", [
+          _c(
+            "a",
+            {
+              staticClass:
+                "text-green-600 bg-green-100 text-xs font-bold uppercase px-5 py-3 pb-2 shadow rounded block leading-normal bg-green-100",
+              on: {
+                click: function($event) {
+                  return _vm.mostrarFiltroAlergeno()
+                }
+              }
+            },
+            [
+              _vm.mostrarFiltroAlergenos
+                ? _c("span", [_vm._v("\nOcultar Filtro Alérgenos\n          ")])
+                : _c("span", [_vm._v("\nMostrar Filtro Alérgenos\n          ")])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _vm.mostrarFiltroAlergenos
+          ? _c("alergenosfiltro", {
+              attrs: { alergenosMarcados: _vm.alergenosMarcados },
+              on: { alergenosMarcado: _vm.alergenosM }
+            })
+          : _vm._e(),
         _vm._v(" "),
         _c("publicidad", { attrs: { tipo: _vm.tipos, seccion: _vm.seccions } }),
         _vm._v(" "),
@@ -57348,19 +57831,26 @@ var render = function() {
               _c(
                 "div",
                 { staticClass: "tab-content tab-space" },
-                _vm._l(this.familiasNew, function(familia, i) {
-                  return _c("accordionfront", {
-                    key: i,
-                    attrs: {
-                      familia: familia,
-                      title: familia.nombre,
-                      id: familia.id,
-                      platos: _vm.platos,
-                      alergenos: _vm.alergenos
-                    }
+                [
+                  _vm._l(this.familiasNew, function(familia, i) {
+                    return _c("accordionfront", {
+                      key: i,
+                      attrs: {
+                        familia: familia,
+                        title: familia.nombre,
+                        id: familia.id,
+                        platos: _vm.platos,
+                        alergenos: _vm.alergenos,
+                        alergenosMarcados: _vm.alergenosMarcados
+                      }
+                    })
+                  }),
+                  _vm._v(" "),
+                  _c("publicidad", {
+                    attrs: { tipo: _vm.tipos, seccion: _vm.seccions }
                   })
-                }),
-                1
+                ],
+                2
               )
             ])
           ]
@@ -74605,6 +75095,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccordionFront_vue_vue_type_template_id_145d9aa4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccordionFront_vue_vue_type_template_id_145d9aa4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AlergenosFiltro_vue_vue_type_template_id_5959caa7___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AlergenosFiltro.vue?vue&type=template&id=5959caa7& */ "./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=template&id=5959caa7&");
+/* harmony import */ var _AlergenosFiltro_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AlergenosFiltro.vue?vue&type=script&lang=js& */ "./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _AlergenosFiltro_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AlergenosFiltro.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _AlergenosFiltro_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AlergenosFiltro_vue_vue_type_template_id_5959caa7___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AlergenosFiltro_vue_vue_type_template_id_5959caa7___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Establecimientos/Front/AlergenosFiltro.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AlergenosFiltro_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AlergenosFiltro.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AlergenosFiltro_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=style&index=0&lang=css&":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=style&index=0&lang=css& ***!
+  \*************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AlergenosFiltro_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AlergenosFiltro.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AlergenosFiltro_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AlergenosFiltro_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AlergenosFiltro_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AlergenosFiltro_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=template&id=5959caa7&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=template&id=5959caa7& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlergenosFiltro_vue_vue_type_template_id_5959caa7___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AlergenosFiltro.vue?vue&type=template&id=5959caa7& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Establecimientos/Front/AlergenosFiltro.vue?vue&type=template&id=5959caa7&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlergenosFiltro_vue_vue_type_template_id_5959caa7___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlergenosFiltro_vue_vue_type_template_id_5959caa7___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -105,6 +105,10 @@ export default {
     console.log("CREATED CARTAS ALTA 222", this.cartaEdit,this.modalEdit);
     if(this.cartaEdit.nombre){
       this.carta['nombre']=this.cartaEdit.nombre;
+      this.carta['id']=this.cartaEdit.id;
+      this.carta['establecimiento_id']=this.cartaEdit.establecimiento_id;
+      
+      
       this.modalEdit = true;
     }
   },
@@ -131,8 +135,11 @@ export default {
 
       // Enviar a axios
       const params = {
+        id: this.carta.id,
         nombre: this.carta.nombre,
         orden: this.carta.orden,
+        establecimiento_id : this.carta.establecimiento_id,
+        
       };
 
       if(this.modalEdit){
@@ -141,7 +148,7 @@ export default {
         .then((respuesta) => {
           console.log(respuesta);
 
-          this.$emit("on-guardar", respuesta.data.carta);
+          this.$emit("on-guardar", respuesta.data.carta,'edit');
 
           // Eliminar del DOM  simpre borra del padre hacia el hijo
           //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
@@ -157,7 +164,7 @@ export default {
         .then((respuesta) => {
           console.log(respuesta);
 
-          this.$emit("on-guardar", respuesta.data.carta);
+          this.$emit("on-guardar", respuesta.data.carta,'store');
 
           // Eliminar del DOM  simpre borra del padre hacia el hijo
           //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);

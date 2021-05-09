@@ -2,6 +2,13 @@
   <div class="flex flex-wrap  mx-1 sm:p-10">
     <!--  <modal v-if="modalAlta" ></modal> -->
 
+
+
+
+
+
+
+
     <div class="w-full">
      
 
@@ -22,7 +29,7 @@
               'text-white bg-green-600': openTab === i + 1,
             }"
           >
-            {{ carta.nombre }} - {{ carta.id }}
+            {{ carta.nombre }} 
 
             <!-- {{openTab}} {{carta.id}} -->
             <!--  NOmbre: {{carta.nombre}}--id1-{{i+1}}-cartaid-{{carta.id}}-- -->
@@ -31,6 +38,26 @@
 
     
       </ul>
+      <div>
+        <a
+            class="text-green-600 bg-green-100 text-xs font-bold uppercase px-5 py-3 pb-2 shadow rounded block leading-normal bg-green-100"
+            v-on:click="mostrarFiltroAlergeno()"
+            
+          >
+          <span v-if="mostrarFiltroAlergenos">
+Ocultar Filtro Alérgenos
+          </span>
+            <span v-else>
+Mostrar Filtro Alérgenos
+          </span>
+            
+          </a>
+      </div>
+    
+      <alergenosfiltro v-if="mostrarFiltroAlergenos"
+              :alergenosMarcados="alergenosMarcados"
+               @alergenosMarcado="alergenosM"
+              ></alergenosfiltro>
 
      <publicidad
      :tipo="tipos"
@@ -56,13 +83,22 @@
               :id="familia.id"
               :platos="platos"
               :alergenos="alergenos"
+              :alergenosMarcados="alergenosMarcados"
             >
             </accordionfront>
-       
+
+              <publicidad
+                :tipo="tipos"
+                :seccion ="seccions"
+                >
+
+                </publicidad>
+                  
 
           </div>
         </div>
-      </div>
+      </div
+      >
     </div>
 
     <!--      DEL ESTABLECIMIENTO EN CUESTION 
@@ -76,6 +112,7 @@ LAS SUBCARTAS
 <script>
 import accordionfront from "./AccordionFront.vue";
 import publicidad from "./Publicidad.vue";
+import alergenosfiltro from "./AlergenosFiltro.vue";
 
 
 
@@ -86,13 +123,15 @@ export default {
   props: ["esta"],
   components: {
     accordionfront,
-    publicidad
+    publicidad,
+    alergenosfiltro,
     
 /*     listaDraggable,
  */  },
 
   data() {
     return {
+      mostrarFiltroAlergenos: false,
 
       //familiasNew: this.familias,
       familiasNew : [],
@@ -106,6 +145,8 @@ export default {
       cartaEdit: {},
       modalEdit: false,
 
+      alergenosMarcados: [],
+
       modalAlta: false,
       modalAltaSubCarta: false,
 
@@ -114,6 +155,19 @@ export default {
     };
   },
   methods: {
+
+    mostrarFiltroAlergeno(){
+
+      this.mostrarFiltroAlergenos =! this.mostrarFiltroAlergenos;
+      this.alergenosMarcados = [];
+
+    },
+
+    alergenosM(alergenos){
+      console.log('alergenosM',alergenos);
+      this.alergenosMarcados = alergenos;
+      this.toggleTabs(this.openTab, this.cartaId, this.cartaId)
+    },
 
    
 
@@ -134,6 +188,8 @@ export default {
           
           this.platos = respuesta.data.platos;
           this.alergenos = respuesta.data.alergenos;
+          this.tipos =2;
+          this.seccions = 2;
           // Eliminar del DOM  simpre borra del padre hacia el hijo
           //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
         })

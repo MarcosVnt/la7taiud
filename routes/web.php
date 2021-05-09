@@ -37,6 +37,7 @@ Route::get('/carta/familias/platos/{familia}', 'EstablecimientoController@famili
 
 Route::get('/publi', 'PublicidadController@mostrar')->name('publicidads.mostrar');
 
+Route::get('/alergenos', 'AlergenosController@index')->name('alergenos.index');
 
 
 
@@ -149,7 +150,6 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::put('/platos/store', 'PlatoController@store')->name('plato.store');
     Route::delete('/platos/{plato}', 'PlatoController@delete')->name('plato.delete');
 
-    Route::get('/alergenos', 'AlergenosController@index')->name('alergenos.index');
 
     
 

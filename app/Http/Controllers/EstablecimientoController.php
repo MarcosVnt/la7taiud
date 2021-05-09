@@ -147,6 +147,9 @@ class EstablecimientoController extends Controller
 
         $resultado = collect();
         $alergenosR = collect();
+        $platoAlergenos= collect();
+        $alergenos = [];
+        $platos =[];
         
         //dd($familias->plato;
         foreach ($familias as $familia) {
@@ -154,8 +157,10 @@ class EstablecimientoController extends Controller
 
 
             $platos = $familia->platos()->orderBy('nombre')->get();
+            
 
             $resultado = $resultado->concat($platos);
+           // dd($platos);
 
             foreach ($platos as $plato) {
                 /*  echo $plato;
@@ -164,16 +169,22 @@ class EstablecimientoController extends Controller
                  */ 
                  
                  $alergenos = $plato->alergenos()->get();
-     
+
+                $plato['alergenos'] =  $plato->alergenos()->pluck('nombre');
+                //$platoAlergenos->concat($plato);
+                //$platoAlergenos = $platoAlergenos->concat($alergenos);
                 
+              //  dd($plato, $alergenos);
      
                 $alergenosR = $alergenosR->concat($alergenos);
+
+               // $resultado = $resultado->concat($alergenos);
+
+                
      
              } 
 
-
-       
-            //
+            
             
            
         }
@@ -183,7 +194,14 @@ class EstablecimientoController extends Controller
       //  dd($familias,$platos,$resultado);
       //dd($resultado);
 
-        return ['familias' => $familias, 'platos' => $resultado, 'alergenos' => $alergenosR];
+        return ['familias' => $familias,
+         'platos' => $resultado, 
+         'alergenos' => $alergenosR,
+         'alergenos2' => $alergenos,
+         'platos2' => $platos,
+         'platoAlergenos' => $platoAlergenos,
+         
+    ];
     }
 
     public function familiaplatos(Request $request, Familia $familia)

@@ -52,6 +52,7 @@
 <script>
     export default {
       //  props: ['alergenos', 'oldalergenos'],
+      name: "alergenoslista",
         data: function() {
             return {
                 habilidades: new Set(),// array pero no permite registros duplicados

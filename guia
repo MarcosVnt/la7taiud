@@ -485,6 +485,12 @@ npm install vue2-dropzone
 
 
 
+28/04/21
+COMPRIMIR IMAGENES 
+composer require intervention/image
+
+
+
 
 
 
@@ -495,7 +501,7 @@ TODO
 Registro , email envio 
 front establecimiento
         foto 
-        direccion
+        direccion28
         carta
 
 publicidad registrar y mostrar

@@ -203,7 +203,9 @@ class PublicidadController extends Controller
        
 
         //$publicidads = Publicidad::where('seccion_id', $request->seccions )->where('establecimiento_tipo_id',$request->tipos)->get();
-        $publicidads = Publicidad::first();
+       // $publicidads = Publicidad::first();
+
+        $publicidads = Publicidad::inRandomOrder()->first();
 
         return response()->json(['publicidads' => $publicidads]);
         

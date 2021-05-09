@@ -56,10 +56,21 @@ class CartaController extends Controller
     public function update(Request $request, Carta $carta){
 
 
-            $carta->nombre = $request->nombre;
-            $carta->orden = $request->orden;
-            $carta->save();
 
+     
+     $carta = Carta::find($request->id);
+
+   //  dd($carta->id,$request->id,$cart);
+      if($carta){
+
+        $carta->nombre = $request->nombre;
+        $carta->orden = $request->orden;
+ //       $carta->establecimiento_id = $request->establecimiento_id;
+        $carta->save();
+
+      }
+
+        
 
           
             

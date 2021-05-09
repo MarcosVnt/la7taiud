@@ -392,14 +392,49 @@ export default {
 
     /* CARTA */
 
-    onGuardar(carta) {
-      console.log("onGuardar", carta);
+    onGuardar(carta,estado) {
+
+
+      this.inicializarCartas();
+this.cartaId = carta.id;
+      this.toggleTabs(this.openTab, this.cartaId, 1);
+ 
+
+      return;
+
+    /*   if(estado=='edit'){
+
+        let nombre = carta.nombre;
+        let id = carta.id;
+       console.log('onGuardar edit',this.cartas,nombre,id);
+        
+
+         this.cartas.map((carta, idx) => {
+            if(carta.id = id){
+                carta.nombre = nombre;
+
+            }
+                  
+                           console.log('onGuardar edit 22',
+                           carta,nombre,idx,id,carta.id);
+
+                })
+       console.log('onGuardar edit',this.cartas,nombre);
+
+
+
+      }else{
+     
+     console.log("onGuardar save", carta,estado);
       this.cartas.push(carta);
       this.cartaId = carta.id;
       this.toggleTabs(this.openTab, this.cartaId, 1);
 
+      }
+     
       
       this.onCancelar();
+      */
     },
     onCancelar() {
       console.log("onCancelar ....");
