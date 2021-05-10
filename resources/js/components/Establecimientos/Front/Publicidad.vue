@@ -3,7 +3,7 @@
  <div class="">
         <img
           class="object-contain md:object-scale-down"
-          :src="imagen"
+          :src="'/storage/publicidad/'+img"
 
 
         />
@@ -20,7 +20,7 @@
 
 export default {
   name: "publicidad",
-  props: ["tipo","Seccion"],
+  props: ["tipo","Seccion","img"],
   components: {
   },
 
@@ -32,6 +32,18 @@ export default {
   },
   methods: {
       inicializarPublicidad() {
+
+        if(this.img){
+
+        //  this.imagen = '/storage/publicidad/'+this.$parent.img1;
+
+          console.log('initImagen',this.img,this.imagen);
+
+          return ;
+        }else{
+          console.log('initImagen22222',this.img,this.imagen);
+          
+        }
 
 
           let me = this;
@@ -45,7 +57,7 @@ export default {
           console.log(this.tipo,this.seccion);
 
           axios.get("/publi/", params).then(function (respuesta) {
-             console.log(respuesta,respuesta.data.publicidads.imagen);
+             console.log('publicidad',respuesta,respuesta.data.publicidads.imagen);
              me.imagen = '/storage/publicidad/'+respuesta.data.publicidads.imagen;
 
                           console.log(me.imagen);

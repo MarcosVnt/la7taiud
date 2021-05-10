@@ -491,6 +491,9 @@ composer require intervention/image
 
 
 
+090521
+composer require barryvdh/laravel-dompdf
+php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
 
 
 

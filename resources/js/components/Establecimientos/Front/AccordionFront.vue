@@ -13,78 +13,91 @@
       </a>
     </div>
 
-    <div class="tab__content p-2" v-show="active">
-      <slot />
 
-      <div class="flex w-full"></div>
-
-      <div
-        class="flex bg-green-200 border-b-2 p-2 block"
-        v-for="(plato, i) in filteredPlato(id)"
+<!-- <div class="flex">
+<div class="flex w-3 wrapper bg-gray-400 antialiased text-gray-900"
+ v-for="(plato, i) in filteredPlato(id)"
         v-bind:key="i"
+>
+<div>
+    
+    <img src="https://source.unsplash.com/random/350x350" alt=" random imgee" class="w-full object-cover object-center rounded-lg shadow-md">    
+    
+ <div class="relative px-4 -mt-16  ">
+   <div class="bg-white p-6 rounded-lg shadow-lg">
+    <div class="flex items-baseline">
+      <span class="bg-teal-200 text-teal-800 text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
+        New
+      </span>
+      <div class="ml-2 text-gray-600 uppercase text-xs font-semibold tracking-wider">
+    2 baths  &bull; 3 rooms
+  </div>  
+    </div>
+    
+    <h4 class="mt-1 text-xl font-semibold uppercase leading-tight truncate">A random Title</h4>
+ 
+  <div class="mt-1">
+    $1800
+    <span class="text-gray-600 text-sm">   /wk</span>
+  </div>
+  <div class="mt-4">
+    <span class="text-teal-600 text-md font-semibold">4/5 ratings </span>
+    <span class="text-sm text-gray-600">(based on 234 ratings)</span>
+  </div>  
+  </div>
+ </div>
+  
+</div>
+  </div>
+
+  </div>
+
+ -->
+
+
+
+
+<div class="container container rounded  m-auto flex flex-wrap flex-col md:flex-row items-center justify-start" v-show="active">
+  
+  <div class="w-full  p-3"
+    v-for="(plato, i) in filteredPlato(id)"
+        v-bind:key="i">
+    <div class="flex flex-col lg:flex-row rounded overflow-hidden h-auto lg-auto border shadow shadow-lg">
+      <img class="block h-auto w-full lg:w-48 flex-none bg-cover h-24  lg:h-48 p-6 rounded-full border border-gray-100 shadow-sm" 
+       :src="
+                  '../storage/establecimiento/' +
+                  plato.establecimiento_id +
+                  '/' +
+                  plato.imagen
+                "
+                :alt="plato.nombre"
+                :title="plato.nombre"
       >
-        <!--    <div class="flex-auto text-left">
-          {{ plato.nombre }} - {{ plato.id }} {{ plato.pivot.familia_id }}
-          <br />
-          <span class="text-xs mb-4 font-thin">{{ plato.observaciones }}.</span>
-        </div>
      
-        <div class="flex-auto text-right">
-          {{ plato.precio }} {{ plato.moneda }}
-        </div> -->
+<div class="bg-white p-4 rounded-lg shadow-lg w-full">
+    <div class="flex items-baseline">
+         <!--  <span class="bg-teal-200 text-teal-800 text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
+            New
+          </span> -->
+          <div class="ml-2 text-gray-600 uppercase text-xs font-semibold tracking-wider truncate">
+        {{plato.observaciones}}
+         </div>  
+    </div>
+    
+    <h4 class="mt-1 text-xl font-semibold uppercase leading-tight ">{{plato.nombre}}</h4>
+ 
+    <div class="mt-1">
+      {{plato.precio}}
+      <span class="text-gray-600 text-sm">  {{plato.moneda}}</span>
+    </div>
+    <div class="mt-4">
+      <span class="text-teal-600 text-md font-semibold">Alérgenos </span>
+      <span class="text-sm text-gray-600">(En plato)</span>
+    </div>  
 
-        <div class="flex space-x-2">
-         
-        </div>
 
-        <div class="container w-full">
-          <div class="flex block">
-            <div class="flex-auto w-3/5 text-left">
-              <!-- Will grow and shrink as needed taking initial size into account -->
-              {{ plato.nombre }} - {{ plato.id }} {{ plato.pivot.familia_id }}
-              <br />
-              <span class="text-xs mb-4 font-thin"
-                >{{ plato.observaciones }}.</span
-              >
-            </div>
-            <div class="flex-auto w-1/5 text-right">
-              <!-- Will grow and shrink as needed taking initial size into account -->
-              {{ plato.precio }} {{ plato.moneda }}
-            </div>
 
-              <div class="relative w-24 h-24">
-            <img
-              class="rounded-full border border-gray-100 shadow-sm"
-                :src="
-                  '../storage/establecimiento/' +
-                  plato.establecimiento_id +
-                  '/' +
-                  plato.imagen
-                "
-                :alt="plato.nombre"
-                :title="plato.nombre"
-            />
-            <div
-              class="absolute top-0 right-0 h-3 w-3 my-1 border-2 border-white rounded-full bg-green-400 z-2"
-            ></div>
-          </div>
-
-           <!--  <div class="flex block" v-if="plato.imagen">
-              <img
-                :src="
-                  '../storage/establecimiento/' +
-                  plato.establecimiento_id +
-                  '/' +
-                  plato.imagen
-                "
-                :alt="plato.nombre"
-                :title="plato.nombre"
-                class="w-32 h-32 p-2"
-              />
-            </div> -->
-          </div>
-          <!--      {{filteredAlergeno(plato.id)}}-->
-          <div class="dish-miniature__content__allergens flex inline-block">
+     <div class="dish-miniature__content__allergens flex inline-block">
             <img
               v-for="(alergeno, i) in filteredAlergeno(plato.id)"
               v-bind:key="i"
@@ -94,11 +107,28 @@
               class="w-12 h-12 p-2 mb-2"
             />
           </div>
+</div>
 
-         
-        </div>
-      </div>
+      
     </div>
+
+
+
+
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+   
+
+    
   </div>
 </template>
 <script>
@@ -109,7 +139,7 @@ export default {
 
   data() {
     return {
-      active: false,
+      active: true,
       platosFiltro: {},
       modalAltaPlato: false,
     };

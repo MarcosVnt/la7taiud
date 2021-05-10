@@ -3838,13 +3838,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "accordionfront",
   props: ["title", "id", "familia", "platos", "alergenos", "alergenosMarcados"],
   components: {},
   data: function data() {
     return {
-      active: false,
+      active: true,
       platosFiltro: {},
       modalAltaPlato: false
     };
@@ -4221,7 +4251,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -4257,12 +4286,25 @@ __webpack_require__.r(__webpack_exports__);
       modalAlta: false,
       modalAltaSubCarta: false,
       tipos: 1,
-      seccions: 1
+      seccions: 1,
+      img1: '',
+      img2: '',
+      img3: ''
     };
   },
   methods: {
     mostrarFiltroAlergeno: function mostrarFiltroAlergeno() {
       this.mostrarFiltroAlergenos = !this.mostrarFiltroAlergenos;
+
+      if (this.mostrarFiltroAlergenos) {} else {
+        this.$swal.fire({
+          title: "Desactivado",
+          text: "FIltro alergenos ",
+          icon: "warning",
+          timer: 3000
+        });
+      }
+
       this.alergenosMarcados = [];
     },
     alergenosM: function alergenosM(alergenos) {
@@ -4285,7 +4327,11 @@ __webpack_require__.r(__webpack_exports__);
         _this.platos = respuesta.data.platos;
         _this.alergenos = respuesta.data.alergenos;
         _this.tipos = 2;
-        _this.seccions = 2; // Eliminar del DOM  simpre borra del padre hacia el hijo
+        _this.seccions = 2;
+        _this.img1 = respuesta.data.publicidads[0].imagen;
+        _this.img2 = respuesta.data.publicidads[1].imagen;
+        _this.img3 = respuesta.data.publicidads[2].imagen;
+        console.log('imagen', _this.img1, _this.img2, _this.img3); // Eliminar del DOM  simpre borra del padre hacia el hijo
         //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
       })["catch"](function (error) {
         console.log(error);
@@ -4352,7 +4398,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "publicidad",
-  props: ["tipo", "Seccion"],
+  props: ["tipo", "Seccion", "img"],
   components: {},
   data: function data() {
     return {
@@ -4361,6 +4407,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     inicializarPublicidad: function inicializarPublicidad() {
+      if (this.img) {
+        //  this.imagen = '/storage/publicidad/'+this.$parent.img1;
+        console.log('initImagen', this.img, this.imagen);
+        return;
+      } else {
+        console.log('initImagen22222', this.img, this.imagen);
+      }
+
       var me = this;
       var params = {
         tipos: this.tipo,
@@ -4370,7 +4424,7 @@ __webpack_require__.r(__webpack_exports__);
 
       console.log(this.tipo, this.seccion);
       axios.get("/publi/", params).then(function (respuesta) {
-        console.log(respuesta, respuesta.data.publicidads.imagen);
+        console.log('publicidad', respuesta, respuesta.data.publicidads.imagen);
         me.imagen = '/storage/publicidad/' + respuesta.data.publicidads.imagen;
         console.log(me.imagen);
         /*  this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode); */
@@ -57517,100 +57571,119 @@ var render = function() {
             expression: "active"
           }
         ],
-        staticClass: "tab__content p-2"
+        staticClass:
+          "container container rounded  m-auto flex flex-wrap flex-col md:flex-row items-center justify-start"
       },
-      [
-        _vm._t("default"),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex w-full" }),
-        _vm._v(" "),
-        _vm._l(_vm.filteredPlato(_vm.id), function(plato, i) {
-          return _c(
+      _vm._l(_vm.filteredPlato(_vm.id), function(plato, i) {
+        return _c("div", { key: i, staticClass: "w-full  p-3" }, [
+          _c(
             "div",
-            { key: i, staticClass: "flex bg-green-200 border-b-2 p-2 block" },
+            {
+              staticClass:
+                "flex flex-col lg:flex-row rounded overflow-hidden h-auto lg-auto border shadow shadow-lg"
+            },
             [
-              _c("div", { staticClass: "flex space-x-2" }),
+              _c("img", {
+                staticClass:
+                  "block h-auto w-full lg:w-48 flex-none bg-cover h-24  lg:h-48 p-6 rounded-full border border-gray-100 shadow-sm",
+                attrs: {
+                  src:
+                    "../storage/establecimiento/" +
+                    plato.establecimiento_id +
+                    "/" +
+                    plato.imagen,
+                  alt: plato.nombre,
+                  title: plato.nombre
+                }
+              }),
               _vm._v(" "),
-              _c("div", { staticClass: "container w-full" }, [
-                _c("div", { staticClass: "flex block" }, [
-                  _c("div", { staticClass: "flex-auto w-3/5 text-left" }, [
-                    _vm._v(
-                      "\n            " +
-                        _vm._s(plato.nombre) +
-                        " - " +
-                        _vm._s(plato.id) +
-                        " " +
-                        _vm._s(plato.pivot.familia_id) +
-                        "\n            "
-                    ),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "text-xs mb-4 font-thin" }, [
-                      _vm._v(_vm._s(plato.observaciones) + ".")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "flex-auto w-1/5 text-right" }, [
-                    _vm._v(
-                      "\n            " +
-                        _vm._s(plato.precio) +
-                        " " +
-                        _vm._s(plato.moneda) +
-                        "\n          "
+              _c(
+                "div",
+                { staticClass: "bg-white p-4 rounded-lg shadow-lg w-full" },
+                [
+                  _c("div", { staticClass: "flex items-baseline" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "ml-2 text-gray-600 uppercase text-xs font-semibold tracking-wider truncate"
+                      },
+                      [
+                        _vm._v(
+                          "\n        " +
+                            _vm._s(plato.observaciones) +
+                            "\n         "
+                        )
+                      ]
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "relative w-24 h-24" }, [
-                    _c("img", {
+                  _c(
+                    "h4",
+                    {
                       staticClass:
-                        "rounded-full border border-gray-100 shadow-sm",
-                      attrs: {
-                        src:
-                          "../storage/establecimiento/" +
-                          plato.establecimiento_id +
-                          "/" +
-                          plato.imagen,
-                        alt: plato.nombre,
-                        title: plato.nombre
-                      }
+                        "mt-1 text-xl font-semibold uppercase leading-tight "
+                    },
+                    [_vm._v(_vm._s(plato.nombre))]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "mt-1" }, [
+                    _vm._v("\n      " + _vm._s(plato.precio) + "\n      "),
+                    _c("span", { staticClass: "text-gray-600 text-sm" }, [
+                      _vm._v("  " + _vm._s(plato.moneda))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(0, true),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "dish-miniature__content__allergens flex inline-block"
+                    },
+                    _vm._l(_vm.filteredAlergeno(plato.id), function(
+                      alergeno,
+                      i
+                    ) {
+                      return _c("img", {
+                        key: i,
+                        staticClass: "w-12 h-12 p-2 mb-2",
+                        attrs: {
+                          src: "../storage/" + alergeno.imagen,
+                          alt: alergeno.nombre,
+                          title: alergeno.nombre
+                        }
+                      })
                     }),
-                    _vm._v(" "),
-                    _c("div", {
-                      staticClass:
-                        "absolute top-0 right-0 h-3 w-3 my-1 border-2 border-white rounded-full bg-green-400 z-2"
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "dish-miniature__content__allergens flex inline-block"
-                  },
-                  _vm._l(_vm.filteredAlergeno(plato.id), function(alergeno, i) {
-                    return _c("img", {
-                      key: i,
-                      staticClass: "w-12 h-12 p-2 mb-2",
-                      attrs: {
-                        src: "../storage/" + alergeno.imagen,
-                        alt: alergeno.nombre,
-                        title: alergeno.nombre
-                      }
-                    })
-                  }),
-                  0
-                )
-              ])
+                    0
+                  )
+                ]
+              )
             ]
           )
-        })
-      ],
-      2
+        ])
+      }),
+      0
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mt-4" }, [
+      _c("span", { staticClass: "text-teal-600 text-md font-semibold" }, [
+        _vm._v("Alérgenos ")
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "text-sm text-gray-600" }, [
+        _vm._v("(En plato)")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -57682,31 +57755,7 @@ var render = function() {
     _vm._v(" "),
     _c("input", {
       attrs: { type: "hidden", name: "alergenos", id: "alergenos" }
-    }),
-    _vm._v(" "),
-    _c("div", { staticClass: "mb-2" }, [
-      _c(
-        "a",
-        {
-          staticClass:
-            "text-green-600 bg-green-100 text-xs font-bold uppercase px-5 py-3 pb-2 shadow rounded block leading-normal bg-green-100",
-          on: {
-            click: function($event) {
-              return _vm.aplicarFiltroAlergenos()
-            }
-          }
-        },
-        [
-          _c("span", [
-            _vm._v(
-              "\nAPLICAR Filtro Alérgenos " +
-                _vm._s(_vm.alergenosFiltro.size) +
-                " --\n          "
-            )
-          ])
-        ]
-      )
-    ])
+    })
   ])
 }
 var staticRenderFns = [
@@ -57747,56 +57796,55 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex flex-wrap  mx-1 sm:p-10" }, [
-    _c(
-      "div",
-      { staticClass: "w-full" },
-      [
-        _c(
-          "ul",
-          { staticClass: "flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row" },
-          _vm._l(this.cartas, function(carta, i) {
-            return _c(
-              "li",
-              {
-                key: i,
-                staticClass: "-mb-px mr-2 last:mr-0 flex-auto text-center pb-4"
-              },
-              [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "text-xs font-bold uppercase px-5 py-3 pb-2 shadow rounded block leading-normal bg-green-100",
-                    class: {
-                      "text-green-600 bg-white": _vm.openTab !== i + 1,
-                      "text-white bg-green-600": _vm.openTab === i + 1
-                    },
-                    on: {
-                      click: function($event) {
-                        return _vm.toggleTabs(i + 1, carta.id, carta)
-                      }
-                    }
+    _c("div", { staticClass: "w-full" }, [
+      _c(
+        "ul",
+        { staticClass: "flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row" },
+        _vm._l(this.cartas, function(carta, i) {
+          return _c(
+            "li",
+            {
+              key: i,
+              staticClass: "-mb-px mr-2 last:mr-0 flex-auto text-center pb-4"
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "text-xs font-bold uppercase px-5 py-3 pb-2 shadow rounded block leading-normal bg-green-100",
+                  class: {
+                    "text-green-600 bg-white": _vm.openTab !== i + 1,
+                    "text-white bg-green-600": _vm.openTab === i + 1
                   },
-                  [
-                    _vm._v(
-                      "\n            " +
-                        _vm._s(carta.nombre) +
-                        " \n\n            "
-                    )
-                  ]
-                )
-              ]
-            )
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _c("div", [
+                  on: {
+                    click: function($event) {
+                      return _vm.toggleTabs(i + 1, carta.id, carta)
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(carta.nombre) +
+                      " \n\n            "
+                  )
+                ]
+              )
+            ]
+          )
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        [
           _c(
             "a",
             {
               staticClass:
-                "text-green-600 bg-green-100 text-xs font-bold uppercase px-5 py-3 pb-2 shadow rounded block leading-normal bg-green-100",
+                "text-green-600 bg-green-100 text-xs font-bold uppercase px-5 py-3 pb-4 shadow rounded block leading-normal bg-green-100",
               on: {
                 click: function($event) {
                   return _vm.mostrarFiltroAlergeno()
@@ -57805,59 +57853,103 @@ var render = function() {
             },
             [
               _vm.mostrarFiltroAlergenos
-                ? _c("span", [_vm._v("\nOcultar Filtro Alérgenos\n          ")])
-                : _c("span", [_vm._v("\nMostrar Filtro Alérgenos\n          ")])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _vm.mostrarFiltroAlergenos
-          ? _c("alergenosfiltro", {
-              attrs: { alergenosMarcados: _vm.alergenosMarcados },
-              on: { alergenosMarcado: _vm.alergenosM }
-            })
-          : _vm._e(),
-        _vm._v(" "),
-        _c("publicidad", { attrs: { tipo: _vm.tipos, seccion: _vm.seccions } }),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
-          },
-          [
-            _c("div", { staticClass: "px-4 py-5 flex-auto" }, [
+                ? _c("span", [
+                    _vm._v(
+                      "\nDesactivar / Ocultar Filtro Alérgenos\n          "
+                    )
+                  ])
+                : _c("span", [
+                    _vm._v("\nMostrar Filtro Alérgenos\n          ")
+                  ]),
+              _vm._v(" "),
               _c(
-                "div",
-                { staticClass: "tab-content tab-space" },
-                [
-                  _vm._l(this.familiasNew, function(familia, i) {
-                    return _c("accordionfront", {
-                      key: i,
-                      attrs: {
-                        familia: familia,
-                        title: familia.nombre,
-                        id: familia.id,
-                        platos: _vm.platos,
-                        alergenos: _vm.alergenos,
-                        alergenosMarcados: _vm.alergenosMarcados
-                      }
-                    })
-                  }),
-                  _vm._v(" "),
-                  _c("publicidad", {
-                    attrs: { tipo: _vm.tipos, seccion: _vm.seccions }
-                  })
-                ],
-                2
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.mostrarFiltroAlergenos,
+                      expression: "!mostrarFiltroAlergenos"
+                    }
+                  ],
+                  staticClass: "down-Arrow"
+                },
+                [_vm._v("▼")]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.mostrarFiltroAlergenos,
+                      expression: "mostrarFiltroAlergenos"
+                    }
+                  ],
+                  staticClass: "up-Arrow"
+                },
+                [_vm._v("▲")]
               )
-            ])
-          ]
-        )
-      ],
-      1
-    )
+            ]
+          ),
+          _vm._v(" "),
+          _vm.mostrarFiltroAlergenos
+            ? _c("alergenosfiltro", {
+                attrs: { alergenosMarcados: _vm.alergenosMarcados },
+                on: { alergenosMarcado: _vm.alergenosM }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _c("publicidad", {
+            attrs: { tipo: _vm.tipos, seccion: _vm.seccions, img: _vm.img2 }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
+        },
+        [
+          _c("div", { staticClass: "px-4 py-5 flex-auto" }, [
+            _c(
+              "div",
+              { staticClass: "tab-content tab-space" },
+              [
+                _vm._l(this.familiasNew, function(familia, i) {
+                  return _c("accordionfront", {
+                    key: i,
+                    attrs: {
+                      familia: familia,
+                      title: familia.nombre,
+                      id: familia.id,
+                      platos: _vm.platos,
+                      alergenos: _vm.alergenos,
+                      alergenosMarcados: _vm.alergenosMarcados
+                    }
+                  })
+                }),
+                _vm._v(" "),
+                _c("publicidad", {
+                  attrs: {
+                    tipo: _vm.tipos,
+                    seccion: _vm.seccions,
+                    img: _vm.img3
+                  }
+                })
+              ],
+              2
+            )
+          ])
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -57885,7 +57977,7 @@ var render = function() {
   return _c("div", {}, [
     _c("img", {
       staticClass: "object-contain md:object-scale-down",
-      attrs: { src: _vm.imagen }
+      attrs: { src: "/storage/publicidad/" + _vm.img }
     })
   ])
 }

@@ -206,6 +206,8 @@ class PublicidadController extends Controller
        // $publicidads = Publicidad::first();
 
         $publicidads = Publicidad::inRandomOrder()->first();
+        //$publicidads = Publicidad::inRandomOrder()->limit(3)->get();
+
 
         return response()->json(['publicidads' => $publicidads]);
         

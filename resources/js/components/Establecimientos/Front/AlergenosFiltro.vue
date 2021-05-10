@@ -47,7 +47,7 @@
         <input type="hidden" name="alergenos" id="alergenos" >
    
    
-    <div class="mb-2">
+    <!-- <div class="mb-2">
         <a
             class="text-green-600 bg-green-100 text-xs font-bold uppercase px-5 py-3 pb-2 shadow rounded block leading-normal bg-green-100"
             v-on:click="aplicarFiltroAlergenos()"
@@ -58,7 +58,7 @@ APLICAR Filtro Alérgenos {{alergenosFiltro.size}} --
           </span>
             
           </a>
-      </div>
+      </div> -->
    
     </div>
 </template>

@@ -189,6 +189,9 @@ class EstablecimientoController extends Controller
            
         }
 
+
+        $publicidads = Publicidad::inRandomOrder()->limit(3)->get();
+
        
 
       //  dd($familias,$platos,$resultado);
@@ -200,6 +203,7 @@ class EstablecimientoController extends Controller
          'alergenos2' => $alergenos,
          'platos2' => $platos,
          'platoAlergenos' => $platoAlergenos,
+         'publicidads' => $publicidads,
          
     ];
     }

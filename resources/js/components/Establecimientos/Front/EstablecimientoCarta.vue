@@ -2,16 +2,7 @@
   <div class="flex flex-wrap  mx-1 sm:p-10">
     <!--  <modal v-if="modalAlta" ></modal> -->
 
-
-
-
-
-
-
-
     <div class="w-full">
-     
-
 
       <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
         <li
@@ -40,19 +31,22 @@
       </ul>
       <div>
         <a
-            class="text-green-600 bg-green-100 text-xs font-bold uppercase px-5 py-3 pb-2 shadow rounded block leading-normal bg-green-100"
+            class="text-green-600 bg-green-100 text-xs font-bold uppercase px-5 py-3 pb-4 shadow rounded block leading-normal bg-green-100"
             v-on:click="mostrarFiltroAlergeno()"
             
           >
           <span v-if="mostrarFiltroAlergenos">
-Ocultar Filtro Alérgenos
+Desactivar / Ocultar Filtro Alérgenos
           </span>
             <span v-else>
 Mostrar Filtro Alérgenos
           </span>
+
+            <span class="down-Arrow" v-show="!mostrarFiltroAlergenos">&#9660;</span>
+        <span class="up-Arrow" v-show="mostrarFiltroAlergenos">&#9650;</span>
             
           </a>
-      </div>
+     
     
       <alergenosfiltro v-if="mostrarFiltroAlergenos"
               :alergenosMarcados="alergenosMarcados"
@@ -62,9 +56,13 @@ Mostrar Filtro Alérgenos
      <publicidad
      :tipo="tipos"
      :seccion ="seccions"
+     :img ="img2"
+     
      >
 
      </publicidad>
+
+      </div>
 
       <div
         class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
@@ -90,6 +88,7 @@ Mostrar Filtro Alérgenos
               <publicidad
                 :tipo="tipos"
                 :seccion ="seccions"
+                :img ="img3"
                 >
 
                 </publicidad>
@@ -152,6 +151,9 @@ export default {
 
        tipos:1,
         seccions:1,
+        img1 : '',
+        img2 : '',
+        img3 : '',
     };
   },
   methods: {
@@ -159,6 +161,22 @@ export default {
     mostrarFiltroAlergeno(){
 
       this.mostrarFiltroAlergenos =! this.mostrarFiltroAlergenos;
+
+      if(this.mostrarFiltroAlergenos){
+         
+
+      }else{
+           this.$swal.fire({
+          title: "Desactivado",
+          text: "FIltro alergenos ",
+          icon: "warning",
+         
+          timer: 3000,}
+                                );
+        
+      }
+
+   
       this.alergenosMarcados = [];
 
     },
@@ -190,6 +208,12 @@ export default {
           this.alergenos = respuesta.data.alergenos;
           this.tipos =2;
           this.seccions = 2;
+
+          this.img1 = respuesta.data.publicidads[0].imagen;
+          this.img2 = respuesta.data.publicidads[1].imagen;
+          this.img3 = respuesta.data.publicidads[2].imagen;
+console.log('imagen',this.img1,this.img2,this.img3);
+
           // Eliminar del DOM  simpre borra del padre hacia el hijo
           //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
         })
