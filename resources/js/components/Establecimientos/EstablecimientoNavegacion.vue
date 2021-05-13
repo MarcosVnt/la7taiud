@@ -67,7 +67,9 @@
             </div>
             <div v-bind:class="{'hidden': openTab !== 3, 'block': openTab === 3}">
             
-             <establecimiento-qr></establecimiento-qr>
+             <establecimiento-qr
+               :esta="establecimientos"
+             ></establecimiento-qr>
 
               
             </div>

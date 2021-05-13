@@ -40,7 +40,19 @@ Route::get('/publi', 'PublicidadController@mostrar')->name('publicidads.mostrar'
 Route::get('/alergenos', 'AlergenosController@index')->name('alergenos.index');
 
 
+Route::get('/pdfqr', 'EstablecimientoController@pdfqr')->name('establecimientos.pdfqr');
 
+/* 
+Route::get('/pdfqr/', function () {
+
+
+    $pdf = PDF::loadView('pdf.pdfqr');
+
+  //  dd($pdf);
+  return $pdf->download('pdfqr.pdf');
+  
+  });
+ */
 
 
 

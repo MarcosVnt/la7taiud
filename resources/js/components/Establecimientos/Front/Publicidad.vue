@@ -1,9 +1,15 @@
 <template>
 
  <div class="">
-        <img
+        <img v-if="img"
           class="object-contain md:object-scale-down"
           :src="'/storage/publicidad/'+img"
+
+
+        />
+ <img v-else
+          class="object-contain md:object-scale-down"
+          :src="imagen"
 
 
         />

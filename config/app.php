@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Vile'),
 
     /*
     |--------------------------------------------------------------------------
@@ -174,9 +174,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        //SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+
 
 
 
@@ -233,11 +235,14 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
 
 
-        //'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 
 
     ],

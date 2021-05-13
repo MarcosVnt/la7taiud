@@ -3622,6 +3622,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3670,6 +3672,102 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_qrcode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-qrcode */ "./node_modules/vue-qrcode/lib/index.js");
+/* harmony import */ var _Front_Publicidad_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Front/Publicidad.vue */ "./resources/js/components/Establecimientos/Front/Publicidad.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3690,25 +3788,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "establecimientoQr",
+  props: ["esta"],
   components: {
-    VueQrcode: vue_qrcode__WEBPACK_IMPORTED_MODULE_0__["default"]
+    VueQrcode: vue_qrcode__WEBPACK_IMPORTED_MODULE_0__["default"],
+    publicidad: _Front_Publicidad_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
       openTab: 1,
       cQr: '',
-      cQrr: ''
+      cQrr: '',
+      tipos: '1',
+      seccions: '2',
+      ruta: ''
     };
   },
   methods: {
+    pdfQr: function pdfQr() {
+      var me = this;
+      console.log(me.ruta); // let qr = document.getElementById('qr').src;
+
+      setTimeout(function () {
+        window.open("/pdfqr?qr=" + me.ruta, "_blank");
+      }, 2000);
+    },
     toggleTabs: function toggleTabs(tabNumber) {
       this.openTab = tabNumber;
     },
     codeQr: function codeQr() {
       var _this = this;
 
+      this.ruta = 'this.esta.id';
       axios.get("/qrcode").then(function (respuesta) {
         console.log('codeQr', respuesta);
         _this.cQr = respuesta;
@@ -3716,11 +3829,17 @@ __webpack_require__.r(__webpack_exports__);
         // Eliminar del DOM  simpre borra del padre hacia el hijo
         //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
       })["catch"](function (error) {
-        console.log(error);
+        //console.log(error);
+        if (error.response.status === 401) {
+          window.location = "/login";
+        }
       });
     }
   },
-  created: function created() {// this.codeQr();
+  created: function created() {
+    // this.codeQr();
+    this.ruta = 'http://www.rutasgp.com/establecimiento/' + this.esta.id;
+    console.log('qr ', this.esta, this.esta.id, this.ruta);
   }
 });
 
@@ -3735,7 +3854,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -4379,6 +4497,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -57446,7 +57570,11 @@ var render = function() {
                 {
                   class: { hidden: _vm.openTab !== 3, block: _vm.openTab === 3 }
                 },
-                [_c("establecimiento-qr")],
+                [
+                  _c("establecimiento-qr", {
+                    attrs: { esta: _vm.establecimientos }
+                  })
+                ],
                 1
               )
             ])
@@ -57481,11 +57609,183 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "flex flex-wrap mx-1" },
-    [_c("vue-qrcode", { attrs: { value: "https://www.rutasgp.com" } })],
+    [
+      _c("publicidad", { attrs: { tipo: _vm.tipos, seccion: _vm.seccions } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "py-24 bg-white" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 flex  sm:items-center"
+          },
+          [
+            _c("div", { staticClass: "sm:pr-6" }, [
+              _c(
+                "p",
+                {
+                  staticClass:
+                    "mt-4 text-sm leading-7 text-gray-500 font-regular"
+                },
+                [_vm._v("\n        Servicio\n      ")]
+              ),
+              _vm._v(" "),
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "p",
+                { staticClass: "mt-2 text-base leading-6 text-gray-500" },
+                [
+                  _vm._v(
+                    "\n        Mediante esta opción podrá generar e imprimir un PDF con su Código Qr que le permite el acceso directo a su Carta de Restauración Digital Personalizada .\n      "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "mt-10" }, [
+                _c("ul", { staticClass: "flex flex-col sm:flex-row" }, [
+                  _c("li", { staticClass: "w-1/2 my-10 md:mt-0 p-10" }, [
+                    _c("div", { staticClass: "flex flex-col" }, [
+                      _c("div", { staticClass: "flex-shrink-0" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "flex items-center justify-center h-8 w-8 rounded-md text-indigo-500"
+                          },
+                          [
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "h-6 w-6",
+                                attrs: {
+                                  fill: "none",
+                                  viewBox: "0 0 24 24",
+                                  stroke: "currentColor"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round",
+                                    "stroke-width": "2",
+                                    d:
+                                      "M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "mt-4" },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(_vm.ruta) +
+                              "\n             "
+                          ),
+                          _c("vue-qrcode", {
+                            attrs: { id: "qr", value: _vm.ruta }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "w-1/2 my-10 md:mt-0 p-10" }, [
+                    _c("div", { staticClass: "flex flex-col" }, [
+                      _c("div", { staticClass: "flex-shrink-0" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "flex items-center justify-center h-8 w-8 rounded-md text-indigo-500"
+                          },
+                          [
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "h-6 w-6",
+                                attrs: {
+                                  fill: "none",
+                                  viewBox: "0 0 24 24",
+                                  stroke: "currentColor"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round",
+                                    "stroke-width": "2",
+                                    d:
+                                      "M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z"
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "mt-4" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "text-xs font-bold uppercase px-5 py-3 hover:bg-green-800 shadow-lg rounded block leading-normal text-white bg-green-600",
+                            attrs: { href: "javascript:void(0)" },
+                            on: {
+                              click: function($event) {
+                                return _vm.pdfQr()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                    Generar Pdf Qr\n                  "
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("publicidad", { attrs: { tipo: _vm.tipos, seccion: _vm.seccions } })
+    ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "h3",
+      {
+        staticClass:
+          "text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight text-gray-900"
+      },
+      [
+        _vm._v("\n        Impresión"),
+        _c("span", { staticClass: "text-indigo-600" }, [_vm._v(" Qr")])
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -57583,19 +57883,21 @@ var render = function() {
                 "flex flex-col lg:flex-row rounded overflow-hidden h-auto lg-auto border shadow shadow-lg"
             },
             [
-              _c("img", {
-                staticClass:
-                  "block h-auto w-full lg:w-48 flex-none bg-cover h-24  lg:h-48 p-6 rounded-full border border-gray-100 shadow-sm",
-                attrs: {
-                  src:
-                    "../storage/establecimiento/" +
-                    plato.establecimiento_id +
-                    "/" +
-                    plato.imagen,
-                  alt: plato.nombre,
-                  title: plato.nombre
-                }
-              }),
+              plato.imagen
+                ? _c("img", {
+                    staticClass:
+                      "block h-auto w-full lg:w-48 flex-none bg-cover h-24  lg:h-48 p-6 rounded-full border border-gray-100 shadow-sm",
+                    attrs: {
+                      src:
+                        "../storage/establecimiento/" +
+                        plato.establecimiento_id +
+                        "/" +
+                        plato.imagen,
+                      alt: plato.nombre,
+                      title: plato.nombre
+                    }
+                  })
+                : _vm._e(),
               _vm._v(" "),
               _c(
                 "div",
@@ -57634,7 +57936,21 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(0, true),
+                  _vm.filteredAlergeno(plato.id)
+                    ? _c("div", { staticClass: "mt-4" }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "text-teal-600 text-md font-semibold"
+                          },
+                          [_vm._v("Alérgenos ")]
+                        ),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "text-sm text-gray-600" }, [
+                          _vm._v("(En plato)")
+                        ])
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -57668,22 +57984,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mt-4" }, [
-      _c("span", { staticClass: "text-teal-600 text-md font-semibold" }, [
-        _vm._v("Alérgenos ")
-      ]),
-      _vm._v(" "),
-      _c("span", { staticClass: "text-sm text-gray-600" }, [
-        _vm._v("(En plato)")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -57975,10 +58276,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", {}, [
-    _c("img", {
-      staticClass: "object-contain md:object-scale-down",
-      attrs: { src: "/storage/publicidad/" + _vm.img }
-    })
+    _vm.img
+      ? _c("img", {
+          staticClass: "object-contain md:object-scale-down",
+          attrs: { src: "/storage/publicidad/" + _vm.img }
+        })
+      : _c("img", {
+          staticClass: "object-contain md:object-scale-down",
+          attrs: { src: _vm.imagen }
+        })
   ])
 }
 var staticRenderFns = []

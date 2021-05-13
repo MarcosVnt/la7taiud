@@ -414,4 +414,91 @@ class EstablecimientoController extends Controller
 
 
 
+    public function pdfqr(Request $request) {
+
+
+
+        if(Auth::check() ){
+
+            $user = User::find(Auth::user()->id);
+            $estable = $user->establecimiento->id;
+
+            $establecimiento = Establecimiento::where('id','=',$estable)->first();
+        }else{
+            return ['error'=> 'debe registrarse para subir platos '];
+
+        }
+
+
+
+        $publicidads = Publicidad::inRandomOrder()->limit(2)->get();
+
+
+
+$qr =$request->qr;
+
+
+ 
+$qrcode = base64_encode(\QrCode::format('svg')->size(200)->errorCorrection('H')->generate($qr));
+
+//return view('pdf.pdfqr',compact('qrcode','publicidads','establecimiento'));
+
+$pdf = \PDF::loadView('pdf.pdfqr', compact('qrcode','publicidads','establecimiento'));
+
+  return $pdf->download('pdfqr.pdf');
+          
+   //return $pdf->stream();
+
+
+
+
+
+
+
+
+
+//dd($request,$qr);
+
+
+return view('pdf.pdfqr',['qr' => $qr]);
+
+
+//$html = '<img src="' . $qr . '">';
+
+
+
+            $pdf = \PDF::loadView('pdf.pdfqr',
+        ['qr'=>$qr]
+        
+        );
+        
+          //  dd($pdf);
+         // $pdf->loadHTML($html);
+         
+         
+
+         return $pdf->download('pdfqr.pdf');
+          
+        
+
+        /*   $pdf = \PDF::loadView('pdf.pdfqr',['qr'=>$cabecera,
+          'articulos'=>$articulos, 
+          'muestroTotal'=>$muestroTotal,
+          'componentes'=>$componentes,
+          'base'=>$base,
+          'total_iva'=>$total_iva,
+          'total_iva_incluido'=>$total_iva_incluido] 
+          
+          
+       
+       );*/
+       $pdf->save('pdf/'.$name);
+
+
+
+
+    }
+
+
+
 }

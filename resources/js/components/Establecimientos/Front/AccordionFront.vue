@@ -63,7 +63,7 @@
     v-for="(plato, i) in filteredPlato(id)"
         v-bind:key="i">
     <div class="flex flex-col lg:flex-row rounded overflow-hidden h-auto lg-auto border shadow shadow-lg">
-      <img class="block h-auto w-full lg:w-48 flex-none bg-cover h-24  lg:h-48 p-6 rounded-full border border-gray-100 shadow-sm" 
+      <img v-if="plato.imagen" class="block h-auto w-full lg:w-48 flex-none bg-cover h-24  lg:h-48 p-6 rounded-full border border-gray-100 shadow-sm" 
        :src="
                   '../storage/establecimiento/' +
                   plato.establecimiento_id +
@@ -90,11 +90,10 @@
       {{plato.precio}}
       <span class="text-gray-600 text-sm">  {{plato.moneda}}</span>
     </div>
-    <div class="mt-4">
+    <div class="mt-4" v-if="filteredAlergeno(plato.id)">
       <span class="text-teal-600 text-md font-semibold">Alérgenos </span>
       <span class="text-sm text-gray-600">(En plato)</span>
     </div>  
-
 
 
      <div class="dish-miniature__content__allergens flex inline-block">
