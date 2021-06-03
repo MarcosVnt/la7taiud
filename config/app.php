@@ -174,7 +174,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+       // SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
         Intervention\Image\ImageServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
@@ -242,7 +242,7 @@ return [
 
 
 
-        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        //'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 
 
     ],
