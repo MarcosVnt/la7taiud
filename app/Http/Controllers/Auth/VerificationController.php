@@ -36,15 +36,16 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
+        //dd(Auth::check());
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
 
-        if(Auth::check() && Auth::user()->role_id == 1){
+       /*  if(Auth::check() && Auth::user()->role_id == 1){
             $this->redirectTo = route('admin.dashboard');
         } elseif(Auth::check() && Auth::user()->role_id == 2){
-            $this->redirectTo = route('user.dashboard');
-        }
+            $this->redirectTo = route('admin.dashboard');
+        } */
        
         $this->middleware('guest')->except('logout');
 

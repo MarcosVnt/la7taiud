@@ -19,6 +19,12 @@ use Illuminate\Support\Facades\Auth;
 
 class EstablecimientoController extends Controller
 {
+
+
+
+    
+
+
     /**
      * Display a listing of the resource.
      *

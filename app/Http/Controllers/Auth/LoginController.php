@@ -38,16 +38,22 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     } */
+   
 
+    public function __construct(){
 
-    public function __construct()
-    {
-        if(Auth::check() && Auth::user()->role_id == 1){
+        
+        /* if(Auth::check() && Auth::user()->role_id == 1){
+            
+         
             $this->redirectTo = route('admin.dashboard');
+
         } elseif(Auth::check() && Auth::user()->role_id == 2){
+
             $this->redirectTo = route('user.dashboard');
         }
+        */
        
         $this->middleware('guest')->except('logout');
-    }
+    } 
 }

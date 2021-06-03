@@ -14,7 +14,7 @@ class DashboardController extends Controller
         //
         
        $publicidads = Publicidad::where('user_id', auth()->user()->id )->latest()->simplePaginate(3);
-       //dd($publicidads);
+      // dd($publicidads);
                return view('publicidads.index',compact('publicidads'));
 
 

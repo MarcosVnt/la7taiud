@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-
+{{-- 
 @section('navegacion')
     
    @include('ui.adminnav') 
 @endsection
-
+ --}}
 
 
 @section('content')
@@ -15,9 +15,10 @@
 
 
 <establecimiento-navegacion
-establecimiento=""
+:establecimientos="{{ $establecimiento }}"
 ></establecimiento-navegacion>
-{{-- 
+ 
+ {{-- 
 <estado-vacante
 estado="{{$vacante->activa}}"
 vacante-id="{{$vacante->id}}"

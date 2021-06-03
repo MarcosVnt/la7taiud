@@ -18,12 +18,13 @@ class AdminMiddleware
     public function handle($request, Closure $next)
     {
         //return $next($request);
-
+dd(Auth::user()->role_id);
         if(auth::check() && Auth::user()->role_id == 1){
-            return $next($request);
+            //return $next($request);
+           //return redirect()->route('admin.dashboard');
          }
          else {
-            return redirect()->route('login');
+            //return redirect()->route('login');
          }
     }
 }
