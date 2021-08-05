@@ -1,3 +1,8 @@
+putty
+
+188
+vnt -> Leon_654*
+
 composer create-project laravel/laravel=^7 devjobs --prefer-dist
 
 composer create-project laravel/laravel:^7.0 carta100 --prefer-dist
@@ -391,6 +396,7 @@ web updtate, delete, stores carta ....
 
 
 
+
         [EstablecimientoCartasAlta]
 
 
@@ -527,4 +533,17 @@ reordenar familias y guardar ...
 cookies 
 
 
+
+servidor  
+
+apt-cache search  gd2
+instalar 
+
+sudo apt-get install php7.4-gd
+
+
+
+TDD
+
+php artisan make:test --unit nombreTest
 

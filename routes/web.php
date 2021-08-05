@@ -13,14 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+ Route::get('/', function () {
     return view('welcome');
 });
 
+ 
 
-
-
+//verify
 Auth::routes(['verify' => true ]);
+//Auth::routes();
 
 
 
@@ -108,10 +109,10 @@ Route::group(['as'=>'admin.','prefix' => 'admin','namespace'=>'Admin','middlewar
     
     Route::group(['as'=>'user.','prefix' => 'user','namespace'=>'User','middleware'=>['auth','user']], function () {
     
-        Route::get('dashboard', 'DashboardController@index')->name('dashboard')->middleware('verified');
+        Route::get('dashboard', 'DashboardController@index')->name('dashboard');
         
         // Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-        //Route::get('user/dashboard', 'DashboardController@index')->name('user.dashboard');
+        Route::get('user/dashboard', 'DashboardController@index')->name('user.dashboard');
         
         
     });
