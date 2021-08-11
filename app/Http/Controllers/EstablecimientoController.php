@@ -115,7 +115,23 @@ class EstablecimientoController extends Controller
   
         $establecimiento->nombre_comercial = $request['estado']['nombre_comercial'];
         $establecimiento->cif = $request['estado']['cif'];
-      
+
+        $establecimiento->nombre_fiscal = $request['estado']['nombre_fiscal'];
+        $establecimiento->direccion = $request['estado']['direccion'];
+        $establecimiento->codigo_postal = $request['estado']['codigo_postal'];
+        $establecimiento->poblacion = $request['estado']['poblacion'];
+        $establecimiento->provincia = $request['estado']['provincia'];
+
+        $establecimiento->telefono = $request['estado']['telefono'];
+        $establecimiento->movil = $request['estado']['movil'];
+        $establecimiento->email = $request['estado']['email'];
+        $establecimiento->web = $request['estado']['web'];
+        $establecimiento->contacto = $request['estado']['contacto'];
+        $establecimiento->observaciones = $request['estado']['observaciones'];
+        
+
+
+
 
         $establecimiento->save();
 

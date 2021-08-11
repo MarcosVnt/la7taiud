@@ -2537,6 +2537,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2869,6 +2872,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "EstablecimientoCartasAlta",
   props: ["establecimiento_id", "cartaEdit", "modalEdit"],
@@ -2949,6 +2964,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3465,6 +3491,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "EstablecimientoDatos",
@@ -3495,7 +3527,8 @@ __webpack_require__.r(__webpack_exports__);
       this.editar = false;
       console.log("guardarDatos", this.esta.id);
       var params = {
-        estado: this.esta
+        estado: this.esta //ENVIA TODO
+
       };
       axios.post("/establecimientos/update/".concat(this.esta.id), params).then(function (respuesta) {
         return console.log(respuesta);
@@ -5490,6 +5523,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Establecimientos_establecimientoCartasAltaPlato_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Establecimientos/establecimientoCartasAltaPlato.vue */ "./resources/js/components/Establecimientos/establecimientoCartasAltaPlato.vue");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -56277,10 +56316,11 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "text-yellow-400 flex items-center" }, [
-                _vm._v("\n            Eliminar\n\n            "),
+                _vm._v("\n            Eliminar\n  "),
                 _c(
                   "svg",
                   {
+                    staticClass: "h-6 w-6",
                     attrs: {
                       xmlns: "http://www.w3.org/2000/svg",
                       fill: "none",
@@ -56295,31 +56335,7 @@ var render = function() {
                         "stroke-linejoin": "round",
                         "stroke-width": "2",
                         d:
-                          "M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                      }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "svg",
-                  {
-                    staticClass: "h-6 w-6",
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      fill: "currentColor",
-                      stroke: "currentColor",
-                      "stroke-linecap": "round",
-                      "stroke-linejoin": "round",
-                      "stroke-width": "2",
-                      viewBox: "0 0 24 24"
-                    }
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d:
-                          "M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                       }
                     })
                   ]
@@ -56524,7 +56540,7 @@ var render = function() {
       "div",
       {
         staticClass:
-          "p-4 mb-3 flex justify-between items-center bg-green-100\n   bg-white border border-white shadow rounded-lg cursor-move"
+          "p-4 mb-3 flex justify-between items-center bg-green-100\n     bg-white border border-white shadow rounded-lg cursor-move"
       },
       [
         _vm.modalEdit
@@ -56571,7 +56587,7 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "flex-auto w-1/4 mb:pl-20" }, [
+        _c("div", { staticClass: "md:flex-auto md:pr-3 pl-3" }, [
           _c(
             "a",
             {
@@ -56588,7 +56604,7 @@ var render = function() {
                 _c(
                   "svg",
                   {
-                    staticClass: "w-6 h-6 p6",
+                    staticClass: "h-6 w-6",
                     attrs: {
                       xmlns: "http://www.w3.org/2000/svg",
                       fill: "none",
@@ -56602,8 +56618,7 @@ var render = function() {
                         "stroke-linecap": "round",
                         "stroke-linejoin": "round",
                         "stroke-width": "2",
-                        d:
-                          "M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"
+                        d: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                       }
                     })
                   ]
@@ -56613,7 +56628,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "md:flex-auto md:pr-3" }, [
+        _c("div", { staticClass: "md:flex-auto md:pr-3 pl-3" }, [
           _c(
             "a",
             {
@@ -56626,30 +56641,29 @@ var render = function() {
               }
             },
             [
-              _c("span", { staticClass: "minus-circle" }, [
-                _c(
-                  "svg",
-                  {
-                    staticClass: "w-6 h-6 p6",
+              _c(
+                "svg",
+                {
+                  staticClass: "h-6 w-6",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    fill: "none",
+                    viewBox: "0 0 24 24",
+                    stroke: "currentColor"
+                  }
+                },
+                [
+                  _c("path", {
                     attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      fill: "none",
-                      viewBox: "0 0 24 24",
-                      stroke: "currentColor"
+                      "stroke-linecap": "round",
+                      "stroke-linejoin": "round",
+                      "stroke-width": "2",
+                      d:
+                        "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                     }
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        "stroke-linecap": "round",
-                        "stroke-linejoin": "round",
-                        "stroke-width": "2",
-                        d: "M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                      }
-                    })
-                  ]
-                )
-              ])
+                  })
+                ]
+              )
             ]
           )
         ])
@@ -56684,7 +56698,7 @@ var render = function() {
       "div",
       {
         staticClass:
-          "p-4 mb-3 flex justify-between items-center bg-green-200\n   bg-white border border-white shadow rounded-lg cursor-move"
+          "p-4 mb-3 flex justify-between items-center bg-green-200\n     bg-white border border-white shadow rounded-lg cursor-move"
       },
       [
         _c("div", { staticClass: "flex-auto w-full" }, [
@@ -56720,7 +56734,7 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "flex-auto w-1/4 mb:pl-20" }, [
+        _c("div", { staticClass: "md:flex-auto md:pr-3 md:ml-2 pl-3" }, [
           _c(
             "a",
             {
@@ -56737,7 +56751,7 @@ var render = function() {
                 _c(
                   "svg",
                   {
-                    staticClass: "w-6 h-6 p6",
+                    staticClass: "h-6 w-6",
                     attrs: {
                       xmlns: "http://www.w3.org/2000/svg",
                       fill: "none",
@@ -56751,8 +56765,7 @@ var render = function() {
                         "stroke-linecap": "round",
                         "stroke-linejoin": "round",
                         "stroke-width": "2",
-                        d:
-                          "M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"
+                        d: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                       }
                     })
                   ]
@@ -56762,7 +56775,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "md:flex-auto md:pr-3" }, [
+        _c("div", { staticClass: "md:flex-auto md:pr-3 pl-3" }, [
           _c(
             "a",
             {
@@ -56779,7 +56792,7 @@ var render = function() {
                 _c(
                   "svg",
                   {
-                    staticClass: "w-6 h-6 p6",
+                    staticClass: "h-6 w-6",
                     attrs: {
                       xmlns: "http://www.w3.org/2000/svg",
                       fill: "none",
@@ -56793,7 +56806,8 @@ var render = function() {
                         "stroke-linecap": "round",
                         "stroke-linejoin": "round",
                         "stroke-width": "2",
-                        d: "M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                        d:
+                          "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                       }
                     })
                   ]
@@ -57372,16 +57386,21 @@ var render = function() {
       _vm._v(" "),
       _c("div", {}, [
         _c("div", {}, [
-          _c("img", {
-            staticClass: "object-contain md:object-scale-down",
-            attrs: {
-              src:
-                "../storage/establecimiento/" +
-                _vm.esta.id +
-                "/" +
-                _vm.imagenEstablecimiento
-            }
-          })
+          _vm.imagenEstablecimiento
+            ? _c("img", {
+                staticClass: "object-contain md:object-scale-down",
+                attrs: {
+                  src:
+                    "../storage/establecimiento/" +
+                    _vm.esta.id +
+                    "/" +
+                    _vm.imagenEstablecimiento
+                }
+              })
+            : _c("img", {
+                staticClass: "object-contain md:object-scale-down",
+                attrs: { src: "../img/Vile_m.JPG" }
+              })
         ])
       ]),
       _vm._v(" "),
@@ -59636,7 +59655,7 @@ var render = function() {
                         "stroke-linejoin": "round",
                         "stroke-width": "2",
                         d:
-                          "M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                       }
                     })
                   ]
@@ -59671,9 +59690,9 @@ var render = function() {
                     { staticClass: "flex-auto w-3/5 text-left font-bold" },
                     [
                       _vm._v(
-                        "\n            " +
+                        "\n              " +
                           _vm._s(plato.nombre) +
-                          "\n            "
+                          "\n              "
                       ),
                       _vm._v(" "),
                       _c("br"),
@@ -59689,11 +59708,11 @@ var render = function() {
                     { staticClass: "flex-auto w-1/5 text-right font-bold" },
                     [
                       _vm._v(
-                        "\n            " +
+                        "\n              " +
                           _vm._s(plato.precio) +
                           " " +
                           _vm._s(plato.moneda) +
-                          "\n          "
+                          "\n            "
                       )
                     ]
                   ),
@@ -59738,7 +59757,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "font-bold text-yellow-400 text-right" },
+                  { staticClass: "font-bold text-yellow-400 text-right " },
                   [
                     _c(
                       "a",
@@ -59753,7 +59772,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n              Eliminar Plato \n              "
+                          "\n                Eliminar Plato \n                "
                         )
                       ]
                     )

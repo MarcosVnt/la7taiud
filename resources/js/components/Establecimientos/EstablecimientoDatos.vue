@@ -241,11 +241,17 @@
 
     <div class="">
       <div class="">
-        <img
+        <img v-if="imagenEstablecimiento"
           class="object-contain md:object-scale-down"
 
          :src="'../storage/establecimiento/'+esta.id+'/'+imagenEstablecimiento" 
         />
+          <img v-else
+          class="object-contain md:object-scale-down"
+
+         :src="'../img/Vile_m.JPG'" 
+        />
+
       </div>
  <!-- :src="'../img/Vile_m.JPG'" -->
 <!--       <img class="object-contain md:object-scale-down" :src="esta.imagen" />-->   
@@ -412,6 +418,7 @@ export default {
       console.log("guardarDatos", this.esta.id);
       const params = {
         estado: this.esta,
+        //ENVIA TODO
       };
 
       axios
