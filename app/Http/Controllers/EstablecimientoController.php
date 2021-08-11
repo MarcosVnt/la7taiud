@@ -301,7 +301,8 @@ class EstablecimientoController extends Controller
             $destinationPath2 =  public_path('/storage/establecimiento/'.$estable);
 
             if (!file_exists($destinationPath2)) {
-                mkdir($destinationPath2, 666, true);
+                //mkdir($destinationPath2, 666, true);
+                mkdir($destinationPath2, 0777, true);
             }
 
 
