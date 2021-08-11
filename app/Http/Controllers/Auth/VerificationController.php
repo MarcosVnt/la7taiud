@@ -83,7 +83,7 @@ class VerificationController extends Controller
 
         $user = \App\User::find($request->route('id'));
 
-        auth()->login($user);
+        Auth::login($user);
 
         if ($request->user()->hasVerifiedEmail()) {
             return redirect($this->redirectPath());
