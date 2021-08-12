@@ -399,7 +399,7 @@ export default {
 
 
       this.inicializarCartas();
-this.cartaId = carta.id;
+      this.cartaId = carta.id;
       this.toggleTabs(this.openTab, this.cartaId, 1);
  
 
@@ -542,7 +542,7 @@ this.cartaId = carta.id;
     },
 
     inicializarCartas() {
-      console.log("created : inicializar  CARTAS ",this.cartas,this.cartaId,
+      console.log('1108 ',this.cartaId,"created : inicializar  CARTAS ",this.cartas,this.cartaId,
        this.esta, this.esta.id);
 
        let me = this;
@@ -556,7 +556,7 @@ this.cartaId = carta.id;
 
     
 
-      console.log(me.esta.id);
+      console.log('1108 ',this.cartaId,me.esta.id);
       //  axios.post(`/cartas/${this.esta.id}`, params)
       axios
         .get(`/cartas/${id}`)
@@ -572,13 +572,16 @@ this.cartaId = carta.id;
 
             }     
           //me.toggleTabs(1, me.cartas[0]["id"], me.cartas[0]);
+
+                    console.log('1108  ddd2',this.cartaId,"me.cartas",me.cartas,me.cartas[0],me.cartas[0]["id"], "c1", c1, "c2", c2, "todo", me.establecimientoId);
+
            me.toggleTabs(1, c1, c2);
 
 
           //todo
           //this.establecimientoId = this.cartas[0]['establecimiento_id'];
 
-          console.log("todo", me.establecimientoId);
+          console.log('1108  ddd',this.cartaId,"me.cartas",me.cartas,me.cartas[0],me.cartas[0]["id"], "c1", c1, "c2", c2, "todo", me.establecimientoId);
           // Eliminar del DOM  simpre borra del padre hacia el hijo
           //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
         })
@@ -589,7 +592,7 @@ this.cartaId = carta.id;
   },
   created() {
     this.inicializarCartas();
-    console.log('CREATED -->', this.familiasNew, this.familias);
+    console.log('1108 ',this.cartaId,'CREATED -->', this.familiasNew, this.familias);
 
     //this.familiasNew = this.familias;
   },

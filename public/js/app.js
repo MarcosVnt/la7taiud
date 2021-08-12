@@ -2733,7 +2733,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     inicializarCartas: function inicializarCartas() {
-      console.log("created : inicializar  CARTAS ", this.cartas, this.cartaId, this.esta, this.esta.id);
+      var _this3 = this;
+
+      console.log('1108 ', this.cartaId, "created : inicializar  CARTAS ", this.cartas, this.cartaId, this.esta, this.esta.id);
       var me = this;
       var id = this.esta.id;
       var params = {
@@ -2741,7 +2743,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       var c1 = 1;
       var c2 = 1;
-      console.log(me.esta.id); //  axios.post(`/cartas/${this.esta.id}`, params)
+      console.log('1108 ', this.cartaId, me.esta.id); //  axios.post(`/cartas/${this.esta.id}`, params)
 
       axios.get("/cartas/".concat(id)).then(function (respuesta) {
         console.log("respuesta", respuesta);
@@ -2753,10 +2755,11 @@ __webpack_require__.r(__webpack_exports__);
         } //me.toggleTabs(1, me.cartas[0]["id"], me.cartas[0]);
 
 
+        console.log('1108  ddd2', _this3.cartaId, "me.cartas", me.cartas, me.cartas[0], me.cartas[0]["id"], "c1", c1, "c2", c2, "todo", me.establecimientoId);
         me.toggleTabs(1, c1, c2); //todo
         //this.establecimientoId = this.cartas[0]['establecimiento_id'];
 
-        console.log("todo", me.establecimientoId); // Eliminar del DOM  simpre borra del padre hacia el hijo
+        console.log('1108  ddd', _this3.cartaId, "me.cartas", me.cartas, me.cartas[0], me.cartas[0]["id"], "c1", c1, "c2", c2, "todo", me.establecimientoId); // Eliminar del DOM  simpre borra del padre hacia el hijo
         //this.$el.parentNode.parentNode.parentNode.removeChild(this.$el.parentNode.parentNode);
       })["catch"](function (error) {
         console.log(error);
@@ -2765,7 +2768,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.inicializarCartas();
-    console.log('CREATED -->', this.familiasNew, this.familias); //this.familiasNew = this.familias;
+    console.log('1108 ', this.cartaId, 'CREATED -->', this.familiasNew, this.familias); //this.familiasNew = this.familias;
   }
 });
 
