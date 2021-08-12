@@ -461,12 +461,23 @@ class EstablecimientoController extends Controller
 $qr =$request->qr;
 
 
+if($establecimiento->imagen===null){
+    
+ $img = 'img/Vile_m.JPG';
+
+}else{
+ $img = 'storage/establecimiento/'.$establecimiento->id.'/'.$establecimiento->imagen;
+}
+    
+
+//dd($img);
+
  
 $qrcode = base64_encode(\QrCode::format('svg')->size(200)->errorCorrection('H')->generate($qr));
 
-//return view('pdf.pdfqr',compact('qrcode','publicidads','establecimiento'));
+//return view('pdf.pdfqr',compact('qrcode','publicidads','establecimiento','img'));
 
-$pdf = \PDF::loadView('pdf.pdfqr', compact('qrcode','publicidads','establecimiento'));
+$pdf = \PDF::loadView('pdf.pdfqr', compact('qrcode','publicidads','establecimiento','img'));
 
   return $pdf->download('pdfqr.pdf');
           
