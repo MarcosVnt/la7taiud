@@ -160,7 +160,8 @@
                                                           <tr>
                                                               <td align="center">
                                                                 <img 
-                                                                    src="storage/establecimiento/{{$establecimiento->id}}/{{$establecimiento->imagen}}" 
+                                                                   {{--  src="storage/establecimiento/{{$establecimiento->id}}/{{$establecimiento->imagen}}"  --}}
+                                                                   src={{$img}}
                                                                      width="100%" height="100%" border="0" alt="vile" style="display: block; padding: 0; color: #666666; text-decoration: none; font-family: Helvetica, arial, sans-serif; font-size: 16px; width: 500px; height: 200px;" class="img-max">
                                                               </td>
                                                             </tr>
@@ -191,7 +192,6 @@
    
    
 </table>
-
 
 
 
@@ -231,7 +231,11 @@
                                                     </tr>
                                                     <tr>
                                                         <td align="center" style="padding: 5px 0 0 0; font-family: Arial, sans-serif; color: #666666; font-size: 14px; line-height: 20px;" bgcolor="#ffffff"><span class="appleBody">
-                                                            <span style="font-family:Lucida Console, monospace;">{{$establecimiento->direccion}}</span> {{$establecimiento->email}}</span></td>
+                                                            <span style="font-family:Lucida Console, monospace;">{{$establecimiento->direccion}}</span> </span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="center" style="padding: 5px 0 0 0; font-family: Arial, sans-serif; color: #666666; font-size: 14px; line-height: 20px;" bgcolor="#ffffff"><span class="appleBody">
+                                                            <span style="font-family:Lucida Console, monospace;">{{$establecimiento->email}}</span> -- {{$establecimiento->telefono}} / {{$establecimiento->movil}}</span></td>
                                                     </tr>
                                                 </table>
                                             </td>
