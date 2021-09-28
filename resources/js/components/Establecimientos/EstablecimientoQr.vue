@@ -148,6 +148,8 @@ export default {
 console.log(me.ruta);
 
                 // let qr = document.getElementById('qr').src;
+                // let qr = document.getElementById('qr').src;
+                
 
 
       setTimeout(function() {
